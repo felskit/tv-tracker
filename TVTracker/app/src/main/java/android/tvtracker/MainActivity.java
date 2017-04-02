@@ -1,8 +1,11 @@
 package android.tvtracker;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,14 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener,
+        CalendarFragment.OnFragmentInteractionListener, FragmentManager.OnBackStackChangedListener {
 
-    private ListView mDrawerList;
-    private ArrayAdapter<String> mAdapter;
+    private FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +41,11 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-       // mDrawerList = (ListView)findViewById(R.id.navList);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        addDrawerItems();
-//        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
+        manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.content_main, new MainFragment()).commit();
     }
 
     @Override
@@ -89,13 +87,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_calendar) {
+            manager.beginTransaction().replace(R.id.content_main, new MainFragment()).addToBackStack(null).commit();
 
+        } else if (id == R.id.nav_calendar) {
+            manager.beginTransaction().replace(R.id.content_main, new CalendarFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_fav) {
 
-        } else if (id == R.id.nav_something) {
-
+        } else if (id == R.id.nav_search) {
+            manager.beginTransaction().replace(R.id.content_main, new SearchFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_preferences) {
 
         } else if (id == R.id.nav_logout) {
@@ -107,9 +106,20 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void addDrawerItems() {
-//        String[] osArray = { "Home", "Calendar", "Favourites", "Settings", "Log out" };
-//        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
-//        mDrawerList.setAdapter(mAdapter);
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onBackStackChanged() {
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        //This method is called when the up button is pressed. Just the pop back stack.
+        manager.popBackStack();
+        return true;
     }
 }
