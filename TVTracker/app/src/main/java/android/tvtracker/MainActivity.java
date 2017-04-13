@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.tvtracker.favourites.FavouriteItem;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,7 +24,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener,
-        CalendarFragment.OnFragmentInteractionListener, FragmentManager.OnBackStackChangedListener {
+        CalendarFragment.OnFragmentInteractionListener, FragmentManager.OnBackStackChangedListener,
+        FavouritesFragment.OnListFragmentInteractionListener{
 
     private FragmentManager manager;
 
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_calendar) {
             manager.beginTransaction().replace(R.id.content_main, new CalendarFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_fav) {
-
+            manager.beginTransaction().replace(R.id.content_main, new FavouritesFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_search) {
             manager.beginTransaction().replace(R.id.content_main, new SearchFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_preferences) {
@@ -121,5 +123,10 @@ public class MainActivity extends AppCompatActivity
         //This method is called when the up button is pressed. Just the pop back stack.
         manager.popBackStack();
         return true;
+    }
+
+    @Override
+    public void onListFragmentInteraction(FavouriteItem item) {
+            manager.beginTransaction().replace(R.id.content_main, new SeriesFragment()).addToBackStack(null).commit();
     }
 }
