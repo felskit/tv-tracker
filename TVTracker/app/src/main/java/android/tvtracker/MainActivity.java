@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.tvtracker.favourites.FavouriteItem;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_calendar) {
             mFragmentManager.beginTransaction().replace(R.id.content_main, new CalendarFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_fav) {
-            manager.beginTransaction().replace(R.id.content_main, new FavouritesFragment()).addToBackStack(null).commit();
+            mFragmentManager.beginTransaction().replace(R.id.content_main, new FavouritesFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_search) {
             mFragmentManager.beginTransaction().replace(R.id.content_main, new SearchFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_preferences) {
@@ -116,6 +117,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(FavouriteItem item) {
-            manager.beginTransaction().replace(R.id.content_main, new SeriesFragment()).addToBackStack(null).commit();
+        mFragmentManager.beginTransaction().replace(R.id.content_main, new SeriesFragment()).addToBackStack(null).commit();
     }
 }

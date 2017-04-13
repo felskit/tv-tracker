@@ -36,8 +36,11 @@ public class MainFragment extends Fragment {
         mActivity = (MainActivity) getActivity();
         mItems = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            mItems.add(new SeriesCard());
+        for (int i = 0; i < 5; i++) {
+            mItems.add(new SeriesCard(i,
+                    "Series title, S21E37",
+                    "Episode description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "https://pbs.twimg.com/profile_images/734141362031984640/2I-QZZkR.jpg"));
         }
 
         mAdapter = new SeriesCardAdapter(mActivity, mItems);

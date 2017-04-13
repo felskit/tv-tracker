@@ -2,9 +2,12 @@ package android.tvtracker;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.tvtracker.tools.ImageDownloader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -13,14 +16,16 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
     private List<SeriesCard> mItems;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-//        private CheckBox mCheckBox;
-//        private TextView mTextView;
+        private ImageView mThumbnailView;
+        private TextView mTitleView;
+        private TextView mDescriptionView;
         private SeriesCard mItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
-//            this.mCheckBox = (CheckBox) itemView.findViewById(R.id.item_checked);
-//            this.mTextView = (TextView) itemView.findViewById(R.id.item_name);
+            this.mThumbnailView = (ImageView) itemView.findViewById(R.id.series_card_thumbnail);
+            this.mTitleView = (TextView) itemView.findViewById(R.id.series_card_title);
+            this.mDescriptionView = (TextView) itemView.findViewById(R.id.series_card_description);
         }
 
         public SeriesCard getItem() {
@@ -28,8 +33,9 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
         }
 
         public void setItem(SeriesCard item) {
-//            this.mCheckBox.setChecked(item.isChecked());
-//            this.mTextView.setText(item.getName());
+            new ImageDownloader(this.mThumbnailView).execute(item.getImageUrl());
+            this.mTitleView.setText(item.getTitle());
+            this.mDescriptionView.setText(item.getDescription());
             this.mItem = item;
         }
     }

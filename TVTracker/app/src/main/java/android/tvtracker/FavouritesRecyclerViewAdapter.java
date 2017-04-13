@@ -1,22 +1,16 @@
 package android.tvtracker;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.tvtracker.FavouritesFragment.OnListFragmentInteractionListener;
+import android.tvtracker.dummy.DummyContent.DummyItem;
 import android.tvtracker.favourites.FavouriteItem;
 import android.tvtracker.tools.ImageDownloader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import android.tvtracker.FavouritesFragment.OnListFragmentInteractionListener;
-import android.tvtracker.dummy.DummyContent.DummyItem;
-
-import java.io.InputStream;
 import java.util.List;
 
 /**

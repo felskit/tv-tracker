@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal"
     android:paddingBottom="8dp"
     android:paddingLeft="16dp"
@@ -20,37 +19,35 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground">
 
             <ImageView
-                android:id="@+id/thumbnail"
+                android:id="@+id/series_card_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="Series thumbnail"
-                android:scaleType="centerCrop"
-                android:src="@drawable/thumbnail" />
+                android:scaleType="fitXY" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/series_card_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/thumbnail"
+                android:layout_below="@id/series_card_thumbnail"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:text="Series title, S21E37"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/series_card_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
+                android:layout_below="@id/series_card_title"
+                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginBottom="4dp"
-                android:text="Episode description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                 android:textSize="14sp" />
 
         </RelativeLayout>
