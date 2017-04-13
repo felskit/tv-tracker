@@ -1,12 +1,21 @@
 package android.tvtracker;
 
 import android.content.Context;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.alamkanak.weekview.MonthLoader;
+import com.alamkanak.weekview.WeekView;
+import com.alamkanak.weekview.WeekViewEvent;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -17,17 +26,14 @@ import android.view.ViewGroup;
  * Use the {@link CalendarFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalendarFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class CalendarFragment extends Fragment implements WeekView.EventClickListener,
+        MonthLoader.MonthChangeListener, WeekView.EventLongPressListener  {
 
     private OnFragmentInteractionListener mListener;
+
+    private WeekView mWeekView;
+
+    private int id = 0;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -45,8 +51,6 @@ public class CalendarFragment extends Fragment {
     public static CalendarFragment newInstance(String param1, String param2) {
         CalendarFragment fragment = new CalendarFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,10 +58,6 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -67,11 +67,22 @@ public class CalendarFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_calendar, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // Get a reference for the week view in the layout.
+        mWeekView = (WeekView) view.findViewById(R.id.weekView);
+
+        // Set an action when any event is clicked.
+        mWeekView.setOnEventClickListener(this);
+
+        // The week view has infinite scrolling horizontally. We have to provide the events of a
+        // month every time the month changes on the week view.
+        mWeekView.setMonthChangeListener(this);
+
+        // Set long press listener for events.
+        mWeekView.setEventLongPressListener(this);
+
+
     }
 
     @Override
@@ -89,6 +100,35 @@ public class CalendarFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
+        int eventCount = 100;
+        Random r = new Random();
+        String[] names = new String[] {"The Office", "Friends", "Atlanta", "Narcos", "Halt and Catch Fire",
+        "Entourage", "House of Cards", "Jessica Jones", "Brooklyn Nine-Nine", "Ballers", "Weeds",
+        "The Flash", "Silicon Valley", "Daredevil", "Arrow", "Breaking Bad", "Better Call Saul", "Shameless",
+        "Orange Is the New Black", "Suits", "30 Rock", "Modern Family", "Parks and Recreation", "Futurama",
+        "Community", "Scrubs", "South Park", "House"};
+        ArrayList<WeekViewEvent> result = new ArrayList<>();
+        for(int i = 0; i < eventCount; i++) {
+            int day = r.nextInt(29);
+            int startHour = r.nextInt(23);
+            result.add(new WeekViewEvent(id++, names[r.nextInt(names.length)], newYear,
+                    newMonth, day, startHour, 0, newYear, newMonth, day, startHour + 2, 0));
+        }
+        return result;
+    }
+
+    @Override
+    public void onEventClick(WeekViewEvent event, RectF eventRect) {
+
+    }
+
+    @Override
+    public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
+
     }
 
     /**
