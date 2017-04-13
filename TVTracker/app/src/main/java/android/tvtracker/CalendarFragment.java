@@ -80,8 +80,6 @@ public class CalendarFragment extends Fragment implements WeekView.EventClickLis
 
         // Set long press listener for events.
         mWeekView.setEventLongPressListener(this);
-
-
     }
 
     @Override
