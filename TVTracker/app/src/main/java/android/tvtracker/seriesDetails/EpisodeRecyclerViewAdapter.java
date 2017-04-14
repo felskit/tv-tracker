@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -30,6 +31,20 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
         holder.mItem = mValues.get(position);
         holder.mTitleView.setText(mValues.get(position).title);
         holder.mSeenView.setChecked(mValues.get(position).seen);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.mSeenView.setChecked(!holder.mSeenView.isChecked());
+            }
+        };
+        LinearLayout layout = (LinearLayout) holder.itemView.findViewById(R.id.episodeLayout);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.mSeenView.setChecked(!holder.mSeenView.isChecked());
+            }
+        });
     }
 
     @Override
