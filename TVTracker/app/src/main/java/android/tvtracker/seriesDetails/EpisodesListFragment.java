@@ -13,33 +13,25 @@ import android.tvtracker.R;
 
 import java.util.ArrayList;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- */
 public class EpisodesListFragment extends Fragment {
-
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<Episode> items;
+    private ArrayList<EpisodeItem> items;
 
     public EpisodesListFragment() {
         items = new ArrayList<>();
-        for(int i = 0; i < 50; i++) {
-            items.add(new Episode(i, "1x" + i + " Episode " + i,  i % 2 == 0));
+        for (int i = 0; i < 50; i++) {
+            items.add(new EpisodeItem(i, "1x" + i + " EpisodeItem " + i, i % 2 == 0));
         }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_episode_list, container, false);
 
         // Set the adapter
@@ -51,7 +43,7 @@ public class EpisodesListFragment extends Fragment {
             DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                     mLayoutManager.getOrientation());
             recyclerView.addItemDecoration(mDividerItemDecoration);
-            recyclerView.setAdapter(new EpisodeRecyclerViewAdapter(items));
+            recyclerView.setAdapter(new EpisodeAdapter(items));
         }
         return view;
     }

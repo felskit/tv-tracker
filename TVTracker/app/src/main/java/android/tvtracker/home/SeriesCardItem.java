@@ -1,12 +1,12 @@
-package android.tvtracker;
+package android.tvtracker.home;
 
-public class SeriesCard {
+public class SeriesCardItem {
     private int mId;
     private String mTitle;
     private String mDescription;
     private String mImageUrl;
 
-    public SeriesCard(int id, String title, String description, String imageUrl) {
+    public SeriesCardItem(int id, String title, String description, String imageUrl) {
         this.mId = id;
         this.mTitle = title;
         this.mDescription = description;

@@ -1,6 +1,5 @@
 package android.tvtracker;
 
-
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -17,12 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SeriesFragment extends Fragment {
-
     private TextView mSeriesTitle;
     private TextView mSeriesDescription;
     private ImageView mSeriesImage;
@@ -42,7 +36,7 @@ public class SeriesFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-       // mSeriesTitle = (TextView) view.findViewById(R.id.series_title);
+        //mSeriesTitle = (TextView) view.findViewById(R.id.series_title);
         //mSeriesDescription = (TextView) view.findViewById(R.id.series_details);
         mSeriesImage = (ImageView) view.findViewById(R.id.series_image);
         mToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing);
@@ -98,8 +92,7 @@ public class SeriesFragment extends Fragment {
         @Override
         public Fragment getItem(int i) {
             //return CalendarFragment.newInstance("a", "a");
-            switch (i)
-            {
+            switch (i) {
                 case 0:
                     return new SeriesDetailsFragment();
                 case 1:
@@ -111,8 +104,7 @@ public class SeriesFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position)
-            {
+            switch (position) {
                 case 0:
                     return "Description";
                 case 1:

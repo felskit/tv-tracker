@@ -28,7 +28,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:adjustViewBounds="true"
-                android:contentDescription="Series thumbnail"
                 android:scaleType="fitXY" />
 
             <TextView
@@ -47,8 +46,15 @@
                 android:layout_below="@id/series_card_title"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginRight="32dp"
                 android:textSize="14sp" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/series_card_toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"/>
 
         </RelativeLayout>
 

@@ -8,15 +8,11 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
-/**
- * Created by Jacek on 13.04.2017.
- */
-
 public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
-    ImageView bmImage;
+    private ImageView mImageView;
 
-    public ImageDownloader(ImageView bmImage) {
-        this.bmImage = bmImage;
+    public ImageDownloader(ImageView imageView) {
+        this.mImageView = imageView;
     }
 
     protected Bitmap doInBackground(String... urls) {
@@ -32,6 +28,6 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
-        bmImage.setImageBitmap(result);
+        mImageView.setImageBitmap(result);
     }
 }

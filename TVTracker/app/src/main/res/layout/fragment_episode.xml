@@ -3,6 +3,7 @@
     android:id="@+id/episodeLayout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal">
 
     <CheckBox
@@ -18,4 +19,5 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem" />
+
 </LinearLayout>

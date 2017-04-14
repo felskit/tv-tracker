@@ -11,11 +11,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecyclerViewAdapter.ViewHolder> {
+public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHolder> {
+    private final List<EpisodeItem> mValues;
 
-    private final List<Episode> mValues;
-
-    public EpisodeRecyclerViewAdapter(List<Episode> items) {
+    public EpisodeAdapter(List<EpisodeItem> items) {
         mValues = items;
     }
 
@@ -56,7 +55,7 @@ public class EpisodeRecyclerViewAdapter extends RecyclerView.Adapter<EpisodeRecy
         public final View mView;
         public final CheckBox mSeenView;
         public final TextView mTitleView;
-        public Episode mItem;
+        public EpisodeItem mItem;
 
         public ViewHolder(View view) {
             super(view);

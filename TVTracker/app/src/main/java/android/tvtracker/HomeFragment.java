@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.tvtracker.home.SeriesCardItem;
+import android.tvtracker.home.SeriesCardAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +15,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends Fragment {
+public class HomeFragment extends Fragment {
     private MainActivity mActivity;
     private SeriesCardAdapter mAdapter;
-    private List<SeriesCard> mItems;
+    private List<SeriesCardItem> mItems;
     private OnFragmentInteractionListener mListener;
 
-    public MainFragment() {
+    public HomeFragment() {
 
     }
 
@@ -37,13 +39,14 @@ public class MainFragment extends Fragment {
         mItems = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            mItems.add(new SeriesCard(i,
-                    "Series title, S21E37",
-                    "Episode description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    "https://pbs.twimg.com/profile_images/734141362031984640/2I-QZZkR.jpg"));
+            mItems.add(new SeriesCardItem(i,
+                    "The Office, S09E24",
+                    "EpisodeItem description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "http://az616578.vo.msecnd.net/files/2016/03/26/635946127402869064800809856_yo.jpg"));
         }
 
         mAdapter = new SeriesCardAdapter(mActivity, mItems);
+        mActivity.setTitle(R.string.fragment_home);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);

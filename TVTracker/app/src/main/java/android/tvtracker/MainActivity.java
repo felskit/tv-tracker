@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,11 +15,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener,
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener,
         CalendarFragment.OnFragmentInteractionListener, FragmentManager.OnBackStackChangedListener,
-        FavouritesFragment.OnListFragmentInteractionListener{
+        FavouritesFragment.OnListFragmentInteractionListener {
 
     private FragmentManager mFragmentManager;
+    private ActionBar mActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
-        mFragmentManager.beginTransaction().replace(R.id.content_main, new MainFragment()).commit();
+        mFragmentManager.beginTransaction().replace(R.id.content_main, new HomeFragment()).commit();
+        mActionBar = getSupportActionBar();
     }
 
     @Override
@@ -52,19 +55,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -72,25 +69,25 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            mFragmentManager.beginTransaction().replace(R.id.content_main, new MainFragment()).addToBackStack(null).commit();
-
-        } else if (id == R.id.nav_calendar) {
-            mFragmentManager.beginTransaction().replace(R.id.content_main, new CalendarFragment()).addToBackStack(null).commit();
-        } else if (id == R.id.nav_fav) {
-            mFragmentManager.beginTransaction().replace(R.id.content_main, new FavouritesFragment()).addToBackStack(null).commit();
-        } else if (id == R.id.nav_search) {
-            mFragmentManager.beginTransaction().replace(R.id.content_main, new SearchFragment()).addToBackStack(null).commit();
-        } else if (id == R.id.nav_preferences) {
-
-        } else if (id == R.id.nav_logout) {
-
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                mFragmentManager.beginTransaction().replace(R.id.content_main, new HomeFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.nav_calendar:
+                mFragmentManager.beginTransaction().replace(R.id.content_main, new CalendarFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.nav_fav:
+                mFragmentManager.beginTransaction().replace(R.id.content_main, new FavouritesFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.nav_search:
+                mFragmentManager.beginTransaction().replace(R.id.content_main, new SearchFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.nav_preferences:
+                break;
+            case R.id.nav_logout:
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -110,7 +107,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onSupportNavigateUp() {
-        //This method is called when the up button is pressed. Just the pop back stack.
         mFragmentManager.popBackStack();
         return true;
     }
@@ -118,5 +114,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onListFragmentInteraction(FavouriteItem item) {
         mFragmentManager.beginTransaction().replace(R.id.content_main, new SeriesFragment()).addToBackStack(null).commit();
+    }
+
+    public void setActionBarTitle(String title) {
+        mActionBar.setTitle(title);
     }
 }

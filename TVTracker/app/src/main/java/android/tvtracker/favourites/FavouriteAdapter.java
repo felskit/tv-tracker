@@ -1,9 +1,8 @@
-package android.tvtracker;
+package android.tvtracker.favourites;
 
 import android.support.v7.widget.RecyclerView;
 import android.tvtracker.FavouritesFragment.OnListFragmentInteractionListener;
-import android.tvtracker.dummy.DummyContent.DummyItem;
-import android.tvtracker.favourites.FavouriteItem;
+import android.tvtracker.R;
 import android.tvtracker.tools.ImageDownloader;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +12,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
-public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<FavouritesRecyclerViewAdapter.ViewHolder> {
-
+public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.ViewHolder> {
     private final List<FavouriteItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public FavouritesRecyclerViewAdapter(List<FavouriteItem> items, OnListFragmentInteractionListener listener) {
+    public FavouriteAdapter(List<FavouriteItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -45,8 +38,6 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }

@@ -1,6 +1,5 @@
 package android.tvtracker.seriesDetails;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,29 +9,22 @@ import android.view.ViewGroup;
 import android.tvtracker.R;
 import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SeriesDetailsFragment extends Fragment {
 
     private TextView mSeriesDescription;
 
     public SeriesDetailsFragment() {
-        // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_series_details, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mSeriesDescription = (TextView) view.findViewById(R.id.series_details);
-                mSeriesDescription.setText("The Office is an American television comedy series that aired on" +
+        mSeriesDescription.setText("The Office is an American television comedy series that aired on" +
                 " NBC from March 24, 2005 to May 16, 2013.[1] It is an adaptation of the BBC series " +
                 "of the same name. The Office was adapted for American audiences by Greg Daniels, a" +
                 " veteran writer for Saturday Night Live, King of the Hill, and The Simpsons. It is" +
