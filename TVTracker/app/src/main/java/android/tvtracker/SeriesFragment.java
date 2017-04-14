@@ -2,6 +2,7 @@ package android.tvtracker;
 
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.tvtracker.tools.ImageDownloader;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ public class SeriesFragment extends Fragment {
     private TextView mSeriesTitle;
     private TextView mSeriesDescription;
     private ImageView mSeriesImage;
+    private CollapsingToolbarLayout mToolbarLayout;
 
     public SeriesFragment() {
         // Required empty public constructor
@@ -34,11 +36,13 @@ public class SeriesFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mSeriesTitle = (TextView) view.findViewById(R.id.series_title);
+       // mSeriesTitle = (TextView) view.findViewById(R.id.series_title);
         mSeriesDescription = (TextView) view.findViewById(R.id.series_details);
         mSeriesImage = (ImageView) view.findViewById(R.id.series_image);
+        mToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing);
 
-        mSeriesTitle.setText("The Office");
+        //mSeriesTitle.setText("The Office");
+        mToolbarLayout.setTitle("The Office");
 
         mSeriesDescription.setText("The Office is an American television comedy series that aired on" +
                 " NBC from March 24, 2005 to May 16, 2013.[1] It is an adaptation of the BBC series " +
