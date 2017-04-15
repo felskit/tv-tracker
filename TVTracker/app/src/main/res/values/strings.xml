@@ -5,6 +5,8 @@
     <string name="fragment_calendar">Calendar</string>
     <string name="fragment_favourites">Favourites</string>
     <string name="fragment_search">Search</string>
+    <string name="fragment_user_preference">User preferences</string>
+    <string name="fragment_settings">Account settings</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
