@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.tvtracker.favourites.FavouriteItem;
 import android.tvtracker.favourites.FavouriteAdapter;
 import android.view.LayoutInflater;
@@ -18,7 +19,7 @@ import java.util.List;
 public class FavouritesFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private List<FavouriteItem> items;
+    private List<FavouriteItem> mItems;
     private LinearLayoutManager mLayoutManager;
 
     public FavouritesFragment() { }
@@ -26,8 +27,8 @@ public class FavouritesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        items = new ArrayList<>();
-        items.add(new FavouriteItem(0, "The Office", "https://pbs.twimg.com/profile_images/734141362031984640/2I-QZZkR.jpg"));
+        mItems = new ArrayList<>();
+        mItems.add(new FavouriteItem(0, "The Office", "https://pbs.twimg.com/profile_images/734141362031984640/2I-QZZkR.jpg"));
 
     }
 
@@ -40,15 +41,31 @@ public class FavouritesFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            final RecyclerView recyclerView = (RecyclerView) view;
             mLayoutManager = new LinearLayoutManager(context);
             recyclerView.setLayoutManager(mLayoutManager);
 
-            recyclerView.setAdapter(new FavouriteAdapter(items, mListener));
+            final FavouriteAdapter adapter = new FavouriteAdapter(mItems, mListener);
+            recyclerView.setAdapter(adapter);
             DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                     mLayoutManager.getOrientation());
             recyclerView.addItemDecoration(mDividerItemDecoration);
 
+            ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                    int idx = viewHolder.getAdapterPosition();
+                    mItems.remove(idx);
+                    adapter.notifyItemChanged(idx);
+                }
+            };
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+            itemTouchHelper.attachToRecyclerView(recyclerView);
         }
         return view;
     }
