@@ -3,6 +3,7 @@ package android.tvtracker;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity
 
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
+    private NavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,8 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_main, new HomeFragment()).commit();
@@ -50,6 +52,25 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            Fragment current = mFragmentManager.findFragmentById(R.id.content_main);
+            if (current instanceof HomeFragment) {
+                mNavigationView.setCheckedItem(R.id.nav_home);
+            }
+            if (current instanceof CalendarFragment) {
+                mNavigationView.setCheckedItem(R.id.nav_calendar);
+            }
+            if (current instanceof FavouritesFragment) {
+                mNavigationView.setCheckedItem(R.id.nav_fav);
+            }
+            if (current instanceof SearchFragment) {
+                mNavigationView.setCheckedItem(R.id.nav_search);
+            }
+            if (current instanceof UserPreferenceFragment) {
+            mNavigationView.setCheckedItem(R.id.nav_preferences);
+            }
+            if(current instanceof  SettingsFragment) {
+                mNavigationView.setCheckedItem(R.id.nav_empty);
+            }
         }
     }
 
@@ -64,6 +85,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             mFragmentManager.beginTransaction().replace(R.id.content_main, new SettingsFragment()).addToBackStack(null).commit();
+            mNavigationView.setCheckedItem(R.id.nav_empty);
             return true;
         }
 

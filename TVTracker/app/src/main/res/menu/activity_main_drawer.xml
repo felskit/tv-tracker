@@ -18,19 +18,18 @@
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_menu_manage"
             android:title="Search" />
+        <item
+            android:id="@+id/nav_preferences"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Preferences" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Logout" />
+        <item
+            android:id="@+id/nav_empty"
+            android:title=""
+            android:visible="false"/>
     </group>
-
-    <item android:title="Settings">
-        <menu>
-            <item
-                android:id="@+id/nav_preferences"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Preferences" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Logout" />
-        </menu>
-    </item>
 
 </menu>

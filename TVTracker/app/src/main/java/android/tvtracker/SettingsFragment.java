@@ -26,9 +26,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.fragment_settings);
-
-        getActivity().setTitle(R.string.fragment_settings);
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        getActivity().setTitle(R.string.fragment_settings);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
