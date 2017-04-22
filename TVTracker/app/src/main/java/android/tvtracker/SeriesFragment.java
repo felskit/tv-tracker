@@ -1,5 +1,6 @@
 package android.tvtracker;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.tvtracker.home.SeriesCardItem;
 import android.tvtracker.seriesDetails.EpisodesListFragment;
 import android.tvtracker.seriesDetails.SeriesDetailsFragment;
 import android.tvtracker.tools.ImageDownloader;
@@ -38,6 +40,8 @@ public class SeriesFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mSeriesImage = (ImageView) view.findViewById(R.id.series_image);
         mToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing);
+
+        getActivity().setTitle(R.string.fragment_series);
 
         mToolbarLayout.setTitle("The Office");
 

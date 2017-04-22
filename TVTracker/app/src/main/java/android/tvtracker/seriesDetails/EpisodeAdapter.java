@@ -1,5 +1,8 @@
 package android.tvtracker.seriesDetails;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.tvtracker.R;
 import android.view.LayoutInflater;
@@ -51,22 +54,43 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         public final View mView;
         public final CheckBox mSeenView;
         public final TextView mTitleView;
         public EpisodeItem mItem;
+
+        private Context mContext;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mTitleView = (TextView) view.findViewById(R.id.title);
             mSeenView = (CheckBox) view.findViewById(R.id.checkbox);
+            mContext = view.getContext();
+            view.setOnLongClickListener(this);
         }
 
         @Override
         public String toString() {
             return mItem.title;
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            final TextView episodeDescription = new TextView(mContext);
+            episodeDescription.setText("Corporate sends in a consultant after Michael attempts to imitate a Chris Rock routine. Michael ends up staging his own Diversity Day event.");
+            AlertDialog dialog = new AlertDialog.Builder(mContext)
+                    .setTitle(mTitleView.getText())
+                    .setView(episodeDescription)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {}
+                    })
+                    .create();
+            episodeDescription.setPadding(50,20,50,0);
+            dialog.show();
+            return true;
         }
     }
 }

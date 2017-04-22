@@ -7,12 +7,14 @@
     <string name="fragment_search">Search</string>
     <string name="fragment_user_preference">User preferences</string>
     <string name="fragment_settings">Account settings</string>
+    <string name="fragment_series">Series details</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_youtube">Watch trailer on YouTube</string>
+    <string name="action_seriesDetails">Go to series details</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

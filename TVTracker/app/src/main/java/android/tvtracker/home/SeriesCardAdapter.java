@@ -2,8 +2,10 @@ package android.tvtracker.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.tvtracker.HomeFragment;
 import android.tvtracker.MainActivity;
 import android.tvtracker.R;
 import android.tvtracker.tools.ImageDownloader;
@@ -27,7 +29,7 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
         private SeriesCardItem mItem;
         private Toolbar mToolbar;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             this.mThumbnailView = (ImageView) itemView.findViewById(R.id.series_card_thumbnail);
             this.mTitleView = (TextView) itemView.findViewById(R.id.series_card_title);
@@ -40,8 +42,14 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
                 public boolean onMenuItemClick(MenuItem item) {
                     int id = item.getItemId();
                     if (id == R.id.action_youtube) {
-
+                        String title = mItem.getTitle();
+                        title = title.replace(' ', '+');
+                        title = title.concat("+trailer+");
+                        itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/results?search_query=".concat(title))));
                         return true;
+                    }
+                    if (id == R.id.action_seriesDetails) {
+                        ((HomeFragment.OnHomeFragmentInteractionListener)itemView.getContext()).onFragmentInteraction(mItem);
                     }
                     return false;
                 }

@@ -12,11 +12,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.tvtracker.favourites.FavouriteItem;
+import android.tvtracker.home.SeriesCardItem;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener,
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnHomeFragmentInteractionListener,
         CalendarFragment.OnFragmentInteractionListener, FragmentManager.OnBackStackChangedListener,
         FavouritesFragment.OnListFragmentInteractionListener {
 
@@ -120,8 +121,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onFragmentInteraction(SeriesCardItem item) {
+        mNavigationView.setCheckedItem(R.id.nav_fav);
+        mFragmentManager.beginTransaction().replace(R.id.content_main, new SeriesFragment()).addToBackStack(null).commit();
     }
 
     @Override
@@ -142,5 +144,10 @@ public class MainActivity extends AppCompatActivity
 
     public void setActionBarTitle(String title) {
         mActionBar.setTitle(title);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
