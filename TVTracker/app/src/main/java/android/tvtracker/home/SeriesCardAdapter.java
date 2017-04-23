@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.tvtracker.HomeFragment;
 import android.tvtracker.MainActivity;
 import android.tvtracker.R;
+import android.tvtracker.seriesDetails.EpisodesListFragment;
 import android.tvtracker.tools.ImageDownloader;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,7 +23,7 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
     private Context mContext;
     private List<SeriesCardItem> mItems;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mThumbnailView;
         private TextView mTitleView;
         private TextView mDescriptionView;
@@ -50,10 +51,13 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
                     }
                     if (id == R.id.action_seriesDetails) {
                         ((HomeFragment.OnHomeFragmentInteractionListener)itemView.getContext()).onFragmentInteraction(mItem);
+                        return true;
                     }
                     return false;
                 }
             });
+
+            itemView.setOnClickListener(this);
         }
 
         public SeriesCardItem getItem() {
@@ -65,6 +69,11 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
             this.mTitleView.setText(item.getTitle());
             this.mDescriptionView.setText(item.getDescription());
             this.mItem = item;
+        }
+
+        @Override
+        public void onClick(View v) {
+            ((EpisodesListFragment.OnEpisodeInteractionListener) v.getContext()).onFragmentInteraction(mItem.getId());
         }
     }
 
@@ -90,13 +99,6 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
     public void onBindViewHolder(final SeriesCardAdapter.ViewHolder viewHolder, final int position) {
         final SeriesCardItem item = mItems.get(position);
         viewHolder.setItem(item);
-
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // on click action
-            }
-        });
 
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

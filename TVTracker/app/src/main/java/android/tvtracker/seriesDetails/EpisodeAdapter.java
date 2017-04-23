@@ -78,18 +78,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
         @Override
         public boolean onLongClick(View v) {
-            final TextView episodeDescription = new TextView(mContext);
-            episodeDescription.setText("Corporate sends in a consultant after Michael attempts to imitate a Chris Rock routine. Michael ends up staging his own Diversity Day event.");
-            AlertDialog dialog = new AlertDialog.Builder(mContext)
-                    .setTitle(mTitleView.getText())
-                    .setView(episodeDescription)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {}
-                    })
-                    .create();
-            episodeDescription.setPadding(50,20,50,0);
-            dialog.show();
+            ((EpisodesListFragment.OnEpisodeInteractionListener) v.getContext()).onFragmentInteraction(0);
             return true;
         }
     }

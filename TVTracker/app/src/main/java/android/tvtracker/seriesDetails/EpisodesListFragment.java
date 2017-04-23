@@ -17,6 +17,7 @@ public class EpisodesListFragment extends Fragment {
     private int mColumnCount = 1;
     private LinearLayoutManager mLayoutManager;
     private ArrayList<EpisodeItem> items;
+    private OnEpisodeInteractionListener mListener;
 
     public EpisodesListFragment() {
         items = new ArrayList<>();
@@ -46,6 +47,29 @@ public class EpisodesListFragment extends Fragment {
             recyclerView.setAdapter(new EpisodeAdapter(items));
         }
         return view;
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnEpisodeInteractionListener) {
+            mListener = (OnEpisodeInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnEpisodeInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnEpisodeInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(int id);
     }
 
 }

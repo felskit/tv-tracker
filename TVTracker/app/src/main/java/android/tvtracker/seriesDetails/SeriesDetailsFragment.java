@@ -1,5 +1,6 @@
 package android.tvtracker.seriesDetails;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -48,5 +49,4 @@ public class SeriesDetailsFragment extends Fragment {
                 " for a decline in quality, earlier writers oversaw the final season and ended the " +
                 "show's run with a positive reception.");
     }
-
 }

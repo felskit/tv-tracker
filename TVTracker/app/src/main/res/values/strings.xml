@@ -8,6 +8,7 @@
     <string name="fragment_user_preference">User preferences</string>
     <string name="fragment_settings">Account settings</string>
     <string name="fragment_series">Series details</string>
+    <string name="fragment_episode_details">Episode details</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -19,6 +20,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>
+
+    <!-- String related to episode details -->
+    <string name="episode_info">Episode info</string>
+    <string name="episode_series">Series:\u0020</string>
+    <string name="episode_season">Season:\u0020</string>
+    <string name="episode_number">Episode:\u0020</string>
+    <string name="episode_airdate">Airdate:\u0020</string>
+    <string name="episode_runtime">Runtime:\u0020</string>
+    <string name="episode_runtime_unit">\u0020 minutes</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
