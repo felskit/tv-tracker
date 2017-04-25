@@ -16,6 +16,9 @@ import android.tvtracker.home.SeriesCardItem;
 import android.tvtracker.seriesDetails.EpisodesListFragment;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnHomeFragmentInteractionListener,
@@ -25,6 +28,11 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
     private NavigationView mNavigationView;
+    private TextView mEmail;
+    private TextView mUsername;
+
+    private String email;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,15 @@ public class MainActivity extends AppCompatActivity
         mFragmentManager = getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_main, new HomeFragment()).commit();
         mActionBar = getSupportActionBar();
+
+        mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
+        mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
+
+        email = getIntent().getStringExtra("email");
+        username = "username";
+        mEmail.setText(email);
+        mUsername.setText(username);
+
     }
 
     @Override

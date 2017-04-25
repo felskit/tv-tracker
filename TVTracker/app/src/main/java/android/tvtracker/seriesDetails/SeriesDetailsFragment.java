@@ -3,6 +3,7 @@ package android.tvtracker.seriesDetails;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,22 @@ import android.widget.TextView;
 public class SeriesDetailsFragment extends Fragment {
 
     private TextView mSeriesDescription;
+    private TextView mSeriesTitle;
+    private TextView mSeriesPremiered;
+    private TextView mSeriesGenres;
+    private TextView mSeriesStatus;
+    private TextView mSeriesNetwork;
+    private TextView mSeriesRuntime;
+    private TextView mSeriesRating;
+
+    private String seriesTitle;
+    private String premiere;
+    private String genres;
+    private String status;
+    private String network;
+    private int runtime;
+    private double rating;
+
 
     public SeriesDetailsFragment() {
     }
@@ -25,28 +42,34 @@ public class SeriesDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mSeriesDescription = (TextView) view.findViewById(R.id.series_details);
-        mSeriesDescription.setText("The Office is an American television comedy series that aired on" +
-                " NBC from March 24, 2005 to May 16, 2013.[1] It is an adaptation of the BBC series " +
-                "of the same name. The Office was adapted for American audiences by Greg Daniels, a" +
-                " veteran writer for Saturday Night Live, King of the Hill, and The Simpsons. It is" +
-                " co-produced by Daniels' Deedle-Dee Productions, and Reveille Productions (later Shine America), " +
-                "in association with Universal Television. The original executive producers were Greg Daniels," +
-                " Howard Klein, Ben Silverman, Ricky Gervais, and Stephen Merchant, with numerous others" +
-                " being promoted in later seasons.\n" +
-                "\n" +
-                "The series depicts the everyday lives of office employees in the Scranton, Pennsylvania," +
-                " branch of the fictional Dunder Mifflin Paper Company. To simulate the look of an actual documentary," +
-                " it is filmed in a single-camera setup, without a studio audience or a laugh track. " +
-                "The show debuted on NBC as a mid-season replacement and ran for nine seasons and 201 episodes." +
-                " The Office initially featured Steve Carell, Rainn Wilson, John Krasinski, Jenna Fischer " +
-                "and B. J. Novak as the main cast; the show experienced numerous changes to its ensemble " +
-                "cast during its run.\n" +
-                "\n" +
-                "The first season of The Office was met with mixed reviews, but the following four seasons " +
-                "received widespread acclaim from television critics. These seasons were included on several" +
-                " critics' year-end top TV series lists, winning several awards including four Primetime " +
-                "Emmy Awards, including Outstanding Comedy Series in 2006. While later seasons were criticized" +
-                " for a decline in quality, earlier writers oversaw the final season and ended the " +
-                "show's run with a positive reception.");
+        mSeriesTitle = (TextView) view.findViewById(R.id.series_title);
+        mSeriesPremiered = (TextView) view.findViewById(R.id.series_premiere);
+        mSeriesGenres   = (TextView) view.findViewById(R.id.series_genres);
+        mSeriesStatus = (TextView) view.findViewById(R.id.series_status);
+        mSeriesNetwork = (TextView) view.findViewById(R.id.series_network);
+        mSeriesRuntime = (TextView) view.findViewById(R.id.series_runtime);
+        mSeriesRating = (TextView) view.findViewById(R.id.series_rating);
+
+        seriesTitle = "The Office";
+        premiere = "2005-03-24";
+        genres = "Comedy";
+        status = "Ended";
+        network = "NBC";
+        runtime = 30;
+        rating = 8.8;
+
+        mSeriesDescription.setText(Html.fromHtml(new StringBuilder().append("<p>Steve Carell stars in <strong>The Office</strong>, a fresh and funny mockumentary-style ")
+                .append("glimpse into the daily interactions of the eccentric workers at the Dunder Mifflin paper supply company. ")
+                .append("Based on the smash-hit British series of the same name and adapted for American Television by Greg Daniels, ")
+                .append("this fast-paced comedy parodies contemporary American water-cooler culture. Earnest but clueless regional manager")
+                .append(" Michael Scott believes himself to be an exceptional boss and mentor, but actually receives more eye-rolls ")
+                .append("than respect from his oddball staff.</p>").toString()));
+        mSeriesTitle.setText(seriesTitle);
+        mSeriesPremiered.setText(premiere);
+        mSeriesGenres.setText(genres);
+        mSeriesStatus.setText(status);
+        mSeriesNetwork.setText(network);
+        mSeriesRuntime.setText(String.valueOf(runtime));
+        mSeriesRating.setText(String.valueOf(rating));
     }
 }

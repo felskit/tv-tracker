@@ -21,7 +21,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>
 
-    <!-- String related to episode details -->
+    <!-- Strings related to episode details -->
     <string name="episode_info">Episode info</string>
     <string name="episode_series">Series:\u0020</string>
     <string name="episode_season">Season:\u0020</string>
@@ -29,6 +29,17 @@
     <string name="episode_airdate">Airdate:\u0020</string>
     <string name="episode_runtime">Runtime:\u0020</string>
     <string name="episode_runtime_unit">\u0020 minutes</string>
+
+    <!-- Strings related to series details -->
+    <string name="series_info">Series info</string>
+    <string name="series_name">Title:\u0020</string>
+    <string name="series_premiered">Premiered:\u0020</string>
+    <string name="series_genres">Genres:\u0020</string>
+    <string name="series_status">Status:\u0020</string>
+    <string name="series_network">Network:\u0020</string>
+    <string name="series_runtime">Runtime:\u0020</string>
+    <string name="series_runtime_unit">\u0020 minutes</string>
+    <string name="series_rating">Rating:\u0020</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
