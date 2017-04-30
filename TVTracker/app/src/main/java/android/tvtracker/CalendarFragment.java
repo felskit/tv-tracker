@@ -5,6 +5,7 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.tvtracker.seriesDetails.EpisodesListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import java.util.Random;
 
 public class CalendarFragment extends Fragment implements WeekView.EventClickListener,
         MonthLoader.MonthChangeListener, WeekView.EventLongPressListener  {
-    private OnFragmentInteractionListener mListener;
+    private EpisodesListFragment.OnEpisodeInteractionListener mListener;
     private WeekView mWeekView;
     private int id = 0;
 
@@ -55,11 +56,11 @@ public class CalendarFragment extends Fragment implements WeekView.EventClickLis
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof EpisodesListFragment.OnEpisodeInteractionListener) {
+            mListener = (EpisodesListFragment.OnEpisodeInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnEpisodeInteractionListener");
         }
     }
 
@@ -82,24 +83,21 @@ public class CalendarFragment extends Fragment implements WeekView.EventClickLis
         for(int i = 0; i < eventCount; i++) {
             int day = r.nextInt(29);
             int startHour = r.nextInt(23);
-            result.add(new WeekViewEvent(id++, names[r.nextInt(names.length)], newYear,
-                    newMonth, day, startHour, 0, newYear, newMonth, day, startHour + 2, 0));
+            WeekViewEvent event = new WeekViewEvent(id++, names[r.nextInt(names.length)], newYear,
+                    newMonth, day, startHour, 0, newYear, newMonth, day, startHour + 2, 0);
+            event.setColor(R.color.colorPrimaryDark);
+            result.add(event);
         }
         return result;
     }
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-
+        mListener.onFragmentInteraction(0);
     }
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
 
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

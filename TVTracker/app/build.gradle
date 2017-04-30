@@ -31,7 +31,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:preference-v7:25.3.1'
-    compile 'com.github.alamkanak:android-week-view:1.2.6'
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
+    compile project(":libs:Android-Week-View")
     testCompile 'junit:junit:4.12'
 }
