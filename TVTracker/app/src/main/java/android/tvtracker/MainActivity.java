@@ -22,7 +22,7 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnHomeFragmentInteractionListener,
-        EpisodesListFragment.OnEpisodeInteractionListener,CalendarFragment.OnFragmentInteractionListener, FragmentManager.OnBackStackChangedListener,
+        EpisodesListFragment.OnEpisodeInteractionListener, FragmentManager.OnBackStackChangedListener,
         FavouritesFragment.OnListFragmentInteractionListener {
 
     private FragmentManager mFragmentManager;
@@ -75,19 +75,19 @@ public class MainActivity extends AppCompatActivity
             if (current instanceof HomeFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_home);
             }
-            if (current instanceof CalendarFragment) {
+            else if (current instanceof CalendarFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_calendar);
             }
-            if (current instanceof FavouritesFragment) {
+            else if (current instanceof FavouritesFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_fav);
             }
-            if (current instanceof SearchFragment) {
+            else if (current instanceof SearchFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_search);
             }
-            if (current instanceof UserPreferenceFragment) {
+            else if (current instanceof UserPreferenceFragment) {
             mNavigationView.setCheckedItem(R.id.nav_preferences);
             }
-            if(current instanceof  SettingsFragment) {
+            else {
                 mNavigationView.setCheckedItem(R.id.nav_empty);
             }
         }
@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(FavouriteItem item) {
+        mNavigationView.setCheckedItem(R.id.nav_empty);
         mFragmentManager.beginTransaction().replace(R.id.content_main, new SeriesFragment()).addToBackStack(null).commit();
     }
 
@@ -165,13 +166,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
     public void onFragmentInteraction(int id) {
-        mNavigationView.setCheckedItem(R.id.nav_fav);
+        mNavigationView.setCheckedItem(R.id.nav_empty);
         mFragmentManager.beginTransaction().replace(R.id.content_main, new EpisodeDetailsFragment()).addToBackStack(null).commit();
     }
 }

@@ -73,7 +73,7 @@ public class FavouritesFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof CalendarFragment.OnFragmentInteractionListener) {
+        if (context instanceof FavouritesFragment.OnListFragmentInteractionListener) {
             mListener = (FavouritesFragment.OnListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
