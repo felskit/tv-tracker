@@ -21,22 +21,29 @@ public class FavouritesFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     private List<FavouriteItem> mItems;
     private LinearLayoutManager mLayoutManager;
+    private boolean isSuggested = false;
 
     public FavouritesFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isSuggested = getArguments().getBoolean("isSuggested");
         mItems = new ArrayList<>();
         mItems.add(new FavouriteItem(0, "The Office", "https://pbs.twimg.com/profile_images/734141362031984640/2I-QZZkR.jpg"));
 
+        //TODO
+        // if (isSuggested)
+        //     data = getSuggested();
+        // else
+        //     data = getFavourites();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favourites_list, container, false);
-        getActivity().setTitle(R.string.fragment_favourites);
+        getActivity().setTitle(isSuggested ? R.string.fragment_suggested : R.string.fragment_favourites);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -45,27 +52,29 @@ public class FavouritesFragment extends Fragment {
             mLayoutManager = new LinearLayoutManager(context);
             recyclerView.setLayoutManager(mLayoutManager);
 
-            final FavouriteAdapter adapter = new FavouriteAdapter(mItems, mListener);
+            final FavouriteAdapter adapter = new FavouriteAdapter(mItems, mListener, isSuggested);
             recyclerView.setAdapter(adapter);
             DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                     mLayoutManager.getOrientation());
             recyclerView.addItemDecoration(mDividerItemDecoration);
 
-            ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-                @Override
-                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                    return false;
-                }
+            if(!isSuggested) {
+                ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
 
-                @Override
-                public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                    int idx = viewHolder.getAdapterPosition();
-                    mItems.remove(idx);
-                    adapter.notifyItemChanged(idx);
-                }
-            };
-            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-            itemTouchHelper.attachToRecyclerView(recyclerView);
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                        int idx = viewHolder.getAdapterPosition();
+                        mItems.remove(idx);
+                        adapter.notifyItemChanged(idx);
+                    }
+                };
+                ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+                itemTouchHelper.attachToRecyclerView(recyclerView);
+            }
         }
         return view;
     }
@@ -89,5 +98,9 @@ public class FavouritesFragment extends Fragment {
 
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(FavouriteItem item);
+    }
+
+    public boolean IsSuggestedFragment() {
+        return isSuggested;
     }
 }

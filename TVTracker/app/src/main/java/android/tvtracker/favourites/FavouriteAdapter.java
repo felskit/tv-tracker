@@ -15,10 +15,12 @@ import java.util.List;
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.ViewHolder> {
     private final List<FavouriteItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private boolean isSuggested = false;
 
-    public FavouriteAdapter(List<FavouriteItem> items, OnListFragmentInteractionListener listener) {
+    public FavouriteAdapter(List<FavouriteItem> items, OnListFragmentInteractionListener listener, boolean isSuggested) {
         mValues = items;
         mListener = listener;
+        this.isSuggested = isSuggested;
     }
 
     @Override

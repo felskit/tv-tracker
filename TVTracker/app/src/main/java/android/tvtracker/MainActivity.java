@@ -79,13 +79,18 @@ public class MainActivity extends AppCompatActivity
                 mNavigationView.setCheckedItem(R.id.nav_calendar);
             }
             else if (current instanceof FavouritesFragment) {
-                mNavigationView.setCheckedItem(R.id.nav_fav);
+                if(((FavouritesFragment)current).IsSuggestedFragment()) {
+                    mNavigationView.setCheckedItem(R.id.nav_suggested);
+                }
+                else {
+                    mNavigationView.setCheckedItem(R.id.nav_fav);
+                }
             }
             else if (current instanceof SearchFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_search);
             }
             else if (current instanceof UserPreferenceFragment) {
-            mNavigationView.setCheckedItem(R.id.nav_preferences);
+                mNavigationView.setCheckedItem(R.id.nav_preferences);
             }
             else {
                 mNavigationView.setCheckedItem(R.id.nav_empty);
@@ -121,13 +126,24 @@ public class MainActivity extends AppCompatActivity
                 mFragmentManager.beginTransaction().replace(R.id.content_main, new CalendarFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_fav:
-                mFragmentManager.beginTransaction().replace(R.id.content_main, new FavouritesFragment()).addToBackStack(null).commit();
+                FavouritesFragment favFragment = new FavouritesFragment();
+                Bundle favBundle = new Bundle();
+                favBundle.putBoolean("isSuggested", false);
+                favFragment.setArguments(favBundle);
+                mFragmentManager.beginTransaction().replace(R.id.content_main, favFragment).addToBackStack(null).commit();
                 break;
             case R.id.nav_search:
                 mFragmentManager.beginTransaction().replace(R.id.content_main, new SearchFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_preferences:
                 mFragmentManager.beginTransaction().replace(R.id.content_main, new UserPreferenceFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.nav_suggested:
+                FavouritesFragment suggestedFragment = new FavouritesFragment();
+                Bundle suggestedBundle = new Bundle();
+                suggestedBundle.putBoolean("isSuggested", true);
+                suggestedFragment.setArguments(suggestedBundle);
+                mFragmentManager.beginTransaction().replace(R.id.content_main, suggestedFragment).addToBackStack(null).commit();
                 break;
             case R.id.nav_logout:
                 break;
