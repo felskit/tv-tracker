@@ -15,6 +15,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Favourites" />
         <item
+            android:id="@+id/nav_suggested"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Suggested" />
+        <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_menu_manage"
             android:title="Search" />
