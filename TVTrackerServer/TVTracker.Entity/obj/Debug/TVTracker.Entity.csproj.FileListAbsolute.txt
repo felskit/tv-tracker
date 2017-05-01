@@ -1,0 +1,12 @@
+H:\Android\android\TVTrackerServer\TVTracker.Entity\obj\Debug\TVTracker.Entity.csprojResolveAssemblyReference.cache
+H:\Android\android\TVTrackerServer\TVTracker.Entity\bin\Debug\TVTracker.Entity.dll.config
+H:\Android\android\TVTrackerServer\TVTracker.Entity\bin\Debug\TVTracker.Entity.dll
+H:\Android\android\TVTrackerServer\TVTracker.Entity\bin\Debug\TVTracker.Entity.pdb
+H:\Android\android\TVTrackerServer\TVTracker.Entity\bin\Debug\EntityFramework.dll
+H:\Android\android\TVTrackerServer\TVTracker.Entity\bin\Debug\EntityFramework.SqlServer.dll
+H:\Android\android\TVTrackerServer\TVTracker.Entity\bin\Debug\Newtonsoft.Json.dll
+H:\Android\android\TVTrackerServer\TVTracker.Entity\bin\Debug\EntityFramework.xml
+H:\Android\android\TVTrackerServer\TVTracker.Entity\bin\Debug\EntityFramework.SqlServer.xml
+H:\Android\android\TVTrackerServer\TVTracker.Entity\bin\Debug\Newtonsoft.Json.xml
+H:\Android\android\TVTrackerServer\TVTracker.Entity\obj\Debug\TVTracker.Entity.dll
+H:\Android\android\TVTrackerServer\TVTracker.Entity\obj\Debug\TVTracker.Entity.pdb
