@@ -61,7 +61,6 @@
     <Compile Include="Entity\Models\User.cs" />
     <Compile Include="Entity\TVTrackerContext.cs" />
     <Compile Include="Entity\TVTrackerContextInitializer.cs" />
-    <Compile Include="Models\Image.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

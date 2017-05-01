@@ -7,7 +7,7 @@ namespace TVTracker.Entity.Entity
 	{
 		public TVTrackerContext() : base()
 		{
-			Database.SetInitializer(new TVTrackerContextInitializer());
+			//Database.SetInitializer(new TVTrackerContextInitializer());
 		}
 
 		public virtual IDbSet<User> Users { get; set; }
