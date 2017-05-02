@@ -1,6 +1,6 @@
 package android.tvtracker;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,7 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.widget.ProfilePictureView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnHomeFragmentInteractionListener,
@@ -28,15 +30,16 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
     private NavigationView mNavigationView;
-    private TextView mEmail;
-    private TextView mUsername;
 
-    private String email;
-    private String username;
+    private ProfilePictureView mPictureView;
+    private TextView mUsername;
+    private TextView mEmail;
+    private String mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,14 +57,15 @@ public class MainActivity extends AppCompatActivity
         mFragmentManager.beginTransaction().replace(R.id.content_main, new HomeFragment()).commit();
         mActionBar = getSupportActionBar();
 
-        mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
         mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
+        mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
+        mUserId = getIntent().getStringExtra("userId");
 
-        email = getIntent().getStringExtra("email");
-        username = "username";
-        mEmail.setText(email);
-        mUsername.setText(username);
+        //mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
+        //mPictureView.setProfileId(mUserId);
 
+        mUsername.setText(getIntent().getStringExtra("userName"));
+        mEmail.setText(getIntent().getStringExtra("email"));
     }
 
     @Override
@@ -74,25 +78,19 @@ public class MainActivity extends AppCompatActivity
             Fragment current = mFragmentManager.findFragmentById(R.id.content_main);
             if (current instanceof HomeFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_home);
-            }
-            else if (current instanceof CalendarFragment) {
+            } else if (current instanceof CalendarFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_calendar);
-            }
-            else if (current instanceof FavouritesFragment) {
-                if(((FavouritesFragment)current).IsSuggestedFragment()) {
+            } else if (current instanceof FavouritesFragment) {
+                if (((FavouritesFragment) current).IsSuggestedFragment()) {
                     mNavigationView.setCheckedItem(R.id.nav_suggested);
-                }
-                else {
+                } else {
                     mNavigationView.setCheckedItem(R.id.nav_fav);
                 }
-            }
-            else if (current instanceof SearchFragment) {
+            } else if (current instanceof SearchFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_search);
-            }
-            else if (current instanceof UserPreferenceFragment) {
+            } else if (current instanceof UserPreferenceFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_preferences);
-            }
-            else {
+            } else {
                 mNavigationView.setCheckedItem(R.id.nav_empty);
             }
         }
@@ -146,6 +144,13 @@ public class MainActivity extends AppCompatActivity
                 mFragmentManager.beginTransaction().replace(R.id.content_main, suggestedFragment).addToBackStack(null).commit();
                 break;
             case R.id.nav_logout:
+                LoginManager.getInstance().logOut();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                // to wykomentowane wyzej powoduje psucie sie co ktorys login/logout, a bez tego jest historia aktywnosci i mozna sie cofac
+
+                startActivity(intent);
                 break;
         }
 
