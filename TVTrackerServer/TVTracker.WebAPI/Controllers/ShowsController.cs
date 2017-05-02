@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -28,10 +29,10 @@ namespace TVTracker.WebAPI.Controllers
 		[Route("list/{filter}")]
 		public async Task<HttpResponseMessage> GetFilteredList(HttpRequestMessage request, string filter)
 		{
-			return CreateHttpResponse(request, () =>
+			return await CreateHttpResponse(request, async () =>
 			{
 				HttpResponseMessage response = null;
-				var shows = this.context.Shows.Where(x => x.name.Contains(filter)).ToList();
+				var shows = await this.context.Shows.Where(x => x.name.Contains(filter)).ToListAsync();
 				var showsVm = Mapper.Map<List<ListShowViewModel>>(shows);
 				response = request.CreateResponse(HttpStatusCode.OK, showsVm);
 
@@ -43,18 +44,18 @@ namespace TVTracker.WebAPI.Controllers
 		[Route("{id:int}")]
 		public async Task<HttpResponseMessage> GetShow(HttpRequestMessage request, int id, int userId)
 		{
-			return CreateHttpResponse(request, () =>
+			return await CreateHttpResponse(request, async () =>
 			{
 				HttpResponseMessage response = null;
-				var show = this.context.Shows.Where(x => x.id == id).Single();
+				var show = await this.context.Shows.Where(x => x.id == id).SingleAsync();
 				var showVm = Mapper.Map<ShowViewModel>(show);
-				//foreach (var episode in showVm.episodes)
-				//{
-				//	if(context.WatchedEpisodes.SingleOrDefault(x => x.userId == userId && x.episodeId == episode.id) != null)
-				//	{
-				//		episode.watched = true;
-				//	}
-				//}
+				foreach (var episode in showVm.episodes)
+				{
+					if (context.WatchedEpisodes.SingleOrDefault(x => x.userId == userId && x.episodeId == episode.id) != null)
+					{
+						episode.watched = true;
+					}
+				}
 				response = request.CreateResponse(HttpStatusCode.OK, showVm);
 
 				return response;
