@@ -21,9 +21,7 @@ namespace TVTracker.WebAPI.Infrastructure.Mappings
 
 			this.CreateMap<Episode, ShowEpisodeViewModel>()
 				.ForMember(vm => vm.id, map => map.MapFrom(x => x.id))
-				.ForMember(vm => vm.name, map => map.MapFrom(x =>
-					new StringBuilder().Append(x.season).Append('x').Append(x.number).Append(" ").Append(x.name).ToString()));
-
+				.ForMember(vm => vm.name, map => map.MapFrom(x => $"{x.season}x{x.number} {x.name}"));
 			this.CreateMap<Show, ShowViewModel>()
 				.ForMember(vm => vm.id, map => map.MapFrom(x => x.id))
 				.ForMember(vm => vm.name, map => map.MapFrom(x => x.name))
@@ -48,6 +46,26 @@ namespace TVTracker.WebAPI.Infrastructure.Mappings
 				.ForMember(vm => vm.episode, map => map.MapFrom(x => x.number))
 				.ForMember(vm => vm.airdate, map => map.MapFrom(x => x.airdate))
 				.ForMember(vm => vm.airtime, map => map.MapFrom(x => x.airtime));
+
+			this.CreateMap<Episode, CalendarEpisodeViewModel>()
+				.ForMember(vm => vm.episodeId, map => map.MapFrom(x => x.id))
+				.ForMember(vm => vm.showName, map => map.MapFrom(x => x.show.name))
+				.ForMember(vm => vm.beginDay, map => map.MapFrom(x => x.airstamp.Value.Day))
+				.ForMember(vm => vm.beginMonth, map => map.MapFrom(x => x.airstamp.Value.Month))
+				.ForMember(vm => vm.beginYear, map => map.MapFrom(x => x.airstamp.Value.Year))
+				.ForMember(vm => vm.beginHour, map => map.MapFrom(x => x.airstamp.Value.Hour))
+				.ForMember(vm => vm.beginMinute, map => map.MapFrom(x => x.airstamp.Value.Minute))
+				.ForMember(vm => vm.endDay, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Day))
+				.ForMember(vm => vm.endMonth, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Month))
+				.ForMember(vm => vm.endYear, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Year))
+				.ForMember(vm => vm.endHour, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Hour))
+				.ForMember(vm => vm.endMinute, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Minute));
+
+			this.CreateMap<Episode, HomeEpisodeViewModel>()
+				.ForMember(vm => vm.episodeId, map => map.MapFrom(x => x.id))
+				.ForMember(vm => vm.showId, map => map.MapFrom(x => x.ShowId))
+				.ForMember(vm => vm.name, map => map.MapFrom(x => $"{x.show.name}, S{x.season.ToString("D2")}E{x.number.ToString("D2")}"))
+				.ForMember(vm => vm.image, map => map.MapFrom(x => x.imageMedium));
 		}
 	}
 }
