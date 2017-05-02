@@ -5,7 +5,7 @@ namespace TVTracker.Entity.Entity.Models
 {
 	public class Episode : Entity
 	{
-		public Episode () { }
+		public Episode() { }
 
 		public Episode(JToken json, int showId)
 		{
@@ -46,5 +46,7 @@ namespace TVTracker.Entity.Entity.Models
 		public string summary { get; set; }
 
 		public string source { get; set; }
+
+		public virtual Show show { get; set; }
 	}
 }

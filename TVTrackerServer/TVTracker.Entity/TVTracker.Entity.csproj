@@ -59,6 +59,7 @@
     <Compile Include="Entity\Models\Favourite.cs" />
     <Compile Include="Entity\Models\Show.cs" />
     <Compile Include="Entity\Models\User.cs" />
+    <Compile Include="Entity\Models\WatchedEpisode.cs" />
     <Compile Include="Entity\TVTrackerContext.cs" />
     <Compile Include="Entity\TVTrackerContextInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

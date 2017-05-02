@@ -77,3 +77,9 @@ H:\Android\android\TVTrackerServer\TVTracker.WebAPI\bin\System.Web.Http.Owin.xml
 H:\Android\android\TVTrackerServer\TVTracker.WebAPI\obj\Debug\TVTracker.WebAPI.csprojResolveAssemblyReference.cache
 H:\Android\android\TVTrackerServer\TVTracker.WebAPI\obj\Debug\TVTracker.WebAPI.dll
 H:\Android\android\TVTrackerServer\TVTracker.WebAPI\obj\Debug\TVTracker.WebAPI.pdb
+H:\Android\android\TVTrackerServer\TVTracker.WebAPI\bin\Autofac.dll
+H:\Android\android\TVTrackerServer\TVTracker.WebAPI\bin\Autofac.Integration.WebApi.dll
+H:\Android\android\TVTrackerServer\TVTracker.WebAPI\bin\Autofac.xml
+H:\Android\android\TVTrackerServer\TVTracker.WebAPI\bin\Autofac.Integration.WebApi.xml
+H:\Android\android\TVTrackerServer\TVTracker.WebAPI\bin\AutoMapper.dll
+H:\Android\android\TVTrackerServer\TVTracker.WebAPI\bin\AutoMapper.xml

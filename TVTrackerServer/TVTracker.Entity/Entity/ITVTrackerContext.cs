@@ -12,5 +12,7 @@ namespace TVTracker.Entity.Entity
 		IDbSet<Episode> Episodes { get; set; }
 
 		IDbSet<Favourite> Favourites { get; set; }
+
+		IDbSet<WatchedEpisode> WatchedEpisodes { get; set; }
 	}
 }
