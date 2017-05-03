@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity
         mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
         mUserId = getIntent().getStringExtra("userId");
 
-        //mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
-        //mPictureView.setProfileId(mUserId);
+        mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
+        mPictureView.setProfileId(mUserId);
 
         mUsername.setText(getIntent().getStringExtra("userName"));
         mEmail.setText(getIntent().getStringExtra("email"));
