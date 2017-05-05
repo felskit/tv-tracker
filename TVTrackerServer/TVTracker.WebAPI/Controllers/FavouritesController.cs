@@ -40,43 +40,47 @@ namespace TVTracker.WebAPI.Controllers
 
 		[AllowAnonymous]
 		[HttpPost]
-		public async Task<HttpResponseMessage> AddFavourite(HttpRequestMessage request, int userId, int showId)
+		[Route("add")]
+		public async Task<HttpResponseMessage> AddFavourite(HttpRequestMessage request, FavouritesViewModel data)
 		{
 			return await CreateHttpResponse(request, async () =>
 			{
 				HttpResponseMessage response = null;
 				string message = null;
-				if((await context.Favourites.SingleOrDefaultAsync(x => x.UserId == userId && x.ShowId == showId)) == null)
+				if((await context.Favourites.SingleOrDefaultAsync(x => x.UserId == data.userId && x.ShowId == data.showId)) == null)
 				{
-					context.Favourites.Add(new Entity.Entity.Models.Favourite() { UserId = userId, ShowId = showId });
+					context.Favourites.Add(new Entity.Entity.Models.Favourite() { UserId = data.userId, ShowId = data.showId });
 					message = "Show added to favourites";
 				}
 				else
 				{
 					message = "This show is already in your favourites";
 				}
-				response = request.CreateResponse(HttpStatusCode.OK, message);
 
+				this.context.SaveChanges();
+				response = request.CreateResponse(HttpStatusCode.OK, message);
 				return response;
 			});
 		}
 
 		[AllowAnonymous]
 		[HttpPost]
-		public async Task<HttpResponseMessage> RemoveFavourite(HttpRequestMessage request, int userId, int showId)
+		[Route("remove")]
+		public async Task<HttpResponseMessage> RemoveFavourite(HttpRequestMessage request, FavouritesViewModel data)
 		{
 			return await CreateHttpResponse(request, async () =>
 			{
 				HttpResponseMessage response = null;
 				string message = "Show was not in your favourites";
-				var favourite = await context.Favourites.SingleOrDefaultAsync(x => x.UserId == userId && x.ShowId == showId);
+				var favourite = await context.Favourites.SingleOrDefaultAsync(x => x.UserId == data.userId && x.ShowId == data.showId);
 				if (favourite != null)
 				{
 					context.Favourites.Remove(favourite);
 					message = "Show was removed from your favourites";
 				}
-				response = request.CreateResponse(HttpStatusCode.OK, message);
 
+				this.context.SaveChanges();
+				response = request.CreateResponse(HttpStatusCode.OK, message);
 				return response;
 			});
 		}

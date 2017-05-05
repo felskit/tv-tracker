@@ -65,7 +65,8 @@ namespace TVTracker.WebAPI.Controllers
 						frequentGenres.Add(orderedDictionary[i].Key);
 					}
 
-					suggestedShows = await this.context.Shows.Where(x => x.genres.Contains(frequentGenres[new Random().Next(frequentGenres.Count)]) && shows.SingleOrDefault(y => y.id == x.id) == null)
+					suggestedShows = await this.context.Shows.Where(x => x.genres.Contains(frequentGenres[new Random().Next(frequentGenres.Count)]) && 
+																	shows.SingleOrDefault(y => y.id == x.id) == null)
 					.OrderByDescending(x => x.rating).Take(listCount).ToListAsync();
 				}
 				else

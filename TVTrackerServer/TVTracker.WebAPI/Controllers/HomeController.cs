@@ -33,7 +33,7 @@ namespace TVTracker.WebAPI.Controllers
 			{
 				HttpResponseMessage response = null;
 				var favourites = await this.context.Favourites.Where(x => x.UserId == userId).ToListAsync();
-				var episodes = await this.context.Episodes.Where(x => favourites.SingleOrDefault(y => y.ShowId == x.ShowId) != null && x.airstamp >= DateTime.Now)
+				var episodes = await this.context.Episodes.Where(x => favourites.Any(y => y.ShowId == x.ShowId) && x.airstamp >= DateTime.Now)
 														  .OrderBy(x => x.airstamp).Take(listCount).ToListAsync();
 				var episodesVm = Mapper.Map<List<HomeEpisodeViewModel>>(episodes);
 				response = request.CreateResponse(HttpStatusCode.OK, episodesVm);

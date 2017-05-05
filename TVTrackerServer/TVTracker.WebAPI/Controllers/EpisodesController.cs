@@ -39,19 +39,19 @@ namespace TVTracker.WebAPI.Controllers
 		[AllowAnonymous]
 		[Route("watched")]
 		[HttpPost]
-		public async Task<HttpResponseMessage> SetWatched(HttpRequestMessage request, int id, int userId, bool watched)
+		public async Task<HttpResponseMessage> SetWatched(HttpRequestMessage request, WatchedEpisodeViewModel data)
 		{
 			return await CreateHttpResponse(request, async () =>
 			{
 				HttpResponseMessage response = null;
-				var watchedEpisode = await this.context.WatchedEpisodes.SingleOrDefaultAsync(x => x.episodeId == id && x.userId == userId);
+				var watchedEpisode = await this.context.WatchedEpisodes.SingleOrDefaultAsync(x => x.episodeId == data.id && x.userId == data.userId);
 				var message = "";
 
-				if(watched)
+				if(data.watched)
 				{
 					if(watchedEpisode == null)
 					{
-						this.context.WatchedEpisodes.Add(new Entity.Entity.Models.WatchedEpisode() { episodeId = id, userId = userId });
+						this.context.WatchedEpisodes.Add(new Entity.Entity.Models.WatchedEpisode() { episodeId = data.id, userId = data.userId });
 						message = "Episode added to watched episodes.";
 					}
 				}
@@ -64,6 +64,7 @@ namespace TVTracker.WebAPI.Controllers
 					}
 				}
 
+				this.context.SaveChanges();
 				response = request.CreateResponse(HttpStatusCode.OK, message);
 				return response;
 			});

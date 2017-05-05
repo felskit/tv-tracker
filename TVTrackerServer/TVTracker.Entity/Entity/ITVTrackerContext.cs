@@ -14,5 +14,7 @@ namespace TVTracker.Entity.Entity
 		IDbSet<Favourite> Favourites { get; set; }
 
 		IDbSet<WatchedEpisode> WatchedEpisodes { get; set; }
+
+		int SaveChanges();
 	}
 }

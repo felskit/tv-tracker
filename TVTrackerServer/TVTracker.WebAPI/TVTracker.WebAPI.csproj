@@ -223,6 +223,7 @@
     <Compile Include="Controllers\EpisodesController.cs" />
     <Compile Include="Controllers\FavouritesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ShowsController.cs" />
     <Compile Include="Controllers\SuggestedController.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,11 +234,15 @@
     <Compile Include="Infrastructure\Mappings\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Models\CalendarEpisodeViewModel.cs" />
     <Compile Include="Models\EpisodeViewModel.cs" />
+    <Compile Include="Models\FavouritesViewModel.cs" />
     <Compile Include="Models\HomeEpisodeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListShowViewModel.cs" />
     <Compile Include="Models\ShowEpisodeViewModel.cs" />
     <Compile Include="Models\ShowViewModel.cs" />
+    <Compile Include="Models\UserIdViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\WatchedEpisodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
