@@ -14,7 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.tvtracker.favourites.FavouriteItem;
 import android.tvtracker.home.SeriesCardItem;
 import android.tvtracker.seriesDetails.EpisodesListFragment;
-import android.view.Menu;
+import android.tvtracker.tools.DatabaseManager;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
     private NavigationView mNavigationView;
+    private DatabaseManager mDatabaseManager;
 
     private ProfilePictureView mPictureView;
     private TextView mUsername;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity
         mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
         mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
         mUserId = getIntent().getStringExtra("userId");
+        mDatabaseManager = new DatabaseManager(mUserId);
 
         mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
         mPictureView.setProfileId(mUserId);
@@ -88,30 +90,12 @@ public class MainActivity extends AppCompatActivity
                 }
             } else if (current instanceof SearchFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_search);
-            } else if (current instanceof UserPreferenceFragment) {
+            } else if (current instanceof PreferenceFragment) {
                 mNavigationView.setCheckedItem(R.id.nav_preferences);
             } else {
                 mNavigationView.setCheckedItem(R.id.nav_empty);
             }
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            mFragmentManager.beginTransaction().replace(R.id.content_main, new SettingsFragment()).addToBackStack(null).commit();
-            mNavigationView.setCheckedItem(R.id.nav_empty);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -134,7 +118,7 @@ public class MainActivity extends AppCompatActivity
                 mFragmentManager.beginTransaction().replace(R.id.content_main, new SearchFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_preferences:
-                mFragmentManager.beginTransaction().replace(R.id.content_main, new UserPreferenceFragment()).addToBackStack(null).commit();
+                mFragmentManager.beginTransaction().replace(R.id.content_main, new PreferenceFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_suggested:
                 FavouritesFragment suggestedFragment = new FavouritesFragment();

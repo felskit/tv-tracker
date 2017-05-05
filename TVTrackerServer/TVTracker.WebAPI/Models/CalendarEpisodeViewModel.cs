@@ -25,7 +25,5 @@
 		public int endHour { get; set; }
 
 		public int endMinute { get; set; }
-
-
 	}
 }

@@ -23,6 +23,5 @@
 		public int episode { get; set; }
 		
 		public string source { get; set; }
-
 	}
 }

@@ -3,6 +3,8 @@ package android.tvtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -22,6 +24,7 @@ import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
     private CallbackManager mCallbackManager;
+    private RelativeLayout mOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
 
+        mOverlay = (RelativeLayout) findViewById(R.id.overlay);
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
@@ -66,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void processToken(AccessToken token) {
+        mOverlay.setVisibility(View.VISIBLE);
         GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {

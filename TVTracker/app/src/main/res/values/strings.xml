@@ -2,17 +2,18 @@
     <string name="app_name">TV Tracker</string>
     <string name="facebook_app_id">643705419146820</string>
     <string name="fb_login_protocol_scheme">fb643705419146820</string>
-    <string name="login_with_fb">Connect with Facebook</string>
 
     <string name="fragment_home">Home</string>
     <string name="fragment_calendar">Calendar</string>
     <string name="fragment_favourites">Favourites</string>
     <string name="fragment_search">Search</string>
-    <string name="fragment_user_preference">User preferences</string>
-    <string name="fragment_settings">Account settings</string>
+    <string name="fragment_preference">Preferences</string>
     <string name="fragment_series">Series details</string>
     <string name="fragment_episode_details">Episode details</string>
     <string name="fragment_suggested">Suggested</string>
+
+    <string name="preference_notifications_title">Receive notifications</string>
+    <string name="preference_notifications_summary">Be notified of upcoming episodes</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
