@@ -3,6 +3,9 @@ package android.tvtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.tvtracker.controllers.LoginController;
+import android.tvtracker.interfaces.ILoginActivity;
+import android.tvtracker.models.UserId;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -21,10 +24,10 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     private CallbackManager mCallbackManager;
     private RelativeLayout mOverlay;
+    private Intent mHomeIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +73,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void processToken(AccessToken token) {
+        final ILoginActivity loginActivity = this;
         mOverlay.setVisibility(View.VISIBLE);
         GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    intent.putExtra("userId", object.getString("id"));
-                    intent.putExtra("userName", object.getString("name"));
-                    intent.putExtra("email", object.getString("email"));
-                    startActivity(intent);
+                    final String facebookId = object.getString("id");
+                    mHomeIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    mHomeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    mHomeIntent.putExtra("fbUserId", facebookId);
+                    mHomeIntent.putExtra("userName", object.getString("name"));
+                    mHomeIntent.putExtra("email", object.getString("email"));
+                    UserId userId = new UserId(facebookId, null);
+                    LoginController loginController = new LoginController(loginActivity);
+                    loginController.start();
+                    loginController.login(userId);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -90,5 +98,11 @@ public class LoginActivity extends AppCompatActivity {
         parameters.putString("fields", "id,name,email");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    @Override
+    public void redirect(int userId) {
+        mHomeIntent.putExtra("userId", userId);
+        startActivity(mHomeIntent);
     }
 }

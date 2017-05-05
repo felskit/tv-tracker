@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.tvtracker.favourites.FavouriteItem;
 import android.tvtracker.home.SeriesCardItem;
 import android.tvtracker.seriesDetails.EpisodesListFragment;
-import android.tvtracker.tools.DatabaseManager;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -30,12 +29,14 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
     private NavigationView mNavigationView;
-    private DatabaseManager mDatabaseManager;
 
     private ProfilePictureView mPictureView;
     private TextView mUsername;
     private TextView mEmail;
+    private String mFbUserId;
+  //private String mGoogleUserId;
     private String mUserId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +61,11 @@ public class MainActivity extends AppCompatActivity
 
         mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
         mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
+        mFbUserId = getIntent().getStringExtra("fbUserId");
         mUserId = getIntent().getStringExtra("userId");
-        mDatabaseManager = new DatabaseManager(mUserId);
 
         mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
-        mPictureView.setProfileId(mUserId);
+        mPictureView.setProfileId(mFbUserId);
 
         mUsername.setText(getIntent().getStringExtra("userName"));
         mEmail.setText(getIntent().getStringExtra("email"));
