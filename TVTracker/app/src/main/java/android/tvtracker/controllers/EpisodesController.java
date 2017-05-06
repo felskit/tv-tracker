@@ -14,7 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class EpisodesController implements Callback<Episode> {
-    private static final String BASE_URL = "http://192.168.1.2:63751/api/";
+    private ControllerConfig mConfig = new ControllerConfig();
     private EpisodesAPI mEpisodesAPI;
 
     public EpisodesController() {
@@ -23,7 +23,7 @@ public class EpisodesController implements Callback<Episode> {
 
     public void start() {
         Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
         mEpisodesAPI = retrofit.create(EpisodesAPI.class);
     }

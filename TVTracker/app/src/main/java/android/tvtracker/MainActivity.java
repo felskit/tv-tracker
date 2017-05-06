@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity
   //private String mGoogleUserId;
     private String mUserId;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
 
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         mActionBar = getSupportActionBar();
 
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivityForResult(intent, 1);
     }
 
@@ -125,11 +123,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_logout:
                 LoginManager.getInstance().logOut();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
-                // to wykomentowane wyzej powoduje psucie sie co ktorys login/logout, a bez tego jest historia aktywnosci i mozna sie cofac
-
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivityForResult(intent, 1);
                 break;
         }
 
@@ -177,7 +172,6 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == 1) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-
                 mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
                 mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
                 mFbUserId = data.getStringExtra("fbUserId");

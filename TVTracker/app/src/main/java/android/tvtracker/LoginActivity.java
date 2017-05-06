@@ -74,13 +74,12 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     }
 
     private void processToken(AccessToken token) {
-        if(!processed)
-        {
+        if (!processed) {
             processed = true;
-        }
-        else {
+        } else {
             return;
         }
+
         final ILoginActivity loginActivity = this;
         mOverlay.setVisibility(View.VISIBLE);
         GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {

@@ -16,7 +16,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public class LoginController implements Callback<User> {
-    private static final String BASE_URL = "http://192.168.1.2/tvtracker/api/";
+    private ControllerConfig mConfig = new ControllerConfig();
     private LoginAPI mLoginAPI;
     private ILoginActivity mLoginActivity;
 
@@ -26,7 +26,7 @@ public class LoginController implements Callback<User> {
 
     public void start() {
         Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
         mLoginAPI = retrofit.create(LoginAPI.class);
     }
