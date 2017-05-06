@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
     private NavigationView mNavigationView;
+    private Boolean isLoggedIn = false;
 
     private ProfilePictureView mPictureView;
     private TextView mUsername;
@@ -57,10 +58,6 @@ public class MainActivity extends AppCompatActivity
         mFragmentManager = getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_main, new HomeFragment()).commit();
         mActionBar = getSupportActionBar();
-
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivityForResult(intent, 1);
     }
 
     @Override
@@ -121,9 +118,9 @@ public class MainActivity extends AppCompatActivity
                 mFragmentManager.beginTransaction().replace(R.id.content_main, suggestedFragment).addToBackStack(null).commit();
                 break;
             case R.id.nav_logout:
+                isLoggedIn = false;
                 LoginManager.getInstance().logOut();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivityForResult(intent, 1);
                 break;
         }
@@ -168,10 +165,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
         if (requestCode == 1) {
-            // Make sure the request was successful
             if (resultCode == RESULT_OK) {
+                isLoggedIn = true;
+
                 mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
                 mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
                 mFbUserId = data.getStringExtra("fbUserId");
@@ -183,6 +180,15 @@ public class MainActivity extends AppCompatActivity
                 mUsername.setText(data.getStringExtra("userName"));
                 mEmail.setText(data.getStringExtra("email"));
             }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isLoggedIn) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivityForResult(intent, 1);
         }
     }
 }
