@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
 
@@ -59,16 +60,9 @@ public class MainActivity extends AppCompatActivity
         mFragmentManager.beginTransaction().replace(R.id.content_main, new HomeFragment()).commit();
         mActionBar = getSupportActionBar();
 
-        mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
-        mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
-        mFbUserId = getIntent().getStringExtra("fbUserId");
-        mUserId = getIntent().getStringExtra("userId");
-
-        mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
-        mPictureView.setProfileId(mFbUserId);
-
-        mUsername.setText(getIntent().getStringExtra("userName"));
-        mEmail.setText(getIntent().getStringExtra("email"));
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivityForResult(intent, 1);
     }
 
     @Override
@@ -175,5 +169,26 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(int id) {
         mNavigationView.setCheckedItem(R.id.nav_empty);
         mFragmentManager.beginTransaction().replace(R.id.content_main, new EpisodeDetailsFragment()).addToBackStack(null).commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+
+                mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
+                mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
+                mFbUserId = data.getStringExtra("fbUserId");
+                mUserId = data.getStringExtra("userId");
+
+                mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
+                mPictureView.setProfileId(mFbUserId);
+
+                mUsername.setText(data.getStringExtra("userName"));
+                mEmail.setText(data.getStringExtra("email"));
+            }
+        }
     }
 }

@@ -35,6 +35,8 @@ namespace TVTracker.Entity.Entity
 			while (idToAdd.Count > 0)
 			{
 				var seriesId = idToAdd.Dequeue();
+				if (seriesId.Length > 1)
+					break;
 				try
 				{
 					request = WebRequest.Create($"http://api.tvmaze.com/shows/{seriesId}");

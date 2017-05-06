@@ -14,7 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class EpisodesController implements Callback<Episode> {
-    private static final String BASE_URL = "http://localhost:63751/api/";
+    private static final String BASE_URL = "http://192.168.1.2:63751/api/";
     private EpisodesAPI mEpisodesAPI;
 
     public EpisodesController() {

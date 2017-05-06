@@ -16,7 +16,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public class LoginController implements Callback<User> {
-    private static final String BASE_URL = "http://192.168.0.13:63751/api/";
+    private static final String BASE_URL = "http://192.168.1.2/tvtracker/api/";
     private LoginAPI mLoginAPI;
     private ILoginActivity mLoginActivity;
 

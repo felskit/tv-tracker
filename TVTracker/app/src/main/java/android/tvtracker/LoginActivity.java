@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     private CallbackManager mCallbackManager;
     private RelativeLayout mOverlay;
     private Intent mHomeIntent;
+    private Boolean processed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     }
 
     private void processToken(AccessToken token) {
+        if(!processed)
+        {
+            processed = true;
+        }
+        else {
+            return;
+        }
         final ILoginActivity loginActivity = this;
         mOverlay.setVisibility(View.VISIBLE);
         GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
@@ -103,6 +111,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     @Override
     public void redirect(int userId) {
         mHomeIntent.putExtra("userId", userId);
-        startActivity(mHomeIntent);
+        setResult(RESULT_OK, mHomeIntent);
+        finish();
     }
 }
