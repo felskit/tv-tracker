@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import com.tvtracker.favourites.FavouriteItem;
 import com.tvtracker.home.SeriesCardItem;
+import com.tvtracker.models.ListShow;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(FavouriteItem item) {
+    public void onListFragmentInteraction(ListShow item) {
         mNavigationView.setCheckedItem(R.id.nav_empty);
         mFragmentManager.beginTransaction().replace(R.id.content_main, new SeriesFragment()).addToBackStack(null).commit();
     }

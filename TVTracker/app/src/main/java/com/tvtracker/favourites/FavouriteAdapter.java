@@ -2,6 +2,7 @@ package com.tvtracker.favourites;
 
 import android.support.v7.widget.RecyclerView;
 import com.tvtracker.FavouritesFragment.OnListFragmentInteractionListener;
+import com.tvtracker.models.ListShow;
 import com.tvtracker.tools.ImageDownloader;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,11 @@ import android.widget.TextView;
 import java.util.List;
 
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.ViewHolder> {
-    private final List<FavouriteItem> mValues;
+    private final List<ListShow> mValues;
     private final OnListFragmentInteractionListener mListener;
     private boolean isSuggested = false;
 
-    public FavouriteAdapter(List<FavouriteItem> items, OnListFragmentInteractionListener listener, boolean isSuggested) {
+    public FavouriteAdapter(List<ListShow> items, OnListFragmentInteractionListener listener, boolean isSuggested) {
         mValues = items;
         mListener = listener;
         this.isSuggested = isSuggested;
@@ -33,7 +34,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mContentView.setText(mValues.get(position).name);
-        new ImageDownloader(holder.mImageView).execute(mValues.get(position).imageUrl);
+        new ImageDownloader(holder.mImageView).execute(mValues.get(position).image);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +55,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
         public final View mView;
         public final TextView mContentView;
         public final ImageView mImageView;
-        public FavouriteItem mItem;
+        public ListShow mItem;
 
         public ViewHolder(View view) {
             super(view);

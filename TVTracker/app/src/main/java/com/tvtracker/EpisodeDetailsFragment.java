@@ -37,20 +37,19 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodeFragment
     @BindView(R.id.episode_airtime) TextView mEpisodeAirtime;
 
     private Unbinder unbinder;
-
-    private String episodeName;
-    private String seriesTitle;
-    private int season;
-    private int episodeNumber;
-    private String airdate;
-    private String airtime;
-    private int runtime;
-    private String description;
+    private EpisodesController controller;
 
     public EpisodeDetailsFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        controller = new EpisodesController(this);
+        controller.start();
+        controller.getEpisode(1);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,9 +63,6 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodeFragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         getActivity().setTitle(R.string.fragment_episode_details);
-        EpisodesController controller = new EpisodesController(this);
-        controller.start();
-        controller.getEpisode(1);
     }
 
     @Override
