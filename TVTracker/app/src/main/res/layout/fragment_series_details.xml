@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.tvtracker.seriesDetails.SeriesDetailsFragment"
+    tools:context="android.tvtracker.com.tvtracker.seriesDetails.SeriesDetailsFragment"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -47,7 +47,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/series_title"/>
+                    android:id="@+id/series_title" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,7 +63,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/series_premiere"/>
+                    android:id="@+id/series_premiere"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

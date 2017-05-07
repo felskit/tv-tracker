@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="android.tvtracker.LoginActivity">
+    tools:context="android.tvtracker.com.tvtracker.LoginActivity">
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
