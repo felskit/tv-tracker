@@ -13,7 +13,7 @@ namespace TVTracker.Entity.Entity.Models
 			name = (string)json["name"];
 			type = (string)json["type"];
 			language = (string)json["language"];
-			genres = json["genres"].ToObject<string[]>();
+			genres = string.Join(", ", json["genres"].ToObject<string[]>());
 			status = (string)json["status"];
 			runtime = (short)(json["runtime"].Type == JTokenType.Null ? 0 : json["runtime"]);
 			premiered = (string)json["premiered"];
@@ -32,7 +32,7 @@ namespace TVTracker.Entity.Entity.Models
 
 		public string language { get; set; }
 
-		public string[] genres { get; set; }
+		public string genres { get; set; }
 
 		public string status { get; set; }
 

@@ -48,7 +48,7 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodeFragment
         super.onCreate(savedInstanceState);
         controller = new EpisodesController(this);
         controller.start();
-        controller.getEpisode(1);
+        controller.getEpisode(getArguments().getInt("episodeId"));
     }
 
     @Override

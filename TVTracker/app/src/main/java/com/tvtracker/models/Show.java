@@ -8,7 +8,7 @@ public class Show {
     public String image;
     public String summary;
     public String premiered;
-    public String[] genres;
+    public String genres;
     public String status;
     public String network;
     public short runtime;

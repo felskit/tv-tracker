@@ -9,12 +9,14 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tvtracker.models.ShowEpisode;
+
 import java.util.List;
 
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHolder> {
-    private final List<EpisodeItem> mValues;
+    private final List<ShowEpisode> mValues;
 
-    public EpisodeAdapter(List<EpisodeItem> items) {
+    public EpisodeAdapter(List<ShowEpisode> items) {
         mValues = items;
     }
 
@@ -28,8 +30,8 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mTitleView.setText(mValues.get(position).title);
-        holder.mSeenView.setChecked(mValues.get(position).seen);
+        holder.mTitleView.setText(mValues.get(position).name);
+        holder.mSeenView.setChecked(mValues.get(position).watched);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -55,7 +57,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         public final View mView;
         public final CheckBox mSeenView;
         public final TextView mTitleView;
-        public EpisodeItem mItem;
+        public ShowEpisode mItem;
 
         private Context mContext;
 
@@ -70,12 +72,12 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
         @Override
         public String toString() {
-            return mItem.title;
+            return mItem.name;
         }
 
         @Override
         public boolean onLongClick(View v) {
-            ((EpisodesListFragment.OnEpisodeInteractionListener) v.getContext()).onFragmentInteraction(0);
+            ((EpisodesListFragment.OnEpisodeInteractionListener) v.getContext()).onFragmentInteraction(mItem.id);
             return true;
         }
     }

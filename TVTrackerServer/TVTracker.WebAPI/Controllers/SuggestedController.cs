@@ -37,7 +37,8 @@ namespace TVTracker.WebAPI.Controllers
 				var dictionary = new Dictionary<string, int>();
 				foreach (var show in shows)
 				{
-					foreach (var genre in show.genres)
+					var genres = show.genres.Split(new string[] { ", " }, StringSplitOptions.None);
+					foreach (var genre in genres)
 					{
 						if(!dictionary.ContainsKey(genre))
 						{

@@ -2,7 +2,7 @@ package com.tvtracker.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tvtracker.interfaces.IFavouritesFragment;
+import com.tvtracker.interfaces.ISearchFragment;
 import com.tvtracker.models.ListShow;
 
 import retrofit2.Call;
@@ -18,27 +18,26 @@ import retrofit2.http.Query;
  * Created by Jacek on 07.05.2017.
  */
 
-public class FavouritesController implements Callback<ListShow[]> {
+public class SearchController implements Callback<ListShow[]> {
     private ControllerConfig mConfig = new ControllerConfig();
-    private FavouritesAPI mFavouritesAPI;
-    private IFavouritesFragment mFavouritesFragment;
+    private SearchAPI mSearchAPI;
+    private ISearchFragment mSearchFragment;
 
-    public FavouritesController(IFavouritesFragment fragment) {
-        mFavouritesFragment = fragment;
+    public SearchController(ISearchFragment fragment) {
+        mSearchFragment = fragment;
     }
 
     public void start() {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
-        mFavouritesAPI = retrofit.create(FavouritesAPI.class);
+        mSearchAPI = retrofit.create(SearchAPI.class);
     }
-
     @Override
     public void onResponse(Call<ListShow[]> call, Response<ListShow[]> response) {
         if (response.isSuccessful()) {
             ListShow[] shows = response.body();
-            mFavouritesFragment.updateList(shows);
+            mSearchFragment.updateSuggestions(shows);
         } else {
             System.out.println(response.errorBody());
         }
@@ -49,21 +48,13 @@ public class FavouritesController implements Callback<ListShow[]> {
         t.printStackTrace();
     }
 
-    public void getFavourites() {
-        Call<ListShow[]> call = mFavouritesAPI.getFavourites(ControllerConfig.userId);
+    public void search(String text) {
+        Call<ListShow[]> call = mSearchAPI.search(text);
         call.enqueue(this);
     }
 
-    public void getSuggested() {
-        Call<ListShow[]> call = mFavouritesAPI.getSuggested(ControllerConfig.userId);
-        call.enqueue(this);
-    }
-
-    private interface FavouritesAPI {
-        @GET("favourites")
-        Call<ListShow[]> getFavourites(@Query("userId") int id);
-
-        @GET("suggested")
-        Call<ListShow[]> getSuggested(@Query("userId") int id);
+    private interface SearchAPI {
+        @GET("shows/list/{text}")
+        Call<ListShow[]> search(@Path("text") String text);
     }
 }

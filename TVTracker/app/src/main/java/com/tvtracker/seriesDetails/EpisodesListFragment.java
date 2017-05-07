@@ -10,19 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tvtracker.interfaces.ISeriesFragment;
+import com.tvtracker.models.Show;
+import com.tvtracker.models.ShowEpisode;
+
 import java.util.ArrayList;
 
-public class EpisodesListFragment extends Fragment {
+public class EpisodesListFragment extends Fragment implements ISeriesFragment {
     private int mColumnCount = 1;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<EpisodeItem> items;
+    private ArrayList<ShowEpisode> items;
     private OnEpisodeInteractionListener mListener;
+    private EpisodeAdapter adapter;
 
     public EpisodesListFragment() {
         items = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            items.add(new EpisodeItem(i, "1x" + i + " EpisodeItem " + i, i % 2 == 0));
-        }
     }
 
     @Override
@@ -43,7 +45,8 @@ public class EpisodesListFragment extends Fragment {
             DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                     mLayoutManager.getOrientation());
             recyclerView.addItemDecoration(mDividerItemDecoration);
-            recyclerView.setAdapter(new EpisodeAdapter(items));
+            adapter = new EpisodeAdapter(items);
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }
@@ -64,6 +67,14 @@ public class EpisodesListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void update(Show show) {
+        for(ShowEpisode episode : show.episodes) {
+            items.add(episode);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     public interface OnEpisodeInteractionListener {

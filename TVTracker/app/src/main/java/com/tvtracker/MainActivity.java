@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.tvtracker.controllers.ControllerConfig;
 import com.tvtracker.favourites.FavouriteItem;
 import com.tvtracker.home.SeriesCardItem;
 import com.tvtracker.models.ListShow;
@@ -28,7 +30,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnHomeFragmentInteractionListener,
         EpisodesListFragment.OnEpisodeInteractionListener, FragmentManager.OnBackStackChangedListener,
-        FavouritesFragment.OnListFragmentInteractionListener {
+        FavouritesFragment.OnListFragmentInteractionListener, SearchFragment.OnSearchFragmentInteractionListener {
 
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     private TextView mEmail;
     private String mFbUserId;
   //private String mGoogleUserId;
-    private String mUserId;
+    private int mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +138,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(SeriesCardItem item) {
-        mNavigationView.setCheckedItem(R.id.nav_fav);
-        mFragmentManager.beginTransaction().replace(R.id.content_main, new SeriesFragment()).addToBackStack(null).commit();
+        //TODO change 1 to item.getId when it will be valid id
+        onSearchFragmentInteraction(1);
     }
 
     @Override
@@ -153,8 +155,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(ListShow item) {
-        mNavigationView.setCheckedItem(R.id.nav_empty);
-        mFragmentManager.beginTransaction().replace(R.id.content_main, new SeriesFragment()).addToBackStack(null).commit();
+        onSearchFragmentInteraction(item.id);
     }
 
     public void setActionBarTitle(String title) {
@@ -164,7 +165,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(int id) {
         mNavigationView.setCheckedItem(R.id.nav_empty);
-        mFragmentManager.beginTransaction().replace(R.id.content_main, new EpisodeDetailsFragment()).addToBackStack(null).commit();
+        Bundle bundle = new Bundle();
+        bundle.putInt("episodeId", id);
+        EpisodeDetailsFragment fragment = new EpisodeDetailsFragment();
+        fragment.setArguments(bundle);
+        mFragmentManager.beginTransaction().replace(R.id.content_main, fragment).addToBackStack(null).commit();
     }
 
     @Override
@@ -176,7 +181,8 @@ public class MainActivity extends AppCompatActivity
                 mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
                 mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
                 mFbUserId = data.getStringExtra("fbUserId");
-                mUserId = data.getStringExtra("userId");
+                mUserId = data.getIntExtra("userId",0);
+                ControllerConfig.userId = mUserId;
 
                 mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
                 mPictureView.setProfileId(mFbUserId);
@@ -194,5 +200,15 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivityForResult(intent, 1);
         }
+    }
+
+    @Override
+    public void onSearchFragmentInteraction(int seriesId) {
+        mNavigationView.setCheckedItem(R.id.nav_empty);
+        Bundle bundle = new Bundle();
+        bundle.putInt("seriesId", seriesId);
+        SeriesFragment fragment = new SeriesFragment();
+        fragment.setArguments(bundle);
+        mFragmentManager.beginTransaction().replace(R.id.content_main, fragment).addToBackStack(null).commit();
     }
 }

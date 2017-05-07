@@ -42,9 +42,9 @@ public class FavouritesFragment extends Fragment implements IFavouritesFragment 
         controller = new FavouritesController(this);
         controller.start();
          if (isSuggested)
-             controller.getSuggested(1);
+             controller.getSuggested();
          else
-             controller.getFavourites(1);
+             controller.getFavourites();
     }
 
     @Override

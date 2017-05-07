@@ -14,7 +14,7 @@ namespace TVTracker.WebAPI.Models
 
 		public string premiered { get; set; }
 
-		public string[] genres { get; set; }
+		public string genres { get; set; }
 
 		public string status { get; set; }
 
