@@ -13,8 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.tvtracker.controllers.ControllerConfig;
-import com.tvtracker.favourites.FavouriteItem;
-import com.tvtracker.home.SeriesCardItem;
+import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.models.ListShow;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
 import android.view.MenuItem;
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(SeriesCardItem item) {
+    public void onFragmentInteraction(HomeEpisode item) {
         //TODO change 1 to item.getId when it will be valid id
         onSearchFragmentInteraction(1);
     }

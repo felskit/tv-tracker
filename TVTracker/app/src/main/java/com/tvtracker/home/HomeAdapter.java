@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+
 import com.tvtracker.HomeFragment;
+import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
 import com.tvtracker.tools.ImageDownloader;
+
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,15 +20,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private Context mContext;
-    private List<SeriesCardItem> mItems;
+    private List<HomeEpisode> mItems;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mThumbnailView;
         private TextView mTitleView;
         private TextView mDescriptionView;
-        private SeriesCardItem mItem;
+        private HomeEpisode mItem;
         private Toolbar mToolbar;
 
         public ViewHolder(final View itemView) {
@@ -41,14 +44,14 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
                 public boolean onMenuItemClick(MenuItem item) {
                     int id = item.getItemId();
                     if (id == com.tvtracker.R.id.action_youtube) {
-                        String title = mItem.getTitle();
+                        String title = mItem.name;
                         title = title.replace(' ', '+');
                         title = title.concat("+trailer+");
                         itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/results?search_query=".concat(title))));
                         return true;
                     }
                     if (id == com.tvtracker.R.id.action_seriesDetails) {
-                        ((HomeFragment.OnHomeFragmentInteractionListener)itemView.getContext()).onFragmentInteraction(mItem);
+                        ((HomeFragment.OnHomeFragmentInteractionListener) itemView.getContext()).onFragmentInteraction(mItem);
                         return true;
                     }
                     return false;
@@ -58,24 +61,24 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
             itemView.setOnClickListener(this);
         }
 
-        public SeriesCardItem getItem() {
+        public HomeEpisode getItem() {
             return mItem;
         }
 
-        public void setItem(SeriesCardItem item) {
-            new ImageDownloader(this.mThumbnailView).execute(item.getImageUrl());
-            this.mTitleView.setText(item.getTitle());
-            this.mDescriptionView.setText(item.getDescription());
+        public void setItem(HomeEpisode item) {
+            new ImageDownloader(this.mThumbnailView).execute(item.image);
+            this.mTitleView.setText(item.name);
+            this.mDescriptionView.setText(item.summary);
             this.mItem = item;
         }
 
         @Override
         public void onClick(View v) {
-            ((EpisodesListFragment.OnEpisodeInteractionListener) v.getContext()).onFragmentInteraction(mItem.getId());
+            ((EpisodesListFragment.OnEpisodeInteractionListener) v.getContext()).onFragmentInteraction(mItem.episodeId);
         }
     }
 
-    public SeriesCardAdapter(Context context, List<SeriesCardItem> items) {
+    public HomeAdapter(Context context, List<HomeEpisode> items) {
         this.mContext = context;
         this.mItems = items;
     }
@@ -85,7 +88,7 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
     }
 
     @Override
-    public SeriesCardAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HomeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View itemView = inflater.inflate(com.tvtracker.R.layout.series_card, parent, false);
@@ -94,8 +97,8 @@ public class SeriesCardAdapter extends RecyclerView.Adapter<SeriesCardAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(final SeriesCardAdapter.ViewHolder viewHolder, final int position) {
-        final SeriesCardItem item = mItems.get(position);
+    public void onBindViewHolder(final HomeAdapter.ViewHolder viewHolder, final int position) {
+        final HomeEpisode item = mItems.get(position);
         viewHolder.setItem(item);
 
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {

@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import com.tvtracker.home.SeriesCardItem;
-import com.tvtracker.home.SeriesCardAdapter;
+
+import com.tvtracker.controllers.HomeController;
+import com.tvtracker.home.HomeAdapter;
+import com.tvtracker.interfaces.IHomeFragment;
+import com.tvtracker.models.HomeEpisode;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +18,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements IHomeFragment {
     private MainActivity mActivity;
-    private SeriesCardAdapter mAdapter;
-    private List<SeriesCardItem> mItems;
+    private HomeAdapter mAdapter;
+    private List<HomeEpisode> mItems;
     private OnHomeFragmentInteractionListener mListener;
+    private HomeController mController;
 
     public HomeFragment() {
 
@@ -27,7 +32,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mItems = new ArrayList<>();
 
+        // TODO
+        mController = new HomeController(this);
+        mController.start();
+        mController.getEpisodes();
     }
 
     @Override
@@ -35,16 +45,7 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         mActivity = (MainActivity) getActivity();
-        mItems = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            mItems.add(new SeriesCardItem(i,
-                    "The Office, S09E24",
-                    "EpisodeItem description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    "http://az616578.vo.msecnd.net/files/2016/03/26/635946127402869064800809856_yo.jpg"));
-        }
-
-        mAdapter = new SeriesCardAdapter(mActivity, mItems);
+        mAdapter = new HomeAdapter(mActivity, mItems);
         mActivity.setTitle(R.string.fragment_home);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
@@ -72,18 +73,16 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void updateEpisodes(HomeEpisode[] episodes) {
+        for (HomeEpisode episode : episodes) {
+            mItems.add(episode);
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
     public interface OnHomeFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(SeriesCardItem item);
+        void onFragmentInteraction(HomeEpisode item);
     }
 }

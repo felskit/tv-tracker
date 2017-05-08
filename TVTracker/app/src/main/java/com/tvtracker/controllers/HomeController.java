@@ -2,8 +2,8 @@ package com.tvtracker.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tvtracker.interfaces.ISearchFragment;
-import com.tvtracker.models.ListShow;
+import com.tvtracker.interfaces.IHomeFragment;
+import com.tvtracker.models.HomeEpisode;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,14 +11,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
-public class SearchController implements Callback<ListShow[]> {
+public class HomeController implements Callback<HomeEpisode[]> {
     private ControllerConfig mConfig = new ControllerConfig();
-    private SearchAPI mAPI;
-    private ISearchFragment mFragment;
+    private HomeAPI mAPI;
+    private IHomeFragment mFragment;
 
-    public SearchController(ISearchFragment fragment) {
+    public HomeController(IHomeFragment fragment) {
         mFragment = fragment;
     }
 
@@ -26,30 +26,31 @@ public class SearchController implements Callback<ListShow[]> {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
-        mAPI = retrofit.create(SearchAPI.class);
+        mAPI = retrofit.create(HomeAPI.class);
     }
+
     @Override
-    public void onResponse(Call<ListShow[]> call, Response<ListShow[]> response) {
+    public void onResponse(Call<HomeEpisode[]> call, Response<HomeEpisode[]> response) {
         if (response.isSuccessful()) {
-            ListShow[] shows = response.body();
-            mFragment.updateSuggestions(shows);
+            HomeEpisode[] episodes = response.body();
+            mFragment.updateEpisodes(episodes);
         } else {
             System.out.println(response.errorBody());
         }
     }
 
     @Override
-    public void onFailure(Call<ListShow[]> call, Throwable t) {
+    public void onFailure(Call<HomeEpisode[]> call, Throwable t) {
         t.printStackTrace();
     }
 
-    public void search(String text) {
-        Call<ListShow[]> call = mAPI.search(text);
+    public void getEpisodes() {
+        Call<HomeEpisode[]> call = mAPI.getEpisodes(ControllerConfig.userId);
         call.enqueue(this);
     }
 
-    private interface SearchAPI {
-        @GET("shows/list/{text}")
-        Call<ListShow[]> search(@Path("text") String text);
+    private interface HomeAPI {
+        @GET("home")
+        Call<HomeEpisode[]> getEpisodes(@Query("userId") int id);
     }
 }
