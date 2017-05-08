@@ -1,6 +1,7 @@
 package com.tvtracker;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,16 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.tvtracker.controllers.ControllerConfig;
-import com.tvtracker.favourites.FavouriteItem;
 import com.tvtracker.home.SeriesCardItem;
 import com.tvtracker.models.ListShow;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
+import com.tvtracker.tools.NetworkStateReceiver;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +55,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        NetworkStateReceiver networkStateReceiver = new NetworkStateReceiver(this);
+        this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+
+        if(!networkStateReceiver.isConnected()) {
+            Toast.makeText(this, getString(R.string.network_dialog_message), Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -64,6 +74,7 @@ public class MainActivity extends AppCompatActivity
         mFragmentManager = getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_main, new HomeFragment()).commit();
         mActionBar = getSupportActionBar();
+
     }
 
     @Override

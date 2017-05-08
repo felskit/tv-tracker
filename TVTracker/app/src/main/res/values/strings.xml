@@ -60,4 +60,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <string name="network_dialog_title">Internet connection</string>
+    <string name="network_dialog_message">TVTracker requires internet connection</string>
 </resources>
