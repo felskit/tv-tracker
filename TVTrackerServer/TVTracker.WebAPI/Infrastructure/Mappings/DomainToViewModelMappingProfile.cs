@@ -40,7 +40,7 @@ namespace TVTracker.WebAPI.Infrastructure.Mappings
 				.ForMember(vm => vm.name, map => map.MapFrom(x => x.name))
 				.ForMember(vm => vm.showName, map => map.MapFrom(x => x.show.name))
 				.ForMember(vm => vm.summary, map => map.MapFrom(x => x.summary))
-				.ForMember(vm => vm.image, map => map.MapFrom(x => x.imageOriginal))
+				.ForMember(vm => vm.image, map => map.MapFrom(x => string.IsNullOrEmpty(x.imageOriginal) ? x.show.imageOriginal : x.imageOriginal))
 				.ForMember(vm => vm.runtime, map => map.MapFrom(x => x.runtime))
 				.ForMember(vm => vm.season, map => map.MapFrom(x => x.season))
 				.ForMember(vm => vm.episode, map => map.MapFrom(x => x.number))
@@ -64,8 +64,8 @@ namespace TVTracker.WebAPI.Infrastructure.Mappings
 			this.CreateMap<Episode, HomeEpisodeViewModel>()
 				.ForMember(vm => vm.episodeId, map => map.MapFrom(x => x.id))
 				.ForMember(vm => vm.showId, map => map.MapFrom(x => x.ShowId))
-				.ForMember(vm => vm.name, map => map.MapFrom(x => $"{x.show.name}, S{x.season.ToString("D2")}E{x.number.ToString("D2")}"))
-				.ForMember(vm => vm.image, map => map.MapFrom(x => x.imageMedium));
+				.ForMember(vm => vm.name, map => map.MapFrom(x => $"{x.show.name} {x.season}x{x.number}"))
+				.ForMember(vm => vm.image, map => map.MapFrom(x => string.IsNullOrEmpty(x.imageMedium) ? x.show.imageMedium : x.imageMedium));
 		}
 	}
 }
