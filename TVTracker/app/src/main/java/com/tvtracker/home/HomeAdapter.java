@@ -11,6 +11,7 @@ import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
 import com.tvtracker.tools.ImageDownloader;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,7 +69,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public void setItem(HomeEpisode item) {
             new ImageDownloader(this.mThumbnailView).execute(item.image);
             this.mTitleView.setText(item.name);
-            this.mDescriptionView.setText(item.summary);
+            this.mDescriptionView.setText(Html.fromHtml(item.summary));
             this.mItem = item;
         }
 
