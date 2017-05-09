@@ -19,6 +19,5 @@ D:\Programming\Android\TVTracker\TVTrackerServer\TVTracker.Entity\bin\Debug\Newt
 D:\Programming\Android\TVTracker\TVTrackerServer\TVTracker.Entity\bin\Debug\EntityFramework.xml
 D:\Programming\Android\TVTracker\TVTrackerServer\TVTracker.Entity\bin\Debug\EntityFramework.SqlServer.xml
 D:\Programming\Android\TVTracker\TVTrackerServer\TVTracker.Entity\bin\Debug\Newtonsoft.Json.xml
-D:\Programming\Android\TVTracker\TVTrackerServer\TVTracker.Entity\obj\Debug\TVTracker.Entity.csprojResolveAssemblyReference.cache
 D:\Programming\Android\TVTracker\TVTrackerServer\TVTracker.Entity\obj\Debug\TVTracker.Entity.dll
 D:\Programming\Android\TVTracker\TVTrackerServer\TVTracker.Entity\obj\Debug\TVTracker.Entity.pdb
