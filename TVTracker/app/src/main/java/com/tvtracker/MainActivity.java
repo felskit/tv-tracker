@@ -193,7 +193,6 @@ public class MainActivity extends AppCompatActivity
                 mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
                 mFbUserId = data.getStringExtra("fbUserId");
                 mUserId = data.getIntExtra("userId",0);
-                ControllerConfig.userId = mUserId;
 
                 mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
                 mPictureView.setProfileId(mFbUserId);

@@ -33,7 +33,7 @@ namespace TVTracker.WebAPI.Controllers
 			return await CreateHttpResponse(request, async () =>
 			{
 				HttpResponseMessage response = null;
-				var shows = await this.context.Favourites.Where(x => x.UserId == userId).Select(x => x.show).ToListAsync();
+				var shows = this.context.Favourites.Where(x => x.UserId == userId).Select(x => x.show);
 				var dictionary = new Dictionary<string, int>();
 				foreach (var show in shows)
 				{
@@ -66,9 +66,9 @@ namespace TVTracker.WebAPI.Controllers
 						frequentGenres.Add(orderedDictionary[i].Key);
 					}
 
-					suggestedShows = await this.context.Shows.Where(x => x.genres.Contains(frequentGenres[new Random().Next(frequentGenres.Count)]) && 
-																	shows.SingleOrDefault(y => y.id == x.id) == null)
-					.OrderByDescending(x => x.rating).Take(listCount).ToListAsync();
+					suggestedShows = await this.context.Shows.Where(x => frequentGenres.Any(f => x.genres.Contains(f)) && 
+																	!shows.Any(y => y.id == x.id))
+																	.OrderByDescending(x => x.rating).Take(listCount).ToListAsync();
 				}
 				else
 				{

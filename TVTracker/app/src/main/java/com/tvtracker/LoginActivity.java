@@ -3,6 +3,8 @@ package com.tvtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.tvtracker.controllers.ControllerConfig;
 import com.tvtracker.controllers.LoginController;
 import com.tvtracker.interfaces.ILoginActivity;
 import com.tvtracker.models.UserId;
@@ -109,6 +111,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 
     @Override
     public void redirect(int userId) {
+        ControllerConfig.userId = userId;
         mHomeIntent.putExtra("userId", userId);
         setResult(RESULT_OK, mHomeIntent);
         finish();

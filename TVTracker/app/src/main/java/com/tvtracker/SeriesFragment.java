@@ -1,6 +1,9 @@
 package com.tvtracker;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -20,10 +23,14 @@ import com.tvtracker.models.Show;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
 import com.tvtracker.seriesDetails.SeriesDetailsFragment;
 import com.tvtracker.tools.ImageDownloader;
+
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -83,6 +90,27 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IFavour
         mSeriesController = new SeriesController(this);
         mSeriesController.start();
         mSeriesController.getSeries(mSeriesId);
+
+        mSeriesImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SeriesFragment.this.getContext());
+                final AlertDialog dialog = builder.create();
+                ImageView imageView = new ImageView(SeriesFragment.this.getContext());
+                Bitmap bitmap = ((BitmapDrawable)mSeriesImage.getDrawable()).getBitmap();
+                imageView.setImageBitmap(bitmap);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.hide();
+                    }
+                });
+
+                dialog.setView(imageView);
+                dialog.show();
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.series_subscribe);
         fab.setOnClickListener(new View.OnClickListener() {

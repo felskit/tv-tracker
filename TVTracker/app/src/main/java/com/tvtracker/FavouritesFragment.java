@@ -86,7 +86,8 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
                         int idx = viewHolder.getAdapterPosition();
                         mPostController.removeFavourite(mItems.get(idx).id);
                         mItems.remove(idx);
-                        mAdapter.notifyItemChanged(idx);
+                        mAdapter.notifyItemRemoved(idx);
+                        mAdapter.notifyItemRangeChanged(idx, mItems.size());
                     }
                 };
                 ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -115,6 +116,7 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
 
     @Override
     public void updateList(ListShow[] shows) {
+        mItems.clear();
         for (ListShow show : shows) {
             mItems.add(show);
         }

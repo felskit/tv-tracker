@@ -71,6 +71,7 @@ public class EpisodesListFragment extends Fragment implements ISeriesFragment {
 
     @Override
     public void update(Show show) {
+        items.clear();
         for(ShowEpisode episode : show.episodes) {
             items.add(episode);
         }
