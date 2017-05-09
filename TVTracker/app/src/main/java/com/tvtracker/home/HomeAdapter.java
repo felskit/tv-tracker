@@ -5,18 +5,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
-import com.tvtracker.HomeFragment;
-import com.tvtracker.models.HomeEpisode;
-import com.tvtracker.seriesDetails.EpisodesListFragment;
-import com.tvtracker.tools.ImageDownloader;
-
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.tvtracker.HomeFragment;
+import com.tvtracker.models.HomeEpisode;
+import com.tvtracker.seriesDetails.EpisodesListFragment;
+import com.tvtracker.tools.ImageDownloader;
 
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public void setItem(HomeEpisode item) {
             new ImageDownloader(this.mThumbnailView).execute(item.image);
             this.mTitleView.setText(item.name);
-            this.mDescriptionView.setText(item.summary);
+            this.mDescriptionView.setText(item.summary.replaceAll("<[^>]*>",""));
             this.mItem = item;
         }
 
