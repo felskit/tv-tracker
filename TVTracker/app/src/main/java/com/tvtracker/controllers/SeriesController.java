@@ -2,7 +2,6 @@ package com.tvtracker.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.internal.ConstructorConstructor;
 import com.tvtracker.interfaces.ISeriesFragment;
 import com.tvtracker.models.Show;
 
@@ -15,30 +14,26 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-/**
- * Created by Jacek on 07.05.2017.
- */
-
 public class SeriesController implements Callback<Show> {
     private ControllerConfig mConfig = new ControllerConfig();
-    private SeriesAPI mSeriesAPI;
-    private ISeriesFragment mSeriesFragment;
+    private SeriesAPI mAPI;
+    private ISeriesFragment mFragment;
 
     public SeriesController(ISeriesFragment fragment) {
-        mSeriesFragment = fragment;
+        mFragment = fragment;
     }
 
     public void start() {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
-        mSeriesAPI = retrofit.create(SeriesAPI.class);
+        mAPI = retrofit.create(SeriesAPI.class);
     }
     @Override
     public void onResponse(Call<Show> call, Response<Show> response) {
         if (response.isSuccessful()) {
             Show show = response.body();
-            mSeriesFragment.update(show);
+            mFragment.update(show);
         } else {
             System.out.println(response.errorBody());
         }
@@ -50,7 +45,7 @@ public class SeriesController implements Callback<Show> {
     }
 
     public void getSeries(int id) {
-        Call<Show> call = mSeriesAPI.getSeries(id, ControllerConfig.userId);
+        Call<Show> call = mAPI.getSeries(id, ControllerConfig.userId);
         call.enqueue(this);
     }
 

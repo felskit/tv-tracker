@@ -3,6 +3,7 @@ package com.tvtracker;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -11,7 +12,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.tvtracker.controllers.FavouritesPostController;
 import com.tvtracker.controllers.SeriesController;
+import com.tvtracker.interfaces.IFavouritesPostFragment;
 import com.tvtracker.interfaces.ISeriesFragment;
 import com.tvtracker.models.Show;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
@@ -27,19 +30,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class SeriesFragment extends Fragment implements ISeriesFragment {
+public class SeriesFragment extends Fragment implements ISeriesFragment, IFavouritesPostFragment {
     @BindView(R.id.series_image) ImageView mSeriesImage;
     @BindView(R.id.collapsing) CollapsingToolbarLayout mToolbarLayout;
     @BindView(R.id.series_title) TextView seriesTitle;
 
-    private SeriesDetailsFragment detailsFragment;
-    private EpisodesListFragment listFragment;
-    private TabsAdapter adapter;
+    private SeriesDetailsFragment mDetailsFragment;
+    private EpisodesListFragment mListFragment;
+    private TabsAdapter mAdapter;
 
-    private Unbinder unbinder;
+    private Unbinder mUnbinder;
 
-    private int seriesId;
-    private SeriesController controller;
+    private int mSeriesId;
+    private SeriesController mSeriesController;
+    private FavouritesPostController mFavouritesController;
 
     public SeriesFragment() {
         // Required empty public constructor
@@ -48,8 +52,8 @@ public class SeriesFragment extends Fragment implements ISeriesFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        detailsFragment = new SeriesDetailsFragment();
-        listFragment = new EpisodesListFragment();
+        mDetailsFragment = new SeriesDetailsFragment();
+        mListFragment = new EpisodesListFragment();
     }
 
     @Override
@@ -57,9 +61,9 @@ public class SeriesFragment extends Fragment implements ISeriesFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_series, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
         Bundle arguments = getArguments();
-        seriesId = arguments.getInt("seriesId");
+        mSeriesId = arguments.getInt("seriesId");
         return view;
     }
 
@@ -69,19 +73,22 @@ public class SeriesFragment extends Fragment implements ISeriesFragment {
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.materialup_tabs);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.materialup_viewpager);
-        adapter = new TabsAdapter(getChildFragmentManager(), getActivity(), detailsFragment, listFragment);
-        viewPager.setAdapter(adapter);
+        mAdapter = new TabsAdapter(getChildFragmentManager(), getActivity(), mDetailsFragment, mListFragment);
+        viewPager.setAdapter(mAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        controller = new SeriesController(this);
-        controller.start();
-        controller.getSeries(seriesId);
+        mFavouritesController = new FavouritesPostController(this);
+        mFavouritesController.start();
+
+        mSeriesController = new SeriesController(this);
+        mSeriesController.start();
+        mSeriesController.getSeries(mSeriesId);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.series_subscribe);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Series added to favourites", Snackbar.LENGTH_LONG).show();
+                mFavouritesController.addFavourite(mSeriesId);
             }
         });
     }
@@ -89,15 +96,20 @@ public class SeriesFragment extends Fragment implements ISeriesFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
     }
 
     @Override
     public void update(Show show) {
         new ImageDownloader(mSeriesImage).execute(show.image);
         seriesTitle.setText(show.name);
-        detailsFragment.update(show);
-        listFragment.update(show);
+        mDetailsFragment.update(show);
+        mListFragment.update(show);
+    }
+
+    @Override
+    public void notify(String message) {
+        Snackbar.make(getActivity().findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_LONG).show();
     }
 
     private static class TabsAdapter extends FragmentPagerAdapter {

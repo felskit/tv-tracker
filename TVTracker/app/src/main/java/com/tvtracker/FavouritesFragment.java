@@ -2,16 +2,18 @@ package com.tvtracker;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import com.tvtracker.controllers.FavouritesController;
-import com.tvtracker.favourites.FavouriteItem;
+import com.tvtracker.controllers.FavouritesGetController;
+import com.tvtracker.controllers.FavouritesPostController;
 import com.tvtracker.favourites.FavouriteAdapter;
-import com.tvtracker.interfaces.IFavouritesFragment;
+import com.tvtracker.interfaces.IFavouritesGetFragment;
+import com.tvtracker.interfaces.IFavouritesPostFragment;
 import com.tvtracker.models.ListShow;
 
 import android.view.LayoutInflater;
@@ -21,16 +23,19 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouritesFragment extends Fragment implements IFavouritesFragment {
+public class FavouritesFragment extends Fragment implements IFavouritesGetFragment, IFavouritesPostFragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private List<ListShow> mItems;
     private LinearLayoutManager mLayoutManager;
     private boolean isSuggested = false;
-    private FavouritesController controller;
+    private FavouritesGetController mGetController;
+    private FavouritesPostController mPostController;
     private FavouriteAdapter mAdapter;
 
-    public FavouritesFragment() { }
+    public FavouritesFragment() {
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,13 +43,16 @@ public class FavouritesFragment extends Fragment implements IFavouritesFragment 
         isSuggested = getArguments().getBoolean("isSuggested");
         mItems = new ArrayList<>();
 
-        //TODO
-        controller = new FavouritesController(this);
-        controller.start();
-         if (isSuggested)
-             controller.getSuggested();
-         else
-             controller.getFavourites();
+        // TODO
+        mGetController = new FavouritesGetController(this);
+        mGetController.start();
+        if (isSuggested)
+            mGetController.getSuggested();
+        else
+            mGetController.getFavourites();
+
+        mPostController = new FavouritesPostController(this);
+        mPostController.start();
     }
 
     @Override
@@ -66,7 +74,7 @@ public class FavouritesFragment extends Fragment implements IFavouritesFragment 
                     mLayoutManager.getOrientation());
             recyclerView.addItemDecoration(mDividerItemDecoration);
 
-            if(!isSuggested) {
+            if (!isSuggested) {
                 ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
                     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -76,6 +84,7 @@ public class FavouritesFragment extends Fragment implements IFavouritesFragment 
                     @Override
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                         int idx = viewHolder.getAdapterPosition();
+                        mPostController.removeFavourite(mItems.get(idx).id);
                         mItems.remove(idx);
                         mAdapter.notifyItemChanged(idx);
                     }
@@ -106,10 +115,15 @@ public class FavouritesFragment extends Fragment implements IFavouritesFragment 
 
     @Override
     public void updateList(ListShow[] shows) {
-        for(ListShow show : shows) {
+        for (ListShow show : shows) {
             mItems.add(show);
         }
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void notify(String message) {
+        Snackbar.make(getActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
     }
 
     public interface OnListFragmentInteractionListener {

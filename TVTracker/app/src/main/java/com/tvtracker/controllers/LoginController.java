@@ -17,25 +17,25 @@ import retrofit2.http.POST;
 
 public class LoginController implements Callback<User> {
     private ControllerConfig mConfig = new ControllerConfig();
-    private LoginAPI mLoginAPI;
-    private ILoginActivity mLoginActivity;
+    private LoginAPI mAPI;
+    private ILoginActivity mActivity;
 
     public LoginController(ILoginActivity loginActivity) {
-        mLoginActivity = loginActivity;
+        mActivity = loginActivity;
     }
 
     public void start() {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
-        mLoginAPI = retrofit.create(LoginAPI.class);
+        mAPI = retrofit.create(LoginAPI.class);
     }
 
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
         if (response.isSuccessful()) {
             User user = response.body();
-            mLoginActivity.redirect(user.id);
+            mActivity.redirect(user.id);
         } else {
             System.out.println(response.errorBody());
         }
@@ -47,7 +47,7 @@ public class LoginController implements Callback<User> {
     }
 
     public void login(UserId userId) {
-        Call<User> call = mLoginAPI.login(userId);
+        Call<User> call = mAPI.login(userId);
         call.enqueue(this);
     }
 

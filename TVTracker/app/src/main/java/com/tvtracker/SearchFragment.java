@@ -2,10 +2,8 @@ package com.tvtracker;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,7 +14,6 @@ import com.tvtracker.interfaces.ISearchFragment;
 import com.tvtracker.models.ListShow;
 import com.tvtracker.tools.SeriesSearchSuggestion;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -26,12 +23,12 @@ import butterknife.Unbinder;
 public class SearchFragment extends Fragment implements ISearchFragment {
     @BindView(R.id.floating_search_view) FloatingSearchView mSearchView;
     private Unbinder unbinder;
-
-    private SearchController controller;
-
+    private SearchController mController;
     private OnSearchFragmentInteractionListener mListener;
 
-    public SearchFragment() { }
+    public SearchFragment() {
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,12 +40,12 @@ public class SearchFragment extends Fragment implements ISearchFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        controller = new SearchController(this);
-        controller.start();
+        mController = new SearchController(this);
+        mController.start();
         mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, final String newQuery) {
-                controller.search(newQuery);
+                mController.search(newQuery);
             }
         });
 

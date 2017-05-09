@@ -16,25 +16,25 @@ import retrofit2.http.Path;
 
 public class EpisodesController implements Callback<Episode> {
     private ControllerConfig mConfig = new ControllerConfig();
-    private EpisodesAPI mEpisodesAPI;
-    private IEpisodeFragment mEpisodeFragment;
+    private EpisodesAPI mAPI;
+    private IEpisodeFragment mFragment;
 
     public EpisodesController(IEpisodeFragment fragment) {
-        mEpisodeFragment = fragment;
+        mFragment = fragment;
     }
 
     public void start() {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
-        mEpisodesAPI = retrofit.create(EpisodesAPI.class);
+        mAPI = retrofit.create(EpisodesAPI.class);
     }
 
     @Override
     public void onResponse(Call<Episode> call, Response<Episode> response) {
         if (response.isSuccessful()) {
             Episode episode = response.body();
-            mEpisodeFragment.setData(episode);
+            mFragment.setData(episode);
         } else {
             System.out.println(response.errorBody());
         }
@@ -46,7 +46,7 @@ public class EpisodesController implements Callback<Episode> {
     }
 
     public void getEpisode(int id) {
-        Call<Episode> call = mEpisodesAPI.getEpisode(id);
+        Call<Episode> call = mAPI.getEpisode(id);
         call.enqueue(this);
     }
 
