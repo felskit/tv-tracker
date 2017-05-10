@@ -17,6 +17,7 @@ import com.tvtracker.controllers.ControllerConfig;
 import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.models.ListShow;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
+
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity
     private TextView mEmail;
     private String mFbUserId;
   //private String mGoogleUserId;
-    private int mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         NetworkStateReceiver networkStateReceiver = new NetworkStateReceiver(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
 
-        if(!networkStateReceiver.isConnected()) {
+        if (!networkStateReceiver.isConnected()) {
             Toast.makeText(this, getString(R.string.network_dialog_message), Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity
         mFragmentManager = getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_main, new HomeFragment()).commit();
         mActionBar = getSupportActionBar();
-
     }
 
     @Override
@@ -85,23 +84,28 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
             Fragment current = mFragmentManager.findFragmentById(R.id.content_main);
-            if (current instanceof HomeFragment) {
-                mNavigationView.setCheckedItem(R.id.nav_home);
-            } else if (current instanceof CalendarFragment) {
-                mNavigationView.setCheckedItem(R.id.nav_calendar);
-            } else if (current instanceof FavouritesFragment) {
-                if (((FavouritesFragment) current).IsSuggestedFragment()) {
-                    mNavigationView.setCheckedItem(R.id.nav_suggested);
-                } else {
-                    mNavigationView.setCheckedItem(R.id.nav_fav);
-                }
-            } else if (current instanceof SearchFragment) {
-                mNavigationView.setCheckedItem(R.id.nav_search);
-            } else if (current instanceof PreferenceFragment) {
-                mNavigationView.setCheckedItem(R.id.nav_preferences);
+            updateSelected(current);
+        }
+    }
+
+    private void updateSelected(Fragment fragment) {
+        if (fragment instanceof HomeFragment) {
+            ((HomeFragment)fragment).populate();
+            mNavigationView.setCheckedItem(R.id.nav_home);
+        } else if (fragment instanceof CalendarFragment) {
+            mNavigationView.setCheckedItem(R.id.nav_calendar);
+        } else if (fragment instanceof FavouritesFragment) {
+            if (((FavouritesFragment) fragment).IsSuggestedFragment()) {
+                mNavigationView.setCheckedItem(R.id.nav_suggested);
             } else {
-                mNavigationView.setCheckedItem(R.id.nav_empty);
+                mNavigationView.setCheckedItem(R.id.nav_fav);
             }
+        } else if (fragment instanceof SearchFragment) {
+            mNavigationView.setCheckedItem(R.id.nav_search);
+        } else if (fragment instanceof PreferenceFragment) {
+            mNavigationView.setCheckedItem(R.id.nav_preferences);
+        } else {
+            mNavigationView.setCheckedItem(R.id.nav_empty);
         }
     }
 
@@ -136,6 +140,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_logout:
                 isLoggedIn = false;
+                ControllerConfig.userId = 0;
                 LoginManager.getInstance().logOut();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivityForResult(intent, 1);
@@ -192,13 +197,15 @@ public class MainActivity extends AppCompatActivity
                 mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
                 mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
                 mFbUserId = data.getStringExtra("fbUserId");
-                mUserId = data.getIntExtra("userId",0);
 
                 mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
                 mPictureView.setProfileId(mFbUserId);
 
                 mUsername.setText(data.getStringExtra("userName"));
                 mEmail.setText(data.getStringExtra("email"));
+
+                Fragment current = mFragmentManager.findFragmentById(R.id.content_main);
+                updateSelected(current);
             }
         }
     }

@@ -112,7 +112,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     @Override
     public void redirect(int userId) {
         ControllerConfig.userId = userId;
-        mHomeIntent.putExtra("userId", userId);
         setResult(RESULT_OK, mHomeIntent);
         finish();
     }

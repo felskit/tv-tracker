@@ -1,4 +1,4 @@
-package com.tvtracker.favourites;
+package com.tvtracker.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import com.tvtracker.FavouritesFragment.OnListFragmentInteractionListener;

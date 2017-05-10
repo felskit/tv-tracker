@@ -1,4 +1,4 @@
-package com.tvtracker.home;
+package com.tvtracker.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -65,7 +65,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
 
         public void setItem(HomeEpisode item) {
-            new ImageDownloader(this.mThumbnailView).execute(item.image);
+            new ImageDownloader(this.mThumbnailView, true).execute(item.image);
             this.mTitleView.setText(item.name);
             this.mDescriptionView.setText(item.summary.replaceAll("<[^>]*>",""));
             this.mItem = item;

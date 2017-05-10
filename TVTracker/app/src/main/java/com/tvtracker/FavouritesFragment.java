@@ -11,7 +11,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.tvtracker.controllers.FavouritesGetController;
 import com.tvtracker.controllers.FavouritesPostController;
-import com.tvtracker.favourites.FavouriteAdapter;
+import com.tvtracker.adapters.FavouriteAdapter;
 import com.tvtracker.interfaces.IFavouritesGetFragment;
 import com.tvtracker.interfaces.IFavouritesPostFragment;
 import com.tvtracker.models.ListShow;

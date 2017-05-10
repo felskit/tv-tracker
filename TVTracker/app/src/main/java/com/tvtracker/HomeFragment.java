@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.tvtracker.controllers.HomeController;
-import com.tvtracker.home.HomeAdapter;
+import com.tvtracker.adapters.HomeAdapter;
 import com.tvtracker.interfaces.IHomeFragment;
 import com.tvtracker.models.HomeEpisode;
 
@@ -75,6 +75,7 @@ public class HomeFragment extends Fragment implements IHomeFragment {
 
     @Override
     public void updateEpisodes(HomeEpisode[] episodes) {
+        mItems.clear();
         for (HomeEpisode episode : episodes) {
             mItems.add(episode);
         }
@@ -84,5 +85,9 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     public interface OnHomeFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(HomeEpisode item);
+    }
+
+    public void populate() {
+        mController.getEpisodes();
     }
 }
