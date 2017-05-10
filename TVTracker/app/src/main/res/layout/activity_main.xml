@@ -22,6 +22,7 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:itemIconTint="#FFFFFF"
+        app:itemTextColor="#FFFFFF"
         app:menu="@menu/activity_main_drawer"
         app:theme="@style/Theme.AppCompat.NoActionBar" />
 

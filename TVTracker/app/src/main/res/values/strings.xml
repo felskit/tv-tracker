@@ -7,12 +7,13 @@
     <string name="fragment_calendar">Calendar</string>
     <string name="fragment_favourites">Favourites</string>
     <string name="fragment_search">Search</string>
-    <string name="fragment_preference">Preferences</string>
+    <string name="fragment_preferences">Preferences</string>
     <string name="fragment_series">Series details</string>
     <string name="fragment_episode_details">Episode details</string>
     <string name="fragment_suggested">Suggested</string>
     <string name="fragment_series_details_description">Description</string>
     <string name="fragment_series_details_episodes">Episodes</string>
+    <string name="logout_button">Logout</string>
 
     <string name="preference_notifications_title">Receive notifications</string>
     <string name="preference_notifications_summary">Be notified of upcoming episodes</string>
