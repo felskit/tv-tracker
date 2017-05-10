@@ -18,7 +18,7 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle(R.string.fragment_preference);
+        getActivity().setTitle(R.string.fragment_preferences);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
