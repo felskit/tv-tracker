@@ -46,10 +46,6 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
         // TODO
         mGetController = new FavouritesGetController(this);
         mGetController.start();
-        if (isSuggested)
-            mGetController.getSuggested();
-        else
-            mGetController.getFavourites();
 
         mPostController = new FavouritesPostController(this);
         mPostController.start();
@@ -60,6 +56,11 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favourites_list, container, false);
         getActivity().setTitle(isSuggested ? R.string.fragment_suggested : R.string.fragment_favourites);
+
+        if (isSuggested)
+            mGetController.getSuggested();
+        else
+            mGetController.getFavourites();
 
         // Set the adapter
         if (view instanceof RecyclerView) {
