@@ -11,12 +11,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
-
-/**
- * Created by Jacek on 11.05.2017.
- */
 
 public class CalendarController implements Callback<CalendarEpisode[]> {
     private ControllerConfig mConfig = new ControllerConfig();

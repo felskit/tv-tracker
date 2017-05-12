@@ -1,5 +1,9 @@
 package com.tvtracker.controllers;
 
+import android.support.v7.app.AlertDialog;
+
+import com.tvtracker.LoginActivity;
+import com.tvtracker.R;
 import com.tvtracker.interfaces.ILoginActivity;
 import com.tvtracker.models.User;
 import com.tvtracker.models.UserId;
@@ -19,9 +23,17 @@ public class LoginController implements Callback<User> {
     private ControllerConfig mConfig = new ControllerConfig();
     private LoginAPI mAPI;
     private ILoginActivity mActivity;
+    private AlertDialog dialog;
 
-    public LoginController(ILoginActivity loginActivity) {
+    public LoginController(LoginActivity loginActivity) {
         mActivity = loginActivity;
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(loginActivity);
+        alertDialogBuilder.setTitle(loginActivity.getString(R.string.login_dialog_title));
+        alertDialogBuilder
+                .setMessage(loginActivity.getString(R.string.login_dialog_message))
+                .setCancelable(false);
+        dialog = alertDialogBuilder.create();
     }
 
     public void start() {
@@ -34,6 +46,7 @@ public class LoginController implements Callback<User> {
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
         if (response.isSuccessful()) {
+            dialog.hide();
             User user = response.body();
             mActivity.redirect(user.id);
         } else {
@@ -43,6 +56,7 @@ public class LoginController implements Callback<User> {
 
     @Override
     public void onFailure(Call<User> call, Throwable t) {
+        dialog.show();
         t.printStackTrace();
     }
 

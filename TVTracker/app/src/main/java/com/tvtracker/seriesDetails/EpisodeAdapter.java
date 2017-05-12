@@ -9,15 +9,18 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tvtracker.controllers.EpisodesPostController;
 import com.tvtracker.models.ShowEpisode;
 
 import java.util.List;
 
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHolder> {
     private final List<ShowEpisode> mValues;
+    private EpisodesPostController mEpisodesController;
 
-    public EpisodeAdapter(List<ShowEpisode> items) {
+    public EpisodeAdapter(List<ShowEpisode> items, EpisodesPostController controller) {
         mValues = items;
+        mEpisodesController = controller;
     }
 
     @Override
@@ -33,17 +36,12 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         holder.mTitleView.setText(mValues.get(position).name);
         holder.mSeenView.setChecked(mValues.get(position).watched);
 
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.mSeenView.setChecked(!holder.mSeenView.isChecked());
-            }
-        };
         LinearLayout layout = (LinearLayout) holder.itemView.findViewById(com.tvtracker.R.id.episodeLayout);
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 holder.mSeenView.setChecked(!holder.mSeenView.isChecked());
+                mEpisodesController.setWatched(holder.mItem.id, holder.mSeenView.isChecked());
             }
         });
     }

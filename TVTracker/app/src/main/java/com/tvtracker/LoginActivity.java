@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
             return;
         }
 
-        final ILoginActivity loginActivity = this;
+        final LoginActivity that = this;
         mOverlay.setVisibility(View.VISIBLE);
         GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
             @Override
@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     mHomeIntent.putExtra("userName", object.getString("name"));
                     mHomeIntent.putExtra("email", object.getString("email"));
                     UserId userId = new UserId(facebookId, null);
-                    LoginController loginController = new LoginController(loginActivity);
+                    LoginController loginController = new LoginController(that);
                     loginController.start();
                     loginController.login(userId);
                 } catch (JSONException e) {

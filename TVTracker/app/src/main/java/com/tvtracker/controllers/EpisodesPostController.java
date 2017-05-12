@@ -3,7 +3,7 @@ package com.tvtracker.controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tvtracker.interfaces.IPostFragment;
-import com.tvtracker.models.Favourites;
+import com.tvtracker.models.WatchedEpisode;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -12,13 +12,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
-public class FavouritesPostController implements Callback<String> {
+public class EpisodesPostController implements Callback<String> {
     private ControllerConfig mConfig = new ControllerConfig();
-    private FavouritesPostAPI mAPI;
+    private EpisodesPostAPI mAPI;
     private IPostFragment mFragment;
 
-    public FavouritesPostController(IPostFragment fragment) {
+    public EpisodesPostController(IPostFragment fragment) {
         mFragment = fragment;
     }
 
@@ -26,7 +27,7 @@ public class FavouritesPostController implements Callback<String> {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
-        mAPI = retrofit.create(FavouritesPostAPI.class);
+        mAPI = retrofit.create(EpisodesPostAPI.class);
     }
 
     @Override
@@ -44,21 +45,13 @@ public class FavouritesPostController implements Callback<String> {
         t.printStackTrace();
     }
 
-    public void addFavourite(int showId) {
-        Call<String> call = mAPI.addFavourite(new Favourites(ControllerConfig.userId, showId));
+    public void setWatched(int episodeId, Boolean watched) {
+        Call<String> call = mAPI.setWatched(new WatchedEpisode(ControllerConfig.userId, episodeId, watched));
         call.enqueue(this);
     }
 
-    public void removeFavourite(int showId) {
-        Call<String> call = mAPI.removeFavourite(new Favourites(ControllerConfig.userId, showId));
-        call.enqueue(this);
-    }
-
-    private interface FavouritesPostAPI {
-        @POST("favourites/add")
-        Call<String> addFavourite(@Body Favourites favourites);
-
-        @POST("favourites/remove")
-        Call<String> removeFavourite(@Body Favourites favourites);
+    private interface EpisodesPostAPI {
+        @POST("episodes/watched")
+        Call<String> setWatched(@Body WatchedEpisode watchedEpisode);
     }
 }

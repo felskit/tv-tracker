@@ -2,6 +2,7 @@ package com.tvtracker.seriesDetails;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,21 +11,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tvtracker.R;
+import com.tvtracker.controllers.EpisodesPostController;
+import com.tvtracker.interfaces.IPostFragment;
 import com.tvtracker.interfaces.ISeriesFragment;
 import com.tvtracker.models.Show;
 import com.tvtracker.models.ShowEpisode;
 
 import java.util.ArrayList;
 
-public class EpisodesListFragment extends Fragment implements ISeriesFragment {
+public class EpisodesListFragment extends Fragment implements ISeriesFragment, IPostFragment {
     private int mColumnCount = 1;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ShowEpisode> items;
+    private ArrayList<ShowEpisode> mItems;
     private OnEpisodeInteractionListener mListener;
-    private EpisodeAdapter adapter;
+    private EpisodeAdapter mAdapter;
+    private EpisodesPostController mEpisodesController;
 
     public EpisodesListFragment() {
-        items = new ArrayList<>();
+        mItems = new ArrayList<>();
     }
 
     @Override
@@ -36,8 +41,11 @@ public class EpisodesListFragment extends Fragment implements ISeriesFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(com.tvtracker.R.layout.fragment_episode_list, container, false);
 
-        // Set the adapter
+        // Set the mAdapter
         if (view instanceof RecyclerView) {
+            mEpisodesController = new EpisodesPostController(this);
+            mEpisodesController.start();
+
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             mLayoutManager = new LinearLayoutManager(context);
@@ -45,8 +53,8 @@ public class EpisodesListFragment extends Fragment implements ISeriesFragment {
             DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                     mLayoutManager.getOrientation());
             recyclerView.addItemDecoration(mDividerItemDecoration);
-            adapter = new EpisodeAdapter(items);
-            recyclerView.setAdapter(adapter);
+            mAdapter = new EpisodeAdapter(mItems, mEpisodesController);
+            recyclerView.setAdapter(mAdapter);
         }
         return view;
     }
@@ -71,11 +79,16 @@ public class EpisodesListFragment extends Fragment implements ISeriesFragment {
 
     @Override
     public void update(Show show) {
-        items.clear();
+        mItems.clear();
         for(ShowEpisode episode : show.episodes) {
-            items.add(episode);
+            mItems.add(episode);
         }
-        adapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void notify(String message) {
+        Snackbar.make(getActivity().findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_LONG).show();
     }
 
     public interface OnEpisodeInteractionListener {

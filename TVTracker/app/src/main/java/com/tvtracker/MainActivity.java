@@ -37,14 +37,15 @@ public class MainActivity extends AppCompatActivity
 
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
-    @BindView(R.id.nav_view) NavigationView mNavigationView;
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
     private Boolean isLoggedIn = false;
 
     private ProfilePictureView mPictureView;
     private TextView mUsername;
     private TextView mEmail;
     private String mFbUserId;
-  //private String mGoogleUserId;
+    //private String mGoogleUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity
 
     private void updateSelected(Fragment fragment) {
         if (fragment instanceof HomeFragment) {
-            ((HomeFragment)fragment).populate();
+            ((HomeFragment) fragment).populate();
             mNavigationView.setCheckedItem(R.id.nav_home);
         } else if (fragment instanceof CalendarFragment) {
             mNavigationView.setCheckedItem(R.id.nav_calendar);
@@ -102,6 +103,8 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (fragment instanceof SearchFragment) {
             mNavigationView.setCheckedItem(R.id.nav_search);
+        } else if (fragment instanceof AboutFragment) {
+            mNavigationView.setCheckedItem(R.id.nav_about);
         } else if (fragment instanceof PreferenceFragment) {
             mNavigationView.setCheckedItem(R.id.nav_preferences);
         } else {
@@ -137,6 +140,9 @@ public class MainActivity extends AppCompatActivity
                 suggestedBundle.putBoolean("isSuggested", true);
                 suggestedFragment.setArguments(suggestedBundle);
                 mFragmentManager.beginTransaction().replace(R.id.content_main, suggestedFragment).addToBackStack(null).commit();
+                break;
+            case R.id.nav_about:
+                mFragmentManager.beginTransaction().replace(R.id.content_main, new AboutFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_logout:
                 isLoggedIn = false;

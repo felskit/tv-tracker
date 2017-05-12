@@ -1,6 +1,6 @@
 package com.tvtracker.controllers;
 
-import com.tvtracker.interfaces.IEpisodeFragment;
+import com.tvtracker.interfaces.IEpisodesGetFragment;
 import com.tvtracker.models.Episode;
 
 import com.google.gson.Gson;
@@ -14,12 +14,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public class EpisodesController implements Callback<Episode> {
+public class EpisodesGetController implements Callback<Episode> {
     private ControllerConfig mConfig = new ControllerConfig();
-    private EpisodesAPI mAPI;
-    private IEpisodeFragment mFragment;
+    private EpisodesGetAPI mAPI;
+    private IEpisodesGetFragment mFragment;
 
-    public EpisodesController(IEpisodeFragment fragment) {
+    public EpisodesGetController(IEpisodesGetFragment fragment) {
         mFragment = fragment;
     }
 
@@ -27,7 +27,7 @@ public class EpisodesController implements Callback<Episode> {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
-        mAPI = retrofit.create(EpisodesAPI.class);
+        mAPI = retrofit.create(EpisodesGetAPI.class);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class EpisodesController implements Callback<Episode> {
         call.enqueue(this);
     }
 
-    private interface EpisodesAPI {
+    private interface EpisodesGetAPI {
         @GET("episodes/{id}")
         Call<Episode> getEpisode(@Path("id") int id);
     }

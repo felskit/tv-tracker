@@ -4,8 +4,8 @@ package com.tvtracker;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.tvtracker.controllers.EpisodesController;
-import com.tvtracker.interfaces.IEpisodeFragment;
+import com.tvtracker.controllers.EpisodesGetController;
+import com.tvtracker.interfaces.IEpisodesGetFragment;
 import com.tvtracker.models.Episode;
 import com.tvtracker.tools.ImageDownloader;
 
@@ -24,7 +24,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EpisodeDetailsFragment extends Fragment implements IEpisodeFragment {
+public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFragment {
 
     @BindView(R.id.episode_image) ImageView mEpisodeImage;
     @BindView(R.id.episode_title) TextView mEpisodeTitle;
@@ -37,7 +37,7 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodeFragment
     @BindView(R.id.episode_airtime) TextView mEpisodeAirtime;
 
     private Unbinder unbinder;
-    private EpisodesController controller;
+    private EpisodesGetController controller;
 
     public EpisodeDetailsFragment() {
         // Required empty public constructor
@@ -46,7 +46,7 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodeFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller = new EpisodesController(this);
+        controller = new EpisodesGetController(this);
         controller.start();
         controller.getEpisode(getArguments().getInt("episodeId"));
     }

@@ -4,10 +4,6 @@ import android.os.Parcel;
 
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 
-/**
- * Created by Jacek on 07.05.2017.
- */
-
 public class SeriesSearchSuggestion implements SearchSuggestion {
     private String name;
     private int id;

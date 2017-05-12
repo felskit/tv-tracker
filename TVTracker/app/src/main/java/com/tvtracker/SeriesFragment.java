@@ -1,12 +1,10 @@
 package com.tvtracker;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -17,7 +15,7 @@ import android.support.v4.view.ViewPager;
 
 import com.tvtracker.controllers.FavouritesPostController;
 import com.tvtracker.controllers.SeriesController;
-import com.tvtracker.interfaces.IFavouritesPostFragment;
+import com.tvtracker.interfaces.IPostFragment;
 import com.tvtracker.interfaces.ISeriesFragment;
 import com.tvtracker.models.Show;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
@@ -30,14 +28,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class SeriesFragment extends Fragment implements ISeriesFragment, IFavouritesPostFragment {
+public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFragment {
     @BindView(R.id.series_image) ImageView mSeriesImage;
     @BindView(R.id.collapsing) CollapsingToolbarLayout mToolbarLayout;
     @BindView(R.id.series_title) TextView seriesTitle;

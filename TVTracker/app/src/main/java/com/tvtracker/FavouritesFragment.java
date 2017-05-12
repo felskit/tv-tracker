@@ -13,7 +13,7 @@ import com.tvtracker.controllers.FavouritesGetController;
 import com.tvtracker.controllers.FavouritesPostController;
 import com.tvtracker.adapters.FavouriteAdapter;
 import com.tvtracker.interfaces.IFavouritesGetFragment;
-import com.tvtracker.interfaces.IFavouritesPostFragment;
+import com.tvtracker.interfaces.IPostFragment;
 import com.tvtracker.models.ListShow;
 
 import android.view.LayoutInflater;
@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouritesFragment extends Fragment implements IFavouritesGetFragment, IFavouritesPostFragment {
+public class FavouritesFragment extends Fragment implements IFavouritesGetFragment, IPostFragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private List<ListShow> mItems;
