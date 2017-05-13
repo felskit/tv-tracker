@@ -58,6 +58,7 @@
     <Compile Include="Entity\Models\Episode.cs" />
     <Compile Include="Entity\Models\Favourite.cs" />
     <Compile Include="Entity\Models\Show.cs" />
+    <Compile Include="Entity\Models\Token.cs" />
     <Compile Include="Entity\Models\User.cs" />
     <Compile Include="Entity\Models\WatchedEpisode.cs" />
     <Compile Include="Entity\TVTrackerContext.cs" />

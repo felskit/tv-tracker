@@ -37,6 +37,12 @@ namespace TVTracker.WebAPI.Controllers
 				if (user != null)
 				{
 					userId = user.id;
+					if (!user.Tokens.Any(x => x.DeviceToken == data.token))
+					{
+						var token = new Token() { UserId = userId, DeviceToken = data.token };
+						this.context.Tokens.Add(token);
+						this.context.SaveChanges();
+					}
 				}
 				else
 				{
@@ -44,8 +50,40 @@ namespace TVTracker.WebAPI.Controllers
 					newUser = this.context.Users.Add(newUser);
 					this.context.SaveChanges();
 					userId = newUser.id;
+					var token = new Token() { UserId = userId, DeviceToken = data.token };
+					this.context.Tokens.Add(token);
+					this.context.SaveChanges();
 				}
 				response = request.CreateResponse(HttpStatusCode.OK, new UserViewModel(userId));
+
+				Task.Run(() => TVTracker.WebAPI.WebApiApplication.sendNotification());
+				return response;
+			});
+		}
+
+		[AllowAnonymous]
+		[HttpPost]
+		[Route("updateToken")]
+		public async Task<HttpResponseMessage> UpdateToken(HttpRequestMessage request, TokenViewModel data)
+		{
+			return await CreateHttpResponse(request, async () =>
+			{
+				HttpResponseMessage response = null;
+				var user = await this.context.Users.SingleOrDefaultAsync(x => x.id == data.userId);
+				var oldToken = user.Tokens.SingleOrDefault(x => x.DeviceToken == data.oldToken);
+				if(oldToken != null)
+				{
+					oldToken.DeviceToken = data.newToken;
+				}
+				else
+				{
+					var token = new Token() { UserId = user.id, DeviceToken = data.newToken };
+					this.context.Tokens.Add(token);
+				}
+
+				this.context.SaveChanges();
+				response = request.CreateResponse(HttpStatusCode.OK, "Token updated successfully");
+
 				return response;
 			});
 		}

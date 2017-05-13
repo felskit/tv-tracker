@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "112730570002",
+    "firebase_url": "https://tvtracker-e7102.firebaseio.com",
+    "project_id": "tvtracker-e7102",
+    "storage_bucket": "tvtracker-e7102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112730570002:android:73227e8474c88778",
+        "android_client_info": {
+          "package_name": "com.tvtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112730570002-l8nrgojs0ok7rsq86a3fsk7h0dqrl1rs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq20QRPdXCFcwawbhBKMF8f8oj2c6XsSQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

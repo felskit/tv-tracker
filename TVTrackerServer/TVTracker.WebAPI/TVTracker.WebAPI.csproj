@@ -240,6 +240,7 @@
     <Compile Include="Models\ListShowViewModel.cs" />
     <Compile Include="Models\ShowEpisodeViewModel.cs" />
     <Compile Include="Models\ShowViewModel.cs" />
+    <Compile Include="Models\TokenViewModel.cs" />
     <Compile Include="Models\UserIdViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WatchedEpisodeViewModel.cs" />

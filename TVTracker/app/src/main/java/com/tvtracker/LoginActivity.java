@@ -20,6 +20,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.tvtracker.tools.TVTrackerFirebaseInstanceIDService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     mHomeIntent.putExtra("fbUserId", facebookId);
                     mHomeIntent.putExtra("userName", object.getString("name"));
                     mHomeIntent.putExtra("email", object.getString("email"));
-                    UserId userId = new UserId(facebookId, null);
+                    UserId userId = new UserId(facebookId, null, TVTrackerFirebaseInstanceIDService.getToken());
                     LoginController loginController = new LoginController(that);
                     loginController.start();
                     loginController.login(userId);

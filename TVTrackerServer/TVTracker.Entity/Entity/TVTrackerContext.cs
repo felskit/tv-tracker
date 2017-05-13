@@ -15,5 +15,6 @@ namespace TVTracker.Entity.Entity
 		public virtual IDbSet<Episode> Episodes { get; set; }
 		public virtual IDbSet<Favourite> Favourites { get; set; }
 		public virtual IDbSet<WatchedEpisode> WatchedEpisodes { get; set; }
+		public virtual IDbSet<Token> Tokens { get; set; }
 	}
 }
