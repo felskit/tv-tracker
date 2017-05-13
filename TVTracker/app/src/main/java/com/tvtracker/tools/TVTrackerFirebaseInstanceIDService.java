@@ -18,7 +18,6 @@ public class TVTrackerFirebaseInstanceIDService extends FirebaseInstanceIdServic
         if(controller == null) {
             controller = new TokenController();
             controller.start();
-            currentToken = FirebaseInstanceId.getInstance().getToken();
         }
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
