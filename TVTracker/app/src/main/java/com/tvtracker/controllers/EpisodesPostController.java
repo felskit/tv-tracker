@@ -2,6 +2,7 @@ package com.tvtracker.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tvtracker.interfaces.IEpisodesPostFragment;
 import com.tvtracker.interfaces.IPostFragment;
 import com.tvtracker.models.WatchedEpisode;
 
@@ -17,9 +18,10 @@ import retrofit2.http.Path;
 public class EpisodesPostController implements Callback<String> {
     private ControllerConfig mConfig = new ControllerConfig();
     private EpisodesPostAPI mAPI;
-    private IPostFragment mFragment;
+    private IEpisodesPostFragment mFragment;
+    private int position = 0;
 
-    public EpisodesPostController(IPostFragment fragment) {
+    public EpisodesPostController(IEpisodesPostFragment fragment) {
         mFragment = fragment;
     }
 
@@ -34,7 +36,7 @@ public class EpisodesPostController implements Callback<String> {
     public void onResponse(Call<String> call, Response<String> response) {
         if (response.isSuccessful()) {
             String message = response.body();
-            mFragment.notify(message);
+            mFragment.notify(message, position);
         } else {
             System.out.println(response.errorBody());
         }
@@ -45,7 +47,8 @@ public class EpisodesPostController implements Callback<String> {
         t.printStackTrace();
     }
 
-    public void setWatched(int episodeId, Boolean watched) {
+    public void setWatched(int episodeId, Boolean watched, int position) {
+        this.position = position;
         Call<String> call = mAPI.setWatched(new WatchedEpisode(ControllerConfig.userId, episodeId, watched));
         call.enqueue(this);
     }

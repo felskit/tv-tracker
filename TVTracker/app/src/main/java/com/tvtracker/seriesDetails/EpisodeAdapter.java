@@ -31,7 +31,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mTitleView.setText(mValues.get(position).name);
         holder.mSeenView.setChecked(mValues.get(position).watched);
@@ -41,7 +41,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 holder.mSeenView.setChecked(!holder.mSeenView.isChecked());
-                mEpisodesController.setWatched(holder.mItem.id, holder.mSeenView.isChecked());
+                mEpisodesController.setWatched(holder.mItem.id, holder.mSeenView.isChecked(), position);
             }
         });
     }

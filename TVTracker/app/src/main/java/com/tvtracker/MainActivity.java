@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity
     private String mFbUserId;
     //private String mGoogleUserId;
 
+    private int LOGIN_REQUEST_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(HomeEpisode item) {
         //TODO change 1 to item.getId when it will be valid id
-        onSearchFragmentInteraction(1);
+        onSearchFragmentInteraction(item.showId);
     }
 
     @Override
@@ -196,7 +198,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
+        if (requestCode == LOGIN_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 isLoggedIn = true;
 
@@ -221,7 +223,7 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         if (!isLoggedIn) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, LOGIN_REQUEST_CODE);
         }
     }
 

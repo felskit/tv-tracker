@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     private RelativeLayout mOverlay;
     private Intent mHomeIntent;
     private Boolean processed = false;
+    private Boolean isVisible = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +64,17 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        isVisible = true;
         AccessToken token = AccessToken.getCurrentAccessToken();
         if (token != null) {
             processToken(token);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        isVisible = false;
+        super.onBackPressed();
     }
 
     @Override
@@ -114,5 +122,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         ControllerConfig.userId = userId;
         setResult(RESULT_OK, mHomeIntent);
         finish();
+    }
+
+    public boolean isVisible() {
+        return isVisible;
     }
 }

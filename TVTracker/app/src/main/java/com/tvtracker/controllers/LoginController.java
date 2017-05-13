@@ -56,7 +56,9 @@ public class LoginController implements Callback<User> {
 
     @Override
     public void onFailure(Call<User> call, Throwable t) {
-        dialog.show();
+        if(mActivity.isVisible()) {
+            dialog.show();
+        }
         t.printStackTrace();
     }
 

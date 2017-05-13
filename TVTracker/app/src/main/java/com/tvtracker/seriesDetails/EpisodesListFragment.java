@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.tvtracker.R;
 import com.tvtracker.controllers.EpisodesPostController;
+import com.tvtracker.interfaces.IEpisodesPostFragment;
 import com.tvtracker.interfaces.IPostFragment;
 import com.tvtracker.interfaces.ISeriesFragment;
 import com.tvtracker.models.Show;
@@ -20,7 +21,7 @@ import com.tvtracker.models.ShowEpisode;
 
 import java.util.ArrayList;
 
-public class EpisodesListFragment extends Fragment implements ISeriesFragment, IPostFragment {
+public class EpisodesListFragment extends Fragment implements ISeriesFragment, IEpisodesPostFragment {
     private int mColumnCount = 1;
     private LinearLayoutManager mLayoutManager;
     private ArrayList<ShowEpisode> mItems;
@@ -87,8 +88,10 @@ public class EpisodesListFragment extends Fragment implements ISeriesFragment, I
     }
 
     @Override
-    public void notify(String message) {
+    public void notify(String message, int position) {
         Snackbar.make(getActivity().findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_LONG).show();
+        ShowEpisode episode = mItems.get(position);
+        episode.watched = !episode.watched;
     }
 
     public interface OnEpisodeInteractionListener {
