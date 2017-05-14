@@ -1,5 +1,8 @@
 package com.tvtracker.tools;
 
+import android.content.SharedPreferences;
+import android.support.v7.preference.PreferenceManager;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.tvtracker.controllers.TokenController;
@@ -10,24 +13,49 @@ import com.tvtracker.controllers.TokenController;
 
 public class TVTrackerFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static String currentToken = null;
-    private TokenController controller = null;
+    private static String oldToken = null;
+    private static TokenController controller = null;
+    private static boolean tokenChanged = false;
+
 
     @Override
     public void onTokenRefresh() {
-        // Get updated InstanceID token.
-        if(controller == null) {
-            controller = new TokenController();
-            controller.start();
-        }
-
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-
-        controller.updateToken(currentToken, refreshedToken);
-
+        oldToken = getTokenFromPrefs();
         currentToken = refreshedToken;
+        tokenChanged = true;
+        saveTokenToPrefs(currentToken);
+    }
+
+    public static void updateToken() {
+        if(tokenChanged) {
+            if(controller == null) {
+                controller = new TokenController();
+                controller.start();
+            }
+            controller.updateToken(oldToken, currentToken);
+            tokenChanged = false;
+        }
     }
 
     public static String getToken() {
         return currentToken;
+    }
+
+    private void saveTokenToPrefs(String _token)
+    {
+        // Access Shared Preferences
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // Save to SharedPreferences
+        editor.putString("registration_id", _token);
+        editor.apply();
+    }
+
+    private String getTokenFromPrefs()
+    {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        return preferences.getString("registration_id", null);
     }
 }

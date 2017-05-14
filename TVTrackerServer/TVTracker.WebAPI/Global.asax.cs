@@ -33,7 +33,7 @@ namespace TVTracker.WebAPI
 
 		public static async void sendNotification()
 		{
-			await Task.Delay(new TimeSpan(0, 0, 30));
+			await Task.Delay(new TimeSpan(0, 0, 10));
 			string applicationID = "AAAAGj9D_RI:APA91bGcW59W17ooFVZrs9JXaeFgWNvFLBL0gfm84vB4dWkwJIom5lB7pL-75m_LozOOQTpuqVCLpOXqf3h8c8qB1U6w966WEvWAEzS8tavKGQM1qHBMdIHHRSWubqLkNY8aKQ4O0pf8";
 
 			string senderId = "112730570002";

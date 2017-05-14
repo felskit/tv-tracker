@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.tvtracker.controllers.ControllerConfig;
 import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.models.ListShow;
@@ -26,6 +27,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 import com.tvtracker.tools.NetworkStateReceiver;
+import com.tvtracker.tools.TVTrackerFirebaseInstanceIDService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FirebaseInstanceIdService service = new TVTrackerFirebaseInstanceIDService();
 
         NetworkStateReceiver networkStateReceiver = new NetworkStateReceiver(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
@@ -201,6 +205,7 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 isLoggedIn = true;
+                TVTrackerFirebaseInstanceIDService.updateToken();
 
                 mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
                 mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
