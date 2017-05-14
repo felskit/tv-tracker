@@ -45,6 +45,7 @@ namespace TVTracker.WebAPI.Infrastructure.Mappings
 				.ForMember(vm => vm.season, map => map.MapFrom(x => x.season))
 				.ForMember(vm => vm.episode, map => map.MapFrom(x => x.number))
 				.ForMember(vm => vm.airdate, map => map.MapFrom(x => x.airdate))
+				.ForMember(vm => vm.airstamp, map => map.MapFrom(x => x.airstamp))
 				.ForMember(vm => vm.airtime, map => map.MapFrom(x => x.airtime));
 
 			this.CreateMap<Episode, CalendarEpisodeViewModel>()

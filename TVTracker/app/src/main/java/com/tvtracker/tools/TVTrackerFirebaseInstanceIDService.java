@@ -38,8 +38,9 @@ public class TVTrackerFirebaseInstanceIDService extends FirebaseInstanceIdServic
         }
     }
 
-    public static String getToken() {
-        return currentToken;
+    public static String getToken(SharedPreferences preferences) {
+
+        return preferences.getString("registration_id", null);
     }
 
     private void saveTokenToPrefs(String _token)

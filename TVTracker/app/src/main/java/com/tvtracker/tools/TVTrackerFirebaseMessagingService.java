@@ -23,11 +23,11 @@ public class TVTrackerFirebaseMessagingService extends FirebaseMessagingService 
 
     @Override
     public void onMessageReceived(RemoteMessage message) {
-        if(receiveNotifications()) {
+        //if(receiveNotifications()) {
             super.onMessageReceived(message);
             RemoteMessage.Notification notification = message.getNotification();
             sendNotification(notification.getTitle(), notification.getBody());
-        }
+        //}
     }
 
     private void sendNotification(String messageTitle, String messageBody) {

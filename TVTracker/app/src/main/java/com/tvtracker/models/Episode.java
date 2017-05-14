@@ -9,6 +9,7 @@ public class Episode {
     public short runtime;
     public String airdate;
     public String airtime;
+    public String airstamp;
     public int season;
     public int episode;
     public String source;

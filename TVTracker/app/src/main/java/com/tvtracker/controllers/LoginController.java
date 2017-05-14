@@ -24,6 +24,7 @@ public class LoginController implements Callback<User> {
     private LoginAPI mAPI;
     private ILoginActivity mActivity;
     private AlertDialog dialog;
+    private UserId userId;
 
     public LoginController(LoginActivity loginActivity) {
         mActivity = loginActivity;
@@ -59,10 +60,12 @@ public class LoginController implements Callback<User> {
         if(mActivity.isVisible()) {
             dialog.show();
         }
+        login(userId);
         t.printStackTrace();
     }
 
     public void login(UserId userId) {
+        this.userId = userId;
         Call<User> call = mAPI.login(userId);
         call.enqueue(this);
     }

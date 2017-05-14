@@ -1,4 +1,6 @@
-﻿namespace TVTracker.WebAPI.Models
+﻿using System;
+
+namespace TVTracker.WebAPI.Models
 {
 	public class EpisodeViewModel
 	{
@@ -21,7 +23,9 @@
 		public int season { get; set; }
 
 		public int episode { get; set; }
-		
+
 		public string source { get; set; }
+
+		public DateTime airstamp {get; set;}
 	}
 }
