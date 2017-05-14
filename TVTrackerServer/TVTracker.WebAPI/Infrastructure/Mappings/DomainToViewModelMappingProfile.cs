@@ -44,23 +44,15 @@ namespace TVTracker.WebAPI.Infrastructure.Mappings
 				.ForMember(vm => vm.runtime, map => map.MapFrom(x => x.runtime))
 				.ForMember(vm => vm.season, map => map.MapFrom(x => x.season))
 				.ForMember(vm => vm.episode, map => map.MapFrom(x => x.number))
-				.ForMember(vm => vm.airdate, map => map.MapFrom(x => x.airdate))
-				.ForMember(vm => vm.airstamp, map => map.MapFrom(x => x.airstamp))
-				.ForMember(vm => vm.airtime, map => map.MapFrom(x => x.airtime));
+				.ForMember(vm => vm.airstamp, map => map.MapFrom(x => x.airstamp));
 
 			this.CreateMap<Episode, CalendarEpisodeViewModel>()
 				.ForMember(vm => vm.episodeId, map => map.MapFrom(x => x.id))
 				.ForMember(vm => vm.showName, map => map.MapFrom(x => x.show.name))
-				.ForMember(vm => vm.beginDay, map => map.MapFrom(x => x.airstamp.Value.Day))
 				.ForMember(vm => vm.beginMonth, map => map.MapFrom(x => x.airstamp.Value.Month))
 				.ForMember(vm => vm.beginYear, map => map.MapFrom(x => x.airstamp.Value.Year))
-				.ForMember(vm => vm.beginHour, map => map.MapFrom(x => x.airstamp.Value.Hour))
-				.ForMember(vm => vm.beginMinute, map => map.MapFrom(x => x.airstamp.Value.Minute))
-				.ForMember(vm => vm.endDay, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Day))
-				.ForMember(vm => vm.endMonth, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Month))
-				.ForMember(vm => vm.endYear, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Year))
-				.ForMember(vm => vm.endHour, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Hour))
-				.ForMember(vm => vm.endMinute, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime).Minute));
+				.ForMember(vm => vm.startStamp, map => map.MapFrom(x => x.airstamp.Value))
+				.ForMember(vm => vm.endStamp, map => map.MapFrom(x => x.airstamp.Value.AddMinutes(x.runtime)));
 
 			this.CreateMap<Episode, HomeEpisodeViewModel>()
 				.ForMember(vm => vm.episodeId, map => map.MapFrom(x => x.id))

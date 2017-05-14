@@ -16,10 +16,6 @@ namespace TVTracker.WebAPI.Models
 
 		public short runtime { get; set; }
 
-		public string airdate { get; set; }
-
-		public string airtime { get; set; }
-
 		public int season { get; set; }
 
 		public int episode { get; set; }

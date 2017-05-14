@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import com.tvtracker.controllers.EpisodesGetController;
 import com.tvtracker.interfaces.IEpisodesGetFragment;
 import com.tvtracker.models.Episode;
+import com.tvtracker.tools.DateConverter;
 import com.tvtracker.tools.ImageDownloader;
 
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,13 +102,15 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
 
     @Override
     public void setData(Episode episode) {
+        Date utcDate = DateConverter.ConvertToUTC(episode.airstamp);
+
         mEpisodeTitle.setText(episode.name);
         mEpisodeSummary.setText(Html.fromHtml(episode.summary));
         mSeriesTitle.setText(episode.showName);
         mSeriesSeason.setText(String.valueOf(episode.season));
         mSeriesEpisode.setText(String.valueOf(episode.episode));
-        mEpisodeAirdate.setText(episode.airdate);
-        mEpisodeAirtime.setText(episode.airtime);
+        mEpisodeAirdate.setText(DateConverter.getDate(utcDate));
+        mEpisodeAirtime.setText(DateConverter.getTime(utcDate));
         mEpisodeRuntime.setText(String.valueOf(episode.runtime));
         new ImageDownloader(mEpisodeImage).execute(episode.image);
     }

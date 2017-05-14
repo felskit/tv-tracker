@@ -16,8 +16,10 @@ import android.view.ViewGroup;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.tvtracker.tools.DateConverter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,9 +127,13 @@ public class CalendarFragment extends Fragment implements WeekView.EventClickLis
 
             if(list.size() == 0) {
                 for (CalendarEpisode episode : episodes) {
-                    WeekViewEvent event = new WeekViewEvent(episode.episodeId, episode.showName, episode.beginYear,
-                            episode.beginMonth, episode.beginDay, episode.beginHour, episode.beginMinute,
-                            episode.endYear, episode.endMonth, episode.endDay, episode.endHour, episode.endMinute);
+                    Date startDate = DateConverter.ConvertToUTC(episode.startStamp);
+                    Date endDate = DateConverter.ConvertToUTC(episode.endStamp);
+                    WeekViewEvent event = new WeekViewEvent(episode.episodeId, episode.showName, DateConverter.getYear(startDate),
+                            DateConverter.getMonth(startDate), DateConverter.getDay(startDate), DateConverter.getHour(startDate),
+                            DateConverter.getMinutes(startDate), DateConverter.getYear(endDate), DateConverter.getMonth(endDate),
+                            DateConverter.getDay(endDate), DateConverter.getHour(endDate), DateConverter.getMinutes(endDate));
+                    event.setColor(R.color.colorPrimary);
                     list.add(event);
                 }
                 mWeekView.notifyDatasetChanged();
