@@ -7,5 +7,7 @@
 		public int ShowId { get; set; }
 
 		public virtual Show show { get; set; }
+
+		public virtual User user { get; set; }
 	}
 }

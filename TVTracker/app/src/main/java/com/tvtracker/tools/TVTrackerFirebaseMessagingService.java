@@ -15,7 +15,6 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.tvtracker.MainActivity;
 import com.tvtracker.R;
 
-import java.util.Map;
 
 public class TVTrackerFirebaseMessagingService extends FirebaseMessagingService {
 
