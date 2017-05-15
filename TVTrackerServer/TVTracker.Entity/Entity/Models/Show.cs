@@ -10,6 +10,7 @@ namespace TVTracker.Entity.Entity.Models
 
 		public Show(JObject json)
 		{
+			apiId = (string)json["id"];
 			name = (string)json["name"];
 			type = (string)json["type"];
 			language = (string)json["language"];
@@ -25,6 +26,8 @@ namespace TVTracker.Entity.Entity.Models
 			network = (string)(json["network"].HasValues ? json["network"]["name"] : json["webChannel"]["name"]);
 			source = (string)(json["_links"]["self"]["href"]);
 		}
+
+		public string apiId { get; set; }
 
 		public string name { get; set; }
 

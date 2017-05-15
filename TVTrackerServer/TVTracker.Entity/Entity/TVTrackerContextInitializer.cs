@@ -53,7 +53,7 @@ namespace TVTracker.Entity.Entity
 					context.Shows.Add(show);
 					context.SaveChanges();
 
-					AddEpisodes(context, show.id);
+					AddEpisodes(context, seriesId, show.id);
 				}
 				catch (WebException)
 				{
@@ -65,9 +65,9 @@ namespace TVTracker.Entity.Entity
 			base.Seed(context);
 		}
 
-		private void AddEpisodes(TVTrackerContext context, int showId)
+		private void AddEpisodes(TVTrackerContext context, string apiId, int showId)
 		{
-			var request = WebRequest.Create($"http://api.tvmaze.com/shows/{showId}/episodes");
+			var request = WebRequest.Create($"http://api.tvmaze.com/shows/{apiId}/episodes");
 			var response = request.GetResponse();
 			var responseStream = response.GetResponseStream();
 			var reader = new StreamReader(responseStream);
