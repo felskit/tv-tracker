@@ -35,7 +35,7 @@ namespace TVTracker.Entity.Entity
 			while (idToAdd.Count > 0)
 			{
 				var seriesId = idToAdd.Dequeue();
-				if (seriesId.Length > 1)
+				if (seriesId == "2138")
 					break;
 				try
 				{
