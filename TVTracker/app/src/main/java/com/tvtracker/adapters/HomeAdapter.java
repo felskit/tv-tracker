@@ -2,6 +2,7 @@ package com.tvtracker.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +18,14 @@ import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
 import com.tvtracker.tools.ImageDownloader;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private Context mContext;
     private List<HomeEpisode> mItems;
+    private Set<ViewHolder> mBoundViewHolders = new HashSet<>();
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mThumbnailView;
@@ -71,6 +75,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             this.mItem = item;
         }
 
+        public void recycle() {
+            BitmapDrawable drawable = (BitmapDrawable)mThumbnailView.getDrawable();
+            if (drawable != null) {
+                drawable.getBitmap().recycle();
+            }
+        }
+
         @Override
         public void onClick(View v) {
             ((EpisodesListFragment.OnEpisodeInteractionListener) v.getContext()).onFragmentInteraction(mItem.episodeId);
@@ -107,6 +118,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 return true;
             }
         });
+
+        mBoundViewHolders.add(viewHolder);
+    }
+
+    public void recycle() {
+        for (ViewHolder holder : mBoundViewHolders) {
+            if(holder != null) {
+                holder.recycle();
+            }
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.tvtracker;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     private List<HomeEpisode> mItems;
     private OnHomeFragmentInteractionListener mListener;
     private HomeController mController;
+    private RecyclerView mRecyclerView;
 
     public HomeFragment() {
 
@@ -49,11 +51,17 @@ public class HomeFragment extends Fragment implements IHomeFragment {
         mActivity.setTitle(R.string.fragment_home);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mAdapter.recycle();
     }
 
     @Override

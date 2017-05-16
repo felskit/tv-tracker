@@ -1,5 +1,6 @@
 package com.tvtracker.adapters;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
 import com.tvtracker.FavouritesFragment.OnListFragmentInteractionListener;
 import com.tvtracker.models.ListShow;
@@ -10,12 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.ViewHolder> {
     private final List<ListShow> mValues;
     private final OnListFragmentInteractionListener mListener;
     private boolean isSuggested = false;
+    private Set<ViewHolder> mBoundViewHolders = new HashSet<>();
 
     public FavouriteAdapter(List<ListShow> items, OnListFragmentInteractionListener listener, boolean isSuggested) {
         mValues = items;
@@ -44,6 +48,16 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
                 }
             }
         });
+
+        mBoundViewHolders.add(holder);
+    }
+
+    public void recycle() {
+        for (ViewHolder holder : mBoundViewHolders) {
+            if(holder != null) {
+                holder.recycle();
+            }
+        }
     }
 
     @Override
@@ -67,6 +81,13 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+
+        public void recycle() {
+            BitmapDrawable drawable = (BitmapDrawable)mImageView.getDrawable();
+            if (drawable != null) {
+                drawable.getBitmap().recycle();
+            }
         }
     }
 }

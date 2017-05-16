@@ -99,6 +99,12 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mAdapter.recycle();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof FavouritesFragment.OnListFragmentInteractionListener) {

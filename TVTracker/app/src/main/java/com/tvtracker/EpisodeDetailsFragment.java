@@ -78,17 +78,20 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
                     AlertDialog.Builder builder = new AlertDialog.Builder(EpisodeDetailsFragment.this.getContext());
                     final AlertDialog dialog = builder.create();
                     ImageView imageView = new ImageView(EpisodeDetailsFragment.this.getContext());
-                    Bitmap bitmap = ((BitmapDrawable) mEpisodeImage.getDrawable()).getBitmap();
-                    imageView.setImageBitmap(bitmap);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    imageView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.hide();
-                        }
-                    });
-                    dialog.setView(imageView);
-                    dialog.show();
+                    BitmapDrawable drawable = ((BitmapDrawable) mEpisodeImage.getDrawable());
+                    if(drawable != null) {
+                        Bitmap bitmap = drawable.getBitmap();
+                        imageView.setImageBitmap(bitmap);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        imageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.hide();
+                            }
+                        });
+                        dialog.setView(imageView);
+                        dialog.show();
+                    }
                 }
             }
         });
@@ -97,6 +100,10 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        BitmapDrawable drawable = (BitmapDrawable)mEpisodeImage.getDrawable();
+        if(drawable != null) {
+            drawable.getBitmap().recycle();
+        }
         unbinder.unbind();
     }
 

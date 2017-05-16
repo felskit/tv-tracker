@@ -95,18 +95,21 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFr
                     AlertDialog.Builder builder = new AlertDialog.Builder(SeriesFragment.this.getContext());
                     final AlertDialog dialog = builder.create();
                     ImageView imageView = new ImageView(SeriesFragment.this.getContext());
-                    Bitmap bitmap = ((BitmapDrawable) mSeriesImage.getDrawable()).getBitmap();
-                    imageView.setImageBitmap(bitmap);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    imageView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.hide();
-                        }
-                    });
+                    BitmapDrawable drawable = ((BitmapDrawable) mSeriesImage.getDrawable());
+                    if(drawable != null) {
+                        Bitmap bitmap = drawable.getBitmap();
+                        imageView.setImageBitmap(bitmap);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        imageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.hide();
+                            }
+                        });
 
-                    dialog.setView(imageView);
-                    dialog.show();
+                        dialog.setView(imageView);
+                        dialog.show();
+                    }
                 }
             }
         });
@@ -123,6 +126,10 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFr
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        BitmapDrawable drawable = (BitmapDrawable)mSeriesImage.getDrawable();
+        if(drawable != null) {
+            drawable.getBitmap().recycle();
+        }
         mUnbinder.unbind();
     }
 
