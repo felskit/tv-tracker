@@ -111,8 +111,8 @@ public class MainActivity extends AppCompatActivity
             mNavigationView.setCheckedItem(R.id.nav_search);
         } else if (fragment instanceof AboutFragment) {
             mNavigationView.setCheckedItem(R.id.nav_about);
-        } else if (fragment instanceof PreferenceFragment) {
-            mNavigationView.setCheckedItem(R.id.nav_preferences);
+        //} else if (fragment instanceof PreferenceFragment) {
+        //    mNavigationView.setCheckedItem(R.id.nav_preferences);
         } else {
             mNavigationView.setCheckedItem(R.id.nav_empty);
         }
@@ -137,9 +137,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_search:
                 mFragmentManager.beginTransaction().replace(R.id.content_main, new SearchFragment()).addToBackStack(null).commit();
                 break;
-            case R.id.nav_preferences:
-                mFragmentManager.beginTransaction().replace(R.id.content_main, new PreferenceFragment()).addToBackStack(null).commit();
-                break;
+            //case R.id.nav_preferences:
+            //    mFragmentManager.beginTransaction().replace(R.id.content_main, new PreferenceFragment()).addToBackStack(null).commit();
+            //    break;
             case R.id.nav_suggested:
                 FavouritesFragment suggestedFragment = new FavouritesFragment();
                 Bundle suggestedBundle = new Bundle();
