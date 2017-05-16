@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity
 
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
-    @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
+    @BindView(R.id.nav_view) NavigationView mNavigationView;
     private Boolean isLoggedIn = false;
 
     private ImageView mImageView;
@@ -227,7 +226,7 @@ public class MainActivity extends AppCompatActivity
                 updateSelected(current);
 
                 Bundle extras = getIntent().getExtras();
-                if(extras != null) {
+                if (extras != null) {
                     String episodeId = extras.getString("episodeId", null);
                     if (episodeId != null) {
                         onFragmentInteraction(Integer.parseInt(episodeId));

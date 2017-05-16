@@ -54,14 +54,14 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     private Boolean isVisible = true;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
-    private SharedPreferences preferences;
+    private SharedPreferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         mOverlay = (RelativeLayout) findViewById(R.id.overlay);
         mCallbackManager = CallbackManager.Factory.create();
@@ -180,7 +180,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         mHomeIntent.putExtra("imageUrl", user.getPhotoUrl());
         mHomeIntent.putExtra("userName", user.getDisplayName());
         mHomeIntent.putExtra("email", user.getEmail());
-        UserId userId = new UserId(null, user.getUid(), TVTrackerFirebaseInstanceIDService.getToken());
+        UserId userId = new UserId(null, user.getUid(), TVTrackerFirebaseInstanceIDService.getToken(mPreferences));
         LoginController loginController = new LoginController(this);
         loginController.start();
         loginController.login(userId);
@@ -204,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     mHomeIntent.putExtra("imageUrl", object.getJSONObject("picture").getJSONObject("data").getString("url"));
                     mHomeIntent.putExtra("userName", object.getString("name"));
                     mHomeIntent.putExtra("email", object.getString("email"));
-                    UserId userId = new UserId(object.getString("id"), null, TVTrackerFirebaseInstanceIDService.getToken(preferences));
+                    UserId userId = new UserId(object.getString("id"), null, TVTrackerFirebaseInstanceIDService.getToken(mPreferences));
                     LoginController loginController = new LoginController(that);
                     loginController.start();
                     loginController.login(userId);

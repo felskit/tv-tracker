@@ -1,20 +1,18 @@
 package com.tvtracker;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import com.tvtracker.controllers.HomeController;
-import com.tvtracker.adapters.HomeAdapter;
-import com.tvtracker.interfaces.IHomeFragment;
-import com.tvtracker.models.HomeEpisode;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.tvtracker.adapters.HomeAdapter;
+import com.tvtracker.controllers.HomeController;
+import com.tvtracker.interfaces.IHomeFragment;
+import com.tvtracker.models.HomeEpisode;
 
 import java.util.ArrayList;
 import java.util.List;
