@@ -7,8 +7,7 @@ public class Episode {
     public String image;
     public String summary;
     public short runtime;
-    public String airdate;
-    public String airtime;
+    public String airstamp;
     public int season;
     public int episode;
     public String source;

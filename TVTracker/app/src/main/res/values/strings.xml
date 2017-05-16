@@ -64,10 +64,13 @@
         completions."
     </string>
 
-    <string name="about_info">This is some random about page. We use kuc industries API.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Cras tristique pellentesque nunc sed vehicula.
-        Nullam varius massa quis orci mattis malesuada.</string>
+    <string name="about_info">TVTracker is an app that helps you track your favourites TV shows
+        on your android devices. We provide convenient calendar and notifications an hour before episode
+        premiere, so you won\'t miss anything. \n\n\n
+        All data about TV programs is provided by TVmaze under the CC BY-SA license.
+        For more informations, news or discussions visit TVmaze website \n\n
+        http://www.tvmaze.com/
+    </string>
 
     <string name="network_dialog_title">Internet connection</string>
     <string name="network_dialog_message">TVTracker requires internet connection</string>

@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import com.tvtracker.controllers.EpisodesGetController;
 import com.tvtracker.interfaces.IEpisodesGetFragment;
 import com.tvtracker.models.Episode;
+import com.tvtracker.tools.DateConverter;
 import com.tvtracker.tools.ImageDownloader;
 
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,17 +78,20 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
                     AlertDialog.Builder builder = new AlertDialog.Builder(EpisodeDetailsFragment.this.getContext());
                     final AlertDialog dialog = builder.create();
                     ImageView imageView = new ImageView(EpisodeDetailsFragment.this.getContext());
-                    Bitmap bitmap = ((BitmapDrawable) mEpisodeImage.getDrawable()).getBitmap();
-                    imageView.setImageBitmap(bitmap);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    imageView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.hide();
-                        }
-                    });
-                    dialog.setView(imageView);
-                    dialog.show();
+                    BitmapDrawable drawable = ((BitmapDrawable) mEpisodeImage.getDrawable());
+                    if(drawable != null) {
+                        Bitmap bitmap = drawable.getBitmap();
+                        imageView.setImageBitmap(bitmap);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        imageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.hide();
+                            }
+                        });
+                        dialog.setView(imageView);
+                        dialog.show();
+                    }
                 }
             }
         });
@@ -94,18 +100,24 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        BitmapDrawable drawable = (BitmapDrawable)mEpisodeImage.getDrawable();
+        if(drawable != null) {
+            drawable.getBitmap().recycle();
+        }
         unbinder.unbind();
     }
 
     @Override
     public void setData(Episode episode) {
+        Date utcDate = DateConverter.ConvertToUTC(episode.airstamp);
+
         mEpisodeTitle.setText(episode.name);
-        mEpisodeSummary.setText(Html.fromHtml(episode.summary));
+        mEpisodeSummary.setText(episode.summary != null ? Html.fromHtml(episode.summary) : "");
         mSeriesTitle.setText(episode.showName);
         mSeriesSeason.setText(String.valueOf(episode.season));
         mSeriesEpisode.setText(String.valueOf(episode.episode));
-        mEpisodeAirdate.setText(episode.airdate);
-        mEpisodeAirtime.setText(episode.airtime);
+        mEpisodeAirdate.setText(DateConverter.getDate(utcDate));
+        mEpisodeAirtime.setText(DateConverter.getTime(utcDate));
         mEpisodeRuntime.setText(String.valueOf(episode.runtime));
         new ImageDownloader(mEpisodeImage).execute(episode.image);
     }

@@ -58,8 +58,6 @@ namespace TVTracker.WebAPI.Controllers
 					this.context.SaveChanges();
 				}
 				response = request.CreateResponse(HttpStatusCode.OK, new UserViewModel(userId));
-
-				Task.Run(() => TVTracker.WebAPI.WebApiApplication.sendNotification());
 				return response;
 			});
 		}

@@ -2,6 +2,7 @@ package com.tvtracker.tools;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
@@ -36,6 +37,10 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
     protected void onPostExecute(Bitmap result) {
         if (mCrop) {
             result = centerCropGravityBottom(result);
+        }
+        BitmapDrawable drawable = (BitmapDrawable)mImageView.getDrawable();
+        if (drawable != null) {
+            drawable.getBitmap().recycle();
         }
         mImageView.setImageBitmap(result);
     }

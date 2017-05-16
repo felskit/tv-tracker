@@ -1,6 +1,7 @@
 package com.tvtracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import com.tvtracker.controllers.LoginController;
 import com.tvtracker.interfaces.ILoginActivity;
 import com.tvtracker.models.UserId;
 
+import android.support.v7.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,12 +54,14 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     private Boolean isVisible = true;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         mOverlay = (RelativeLayout) findViewById(R.id.overlay);
         mCallbackManager = CallbackManager.Factory.create();
@@ -200,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     mHomeIntent.putExtra("imageUrl", object.getJSONObject("picture").getJSONObject("data").getString("url"));
                     mHomeIntent.putExtra("userName", object.getString("name"));
                     mHomeIntent.putExtra("email", object.getString("email"));
-                    UserId userId = new UserId(object.getString("id"), null, TVTrackerFirebaseInstanceIDService.getToken());
+                    UserId userId = new UserId(object.getString("id"), null, TVTrackerFirebaseInstanceIDService.getToken(preferences));
                     LoginController loginController = new LoginController(that);
                     loginController.start();
                     loginController.login(userId);

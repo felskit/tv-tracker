@@ -58,6 +58,6 @@ public class SeriesDetailsFragment extends Fragment implements ISeriesFragment {
         mSeriesNetwork.setText(show.network);
         mSeriesRuntime.setText(String.valueOf(show.runtime));
         mSeriesRating.setText(String.valueOf(show.rating));
-        mSeriesDescription.setText(Html.fromHtml(show.summary));
+        mSeriesDescription.setText(show.summary != null ? Html.fromHtml(show.summary) : "");
     }
 }
