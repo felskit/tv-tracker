@@ -2,6 +2,7 @@
     <string name="app_name">TV Tracker</string>
     <string name="facebook_app_id">643705419146820</string>
     <string name="fb_login_protocol_scheme">fb643705419146820</string>
+    <string name="google_login">Log in with Google</string>
 
     <string name="fragment_home">Home</string>
     <string name="fragment_calendar">Calendar</string>

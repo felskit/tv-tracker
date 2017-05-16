@@ -12,20 +12,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.tvtracker.controllers.ControllerConfig;
-import com.tvtracker.models.HomeEpisode;
-import com.tvtracker.models.ListShow;
-import com.tvtracker.seriesDetails.EpisodesListFragment;
-
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.facebook.login.widget.ProfilePictureView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.tvtracker.controllers.ControllerConfig;
+import com.tvtracker.models.HomeEpisode;
+import com.tvtracker.models.ListShow;
+import com.tvtracker.seriesDetails.EpisodesListFragment;
+import com.tvtracker.tools.ImageDownloader;
 import com.tvtracker.tools.NetworkStateReceiver;
 import com.tvtracker.tools.TVTrackerFirebaseInstanceIDService;
 
@@ -43,11 +43,9 @@ public class MainActivity extends AppCompatActivity
     NavigationView mNavigationView;
     private Boolean isLoggedIn = false;
 
-    private ProfilePictureView mPictureView;
+    private ImageView mImageView;
     private TextView mUsername;
     private TextView mEmail;
-    private String mFbUserId;
-    //private String mGoogleUserId;
 
     private int LOGIN_REQUEST_CODE = 1;
 
@@ -153,7 +151,14 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_logout:
                 isLoggedIn = false;
                 ControllerConfig.userId = 0;
+
+                mImageView.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
+                mUsername.setText("");
+                mEmail.setText("");
+
                 LoginManager.getInstance().logOut();
+                FirebaseAuth.getInstance().signOut();
+
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivityForResult(intent, 1);
                 break;
@@ -207,13 +212,14 @@ public class MainActivity extends AppCompatActivity
                 isLoggedIn = true;
                 TVTrackerFirebaseInstanceIDService.updateToken();
 
+                mImageView = (ImageView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
                 mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);
                 mEmail = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.email);
-                mFbUserId = data.getStringExtra("fbUserId");
 
-                mPictureView = (ProfilePictureView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
-                mPictureView.setProfileId(mFbUserId);
-
+                String url = data.getStringExtra("imageUrl");
+                if (url != null) {
+                    new ImageDownloader(mImageView).execute(url);
+                }
                 mUsername.setText(data.getStringExtra("userName"));
                 mEmail.setText(data.getStringExtra("email"));
 

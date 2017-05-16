@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "112730570002-0ev51gicnvr2uhhc0dicf6ss15kdg0e9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tvtracker",
+            "certificate_hash": "2d0622eada512484a44f37621f6291fdf5f8f67d"
+          }
+        },
+        {
+          "client_id": "112730570002-cqof45n17ua9edjf2qqrfbfgan49n5va.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tvtracker",
+            "certificate_hash": "8889bc09df2160342034ca56173055f8e420e60d"
+          }
+        },
+        {
           "client_id": "112730570002-l8nrgojs0ok7rsq86a3fsk7h0dqrl1rs.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112730570002-l8nrgojs0ok7rsq86a3fsk7h0dqrl1rs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
