@@ -4,16 +4,16 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.preference.PreferenceManager;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.tvtracker.MainActivity;
 import com.tvtracker.R;
+
+import java.util.Map;
 
 
 public class TVTrackerFirebaseMessagingService extends FirebaseMessagingService {
@@ -23,17 +23,17 @@ public class TVTrackerFirebaseMessagingService extends FirebaseMessagingService 
 
     @Override
     public void onMessageReceived(RemoteMessage message) {
-        //if(receiveNotifications()) {
             super.onMessageReceived(message);
             RemoteMessage.Notification notification = message.getNotification();
-            sendNotification(notification.getTitle(), notification.getBody());
-        //}
+            Map<String, String> data = message.getData();
+            sendNotification(notification.getTitle(), notification.getBody(), data.get("episodeId"));
     }
 
-    private void sendNotification(String messageTitle, String messageBody) {
+    private void sendNotification(String messageTitle, String messageBody, String episodeId) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+        intent.putExtra("episodeId", episodeId);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, id, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -49,10 +49,5 @@ public class TVTrackerFirebaseMessagingService extends FirebaseMessagingService 
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(id++, notificationBuilder.build());
-    }
-
-    private boolean receiveNotifications() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        return preferences.getBoolean(this.getString(R.string.pref_notifications), false);
     }
 }

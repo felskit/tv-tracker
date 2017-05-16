@@ -219,6 +219,15 @@ public class MainActivity extends AppCompatActivity
 
                 Fragment current = mFragmentManager.findFragmentById(R.id.content_main);
                 updateSelected(current);
+
+                Bundle extras = getIntent().getExtras();
+                if(extras != null) {
+                    String episodeId = extras.getString("episodeId", null);
+                    if (episodeId != null) {
+                        onFragmentInteraction(Integer.parseInt(episodeId));
+                        extras.remove("episodeId");
+                    }
+                }
             }
         }
     }

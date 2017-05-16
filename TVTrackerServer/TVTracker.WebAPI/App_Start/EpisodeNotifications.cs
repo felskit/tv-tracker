@@ -36,7 +36,7 @@ namespace TVTracker.WebAPI.App_Start
 					{
 						foreach (var token in userTokens)
 						{
-							sendNotification(episode.show.name, token.DeviceToken);
+							sendNotification(episode.show.name, token.DeviceToken, episode.id);
 						}
 					});
 				}
@@ -46,7 +46,7 @@ namespace TVTracker.WebAPI.App_Start
 			}
 		}
 
-		private static void sendNotification(string showTitle, string deviceId)
+		private static void sendNotification(string showTitle, string deviceId, int episodeId)
 		{
 			if (deviceId == null)
 			{
@@ -65,6 +65,10 @@ namespace TVTracker.WebAPI.App_Start
 						body = $"A new episode of {showTitle} is starting soon.",
 						title = "TVTracker",
 						sound = "Enabled"
+					},
+					data = new
+					{
+						episodeId = episodeId
 					}
 				};
 
