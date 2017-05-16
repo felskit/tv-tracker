@@ -102,6 +102,8 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
     public void onDestroyView() {
         super.onDestroyView();
         mAdapter.recycle();
+        mItems.clear();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

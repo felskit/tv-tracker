@@ -60,6 +60,8 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     public void onDestroyView() {
         super.onDestroyView();
         mAdapter.recycle();
+        mItems.clear();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
