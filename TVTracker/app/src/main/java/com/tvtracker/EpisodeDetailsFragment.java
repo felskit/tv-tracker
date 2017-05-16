@@ -105,7 +105,7 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
         Date utcDate = DateConverter.ConvertToUTC(episode.airstamp);
 
         mEpisodeTitle.setText(episode.name);
-        mEpisodeSummary.setText(Html.fromHtml(episode.summary));
+        mEpisodeSummary.setText(episode.summary != null ? Html.fromHtml(episode.summary) : "");
         mSeriesTitle.setText(episode.showName);
         mSeriesSeason.setText(String.valueOf(episode.season));
         mSeriesEpisode.setText(String.valueOf(episode.episode));

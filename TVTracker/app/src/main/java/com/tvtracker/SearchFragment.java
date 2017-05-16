@@ -45,7 +45,12 @@ public class SearchFragment extends Fragment implements ISearchFragment {
         mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, final String newQuery) {
-                mController.search(newQuery);
+                if (newQuery.length() >= 3) {
+                    mController.search(newQuery);
+                }
+                else {
+                    mSearchView.clearSuggestions();
+                }
             }
         });
 

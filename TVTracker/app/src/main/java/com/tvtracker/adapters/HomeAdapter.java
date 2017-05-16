@@ -67,7 +67,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public void setItem(HomeEpisode item) {
             new ImageDownloader(this.mThumbnailView, true).execute(item.image);
             this.mTitleView.setText(item.name);
-            this.mDescriptionView.setText(item.summary.replaceAll("<[^>]*>",""));
+            this.mDescriptionView.setText(item.summary != null ? item.summary.replaceAll("<[^>]*>","") : "");
             this.mItem = item;
         }
 
