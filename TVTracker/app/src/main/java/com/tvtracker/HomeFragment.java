@@ -37,12 +37,12 @@ public class HomeFragment extends Fragment implements IHomeFragment {
         // TODO
         mController = new HomeController(this);
         mController.start();
-        mController.getEpisodes();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        mController.getEpisodes();
 
         mActivity = (MainActivity) getActivity();
         mAdapter = new HomeAdapter(mActivity, mItems);
@@ -60,8 +60,6 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     public void onDestroyView() {
         super.onDestroyView();
         mAdapter.recycle();
-        mItems.clear();
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -79,6 +77,8 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        mItems.clear();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

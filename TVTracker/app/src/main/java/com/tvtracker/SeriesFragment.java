@@ -13,6 +13,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 import com.tvtracker.controllers.FavouritesPostController;
 import com.tvtracker.controllers.SeriesController;
 import com.tvtracker.interfaces.IPostFragment;
@@ -58,6 +60,10 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFr
         super.onCreate(savedInstanceState);
         mDetailsFragment = new SeriesDetailsFragment();
         mListFragment = new EpisodesListFragment();
+        mFavouritesController = new FavouritesPostController(this);
+        mFavouritesController.start();
+        mSeriesController = new SeriesController(this);
+        mSeriesController.start();
     }
 
     @Override
@@ -68,6 +74,7 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFr
         mUnbinder = ButterKnife.bind(this, view);
         Bundle arguments = getArguments();
         mSeriesId = arguments.getInt("seriesId");
+        mSeriesController.getSeries(mSeriesId);
         return view;
     }
 
@@ -80,13 +87,6 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFr
         mAdapter = new TabsAdapter(getChildFragmentManager(), getActivity(), mDetailsFragment, mListFragment);
         viewPager.setAdapter(mAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-        mFavouritesController = new FavouritesPostController(this);
-        mFavouritesController.start();
-
-        mSeriesController = new SeriesController(this);
-        mSeriesController.start();
-        mSeriesController.getSeries(mSeriesId);
 
         mSeriesImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +135,7 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFr
 
     @Override
     public void update(Show show) {
-        new ImageDownloader(mSeriesImage).execute(show.image);
+        Picasso.with(getContext()).load(show.image).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(mSeriesImage);
         seriesTitle.setText(show.name);
         mDetailsFragment.update(show);
         mListFragment.update(show);

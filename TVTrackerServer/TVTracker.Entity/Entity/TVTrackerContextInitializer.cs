@@ -28,6 +28,7 @@ namespace TVTracker.Entity.Entity
 
 			var seriesList = JsonConvert.DeserializeObject<Dictionary<string, long>>(responseString);
 			var idToAdd = new Queue<string>();
+			idToAdd.Enqueue("210");
 			foreach (var series in seriesList)
 			{
 				idToAdd.Enqueue(series.Key);
@@ -35,7 +36,7 @@ namespace TVTracker.Entity.Entity
 			while (idToAdd.Count > 0)
 			{
 				var seriesId = idToAdd.Dequeue();
-				if (seriesId == "2138")
+				if (seriesId == "50")
 					break;
 				try
 				{

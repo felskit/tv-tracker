@@ -69,7 +69,7 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
             mLayoutManager = new LinearLayoutManager(context);
             recyclerView.setLayoutManager(mLayoutManager);
 
-            mAdapter = new FavouriteAdapter(mItems, mListener, isSuggested);
+            mAdapter = new FavouriteAdapter(mItems, mListener, isSuggested, getContext());
             recyclerView.setAdapter(mAdapter);
             DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                     mLayoutManager.getOrientation());
@@ -102,9 +102,8 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
     public void onDestroyView() {
         super.onDestroyView();
         mAdapter.recycle();
-        mItems.clear();
-        mAdapter.notifyDataSetChanged();
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -121,6 +120,8 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        mItems.clear();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

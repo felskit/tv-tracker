@@ -57,7 +57,7 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
             y = 0;
             width = height * 16 / 9;
         }
-        Bitmap result = Bitmap.createBitmap(source, x, y, width, height);
+        Bitmap result = Bitmap.createBitmap(source, x, y, x + width <= source.getWidth() ? width : source.getWidth() - x, height);
         if (result != source) {
             source.recycle();
         }

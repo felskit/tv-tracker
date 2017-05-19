@@ -6,6 +6,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 import com.tvtracker.controllers.EpisodesGetController;
 import com.tvtracker.interfaces.IEpisodesGetFragment;
 import com.tvtracker.models.Episode;
@@ -119,6 +121,6 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
         mEpisodeAirdate.setText(DateConverter.getDate(utcDate));
         mEpisodeAirtime.setText(DateConverter.getTime(utcDate));
         mEpisodeRuntime.setText(String.valueOf(episode.runtime));
-        new ImageDownloader(mEpisodeImage).execute(episode.image);
+        Picasso.with(getContext()).load(episode.image).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(mEpisodeImage);
     }
 }
