@@ -121,7 +121,9 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
         super.onDetach();
         mListener = null;
         mItems.clear();
-        mAdapter.notifyDataSetChanged();
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

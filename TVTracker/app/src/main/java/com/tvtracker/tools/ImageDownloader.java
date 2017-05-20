@@ -38,10 +38,6 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
         if (mCrop) {
             result = centerCropGravityBottom(result);
         }
-        BitmapDrawable drawable = (BitmapDrawable)mImageView.getDrawable();
-        if (drawable != null) {
-            drawable.getBitmap().recycle();
-        }
         mImageView.setImageBitmap(result);
     }
 

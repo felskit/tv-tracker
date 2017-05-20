@@ -78,7 +78,9 @@ public class HomeFragment extends Fragment implements IHomeFragment {
         super.onDetach();
         mListener = null;
         mItems.clear();
-        mAdapter.notifyDataSetChanged();
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.squareup.picasso.Picasso;
 import com.tvtracker.controllers.ControllerConfig;
 import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.models.ListShow;
@@ -34,7 +35,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnHomeFragmentInteractionListener,
-        EpisodesListFragment.OnEpisodeInteractionListener, FragmentManager.OnBackStackChangedListener,
+        EpisodesListFragment.OnEpisodeInteractionListener,
         FavouritesFragment.OnListFragmentInteractionListener, SearchFragment.OnSearchFragmentInteractionListener {
 
     private FragmentManager mFragmentManager;
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_logout:
                 isLoggedIn = false;
-                ControllerConfig.userId = 0;
+                ControllerConfig.userId = -1;
 
                 mImageView.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
                 mUsername.setText("");
@@ -162,7 +163,6 @@ public class MainActivity extends AppCompatActivity
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
-                Runtime.getRuntime().exit(0);
                 break;
         }
 
@@ -175,11 +175,6 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(HomeEpisode item) {
         //TODO change 1 to item.getId when it will be valid id
         onSearchFragmentInteraction(item.showId);
-    }
-
-    @Override
-    public void onBackStackChanged() {
-
     }
 
     @Override
@@ -220,7 +215,7 @@ public class MainActivity extends AppCompatActivity
 
                 String url = data.getStringExtra("imageUrl");
                 if (url != null) {
-                    new ImageDownloader(mImageView).execute(url);
+                    Picasso.with(this).load(url).into(mImageView);
                 }
                 mUsername.setText(data.getStringExtra("userName"));
                 mEmail.setText(data.getStringExtra("email"));
