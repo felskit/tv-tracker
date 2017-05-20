@@ -12,7 +12,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public class HomeController implements Callback<HomeEpisode[]> {
@@ -52,7 +54,7 @@ public class HomeController implements Callback<HomeEpisode[]> {
     }
 
     private interface HomeAPI {
-        @GET("home")
-        Call<HomeEpisode[]> getEpisodes(@Query("userId") int id);
+        @POST("home")
+        Call<HomeEpisode[]> getEpisodes(@Body int id);
     }
 }

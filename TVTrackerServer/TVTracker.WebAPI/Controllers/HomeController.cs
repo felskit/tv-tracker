@@ -27,8 +27,9 @@ namespace TVTracker.WebAPI.Controllers
 		}
 
 		[RequireHttps]
+		[HttpPost]
 		[AllowAnonymous]
-		public async Task<HttpResponseMessage> GetEpisodes(HttpRequestMessage request, int userId)
+		public async Task<HttpResponseMessage> GetEpisodes(HttpRequestMessage request, [FromBody] int userId)
 		{
 			return await CreateHttpResponse(request, async () =>
 			{

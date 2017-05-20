@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FirebaseInstanceIdService service = new TVTrackerFirebaseInstanceIDService();
-
         NetworkStateReceiver networkStateReceiver = new NetworkStateReceiver(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
 

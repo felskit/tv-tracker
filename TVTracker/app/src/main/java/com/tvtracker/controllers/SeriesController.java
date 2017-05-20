@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tvtracker.interfaces.ISeriesFragment;
+import com.tvtracker.models.GetShowData;
 import com.tvtracker.models.Show;
 
 import retrofit2.Call;
@@ -12,7 +13,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -47,12 +50,12 @@ public class SeriesController implements Callback<Show> {
     }
 
     public void getSeries(int id) {
-        Call<Show> call = mAPI.getSeries(id, ControllerConfig.userId);
+        Call<Show> call = mAPI.getSeries(new GetShowData(id, ControllerConfig.userId));
         call.enqueue(this);
     }
 
     private interface SeriesAPI {
-        @GET("shows/{id}")
-        Call<Show> getSeries(@Path("id") int id, @Query("userId") int userId);
+        @POST("shows")
+        Call<Show> getSeries(@Body GetShowData data);
     }
 }
