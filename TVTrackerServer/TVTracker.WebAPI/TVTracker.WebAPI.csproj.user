@@ -4,6 +4,7 @@
     <UseIISExpress>true</UseIISExpress>
     <ProjectView>ProjectFiles</ProjectView>
     <NameOfLastUsedPublishProfile>test</NameOfLastUsedPublishProfile>
+    <IISExpressSSLPort>44347</IISExpressSSLPort>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

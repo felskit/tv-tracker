@@ -1,5 +1,6 @@
 package com.tvtracker.controllers;
 
+import android.content.Context;
 import android.support.v7.app.AlertDialog;
 
 import com.tvtracker.LoginActivity;
@@ -25,9 +26,11 @@ public class LoginController implements Callback<User> {
     private ILoginActivity mActivity;
     private AlertDialog dialog;
     private UserId userId;
+    private Context mContext;
 
-    public LoginController(LoginActivity loginActivity) {
+    public LoginController(LoginActivity loginActivity, Context context) {
         mActivity = loginActivity;
+        mContext = context;
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(loginActivity);
         alertDialogBuilder.setTitle(loginActivity.getString(R.string.login_dialog_title));
@@ -38,9 +41,7 @@ public class LoginController implements Callback<User> {
     }
 
     public void start() {
-        Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson)).build();
+        Retrofit retrofit = ControllerConfig.getRetrofit(mContext);
         mAPI = retrofit.create(LoginAPI.class);
     }
 

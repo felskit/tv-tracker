@@ -44,7 +44,7 @@ public class EpisodesListFragment extends Fragment implements ISeriesFragment, I
 
         // Set the mAdapter
         if (view instanceof RecyclerView) {
-            mEpisodesController = new EpisodesPostController(this);
+            mEpisodesController = new EpisodesPostController(this, getContext());
             mEpisodesController.start();
 
             Context context = view.getContext();

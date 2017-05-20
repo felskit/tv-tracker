@@ -26,6 +26,7 @@ namespace TVTracker.WebAPI.Controllers
 			this.context = context;
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		public async Task<HttpResponseMessage> GetEpisodes(HttpRequestMessage request, int userId)
 		{

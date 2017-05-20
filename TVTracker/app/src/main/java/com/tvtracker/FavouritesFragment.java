@@ -44,10 +44,10 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
         mItems = new ArrayList<>();
 
         // TODO
-        mGetController = new FavouritesGetController(this);
+        mGetController = new FavouritesGetController(this, getContext());
         mGetController.start();
 
-        mPostController = new FavouritesPostController(this);
+        mPostController = new FavouritesPostController(this, getContext());
         mPostController.start();
     }
 

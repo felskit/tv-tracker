@@ -1,5 +1,7 @@
 package com.tvtracker.controllers;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tvtracker.interfaces.ICalendarFragment;
@@ -17,15 +19,15 @@ public class CalendarController implements Callback<CalendarEpisode[]> {
     private ControllerConfig mConfig = new ControllerConfig();
     private CalendarAPI mAPI;
     private ICalendarFragment mFragment;
+    private Context mContext;
 
-    public CalendarController(ICalendarFragment fragment) {
+    public CalendarController(ICalendarFragment fragment, Context context) {
         mFragment = fragment;
+        mContext = context;
     }
 
     public void start() {
-        Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson)).build();
+        Retrofit retrofit = ControllerConfig.getRetrofit(mContext);
         mAPI = retrofit.create(CalendarAPI.class);
     }
 

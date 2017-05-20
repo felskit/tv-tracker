@@ -21,6 +21,7 @@ namespace TVTracker.WebAPI.Controllers
 			this.context = context;
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		[Route("{id:int}")]
 		public async Task<HttpResponseMessage> GetEpisode(HttpRequestMessage request, int id)
@@ -36,6 +37,7 @@ namespace TVTracker.WebAPI.Controllers
 			});
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		[Route("watched")]
 		[HttpPost]

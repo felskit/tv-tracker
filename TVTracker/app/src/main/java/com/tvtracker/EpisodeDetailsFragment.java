@@ -48,7 +48,7 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller = new EpisodesGetController(this);
+        controller = new EpisodesGetController(this, getContext());
         controller.start();
     }
 

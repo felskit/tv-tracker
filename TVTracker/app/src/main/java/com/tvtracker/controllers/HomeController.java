@@ -1,5 +1,7 @@
 package com.tvtracker.controllers;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tvtracker.interfaces.IHomeFragment;
@@ -17,15 +19,15 @@ public class HomeController implements Callback<HomeEpisode[]> {
     private ControllerConfig mConfig = new ControllerConfig();
     private HomeAPI mAPI;
     private IHomeFragment mFragment;
+    private Context mContext;
 
-    public HomeController(IHomeFragment fragment) {
+    public HomeController(IHomeFragment fragment, Context context) {
         mFragment = fragment;
+        mContext = context;
     }
 
     public void start() {
-        Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson)).build();
+        Retrofit retrofit = ControllerConfig.getRetrofit(mContext);
         mAPI = retrofit.create(HomeAPI.class);
     }
 

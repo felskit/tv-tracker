@@ -24,6 +24,7 @@ namespace TVTracker.WebAPI.Controllers
 			this.context = context;
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		public async Task<HttpResponseMessage> GetFavourites(HttpRequestMessage request, int userId)
 		{
@@ -38,6 +39,7 @@ namespace TVTracker.WebAPI.Controllers
 			});
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		[HttpPost]
 		[Route("add")]

@@ -24,6 +24,7 @@ namespace TVTracker.WebAPI.Controllers
 			this.context = context;
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		[HttpPost]
 		public async Task<HttpResponseMessage> Login(HttpRequestMessage request, UserIdViewModel data)
@@ -62,6 +63,7 @@ namespace TVTracker.WebAPI.Controllers
 			});
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		[HttpPost]
 		[Route("updateToken")]

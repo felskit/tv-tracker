@@ -27,6 +27,7 @@ namespace TVTracker.WebAPI.Controllers
 			this.context = context;
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		public async Task<HttpResponseMessage> GetSuggested(HttpRequestMessage request, int userId)
 		{

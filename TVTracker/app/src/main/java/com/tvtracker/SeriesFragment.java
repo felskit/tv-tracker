@@ -58,9 +58,9 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFr
         super.onCreate(savedInstanceState);
         mDetailsFragment = new SeriesDetailsFragment();
         mListFragment = new EpisodesListFragment();
-        mFavouritesController = new FavouritesPostController(this);
+        mFavouritesController = new FavouritesPostController(this, getContext());
         mFavouritesController.start();
-        mSeriesController = new SeriesController(this);
+        mSeriesController = new SeriesController(this, getContext());
         mSeriesController.start();
     }
 

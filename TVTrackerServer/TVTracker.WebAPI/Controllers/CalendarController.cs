@@ -24,6 +24,7 @@ namespace TVTracker.WebAPI.Controllers
 			this.context = context;
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		public async Task<HttpResponseMessage> GetCalendar(HttpRequestMessage request, int userId, int month, int year)
 		{
