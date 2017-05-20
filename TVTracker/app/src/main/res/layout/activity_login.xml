@@ -9,17 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_margin="64dp">
+        android:layout_margin="@dimen/login_margin">
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_margin="3dp"
-            android:paddingBottom="12dp"
-            android:paddingLeft="14dp"
-            android:paddingTop="12dp" />
+            android:layout_margin="@dimen/fb_login_margin"
+            android:paddingBottom="@dimen/fb_login_padding_top_bottom"
+            android:paddingLeft="@dimen/fb_login_padding_left"
+            android:paddingTop="@dimen/fb_login_padding_top_bottom" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"

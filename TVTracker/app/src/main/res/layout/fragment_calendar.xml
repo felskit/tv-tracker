@@ -3,24 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.tvtracker.com.tvtracker.CalendarFragment">
+    tools:context="com.tvtracker.CalendarFragment">
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:columnGap="8dp"
-        app:dayBackgroundColor="#05000000"
+        app:columnGap="@dimen/calendar_column_padding"
+        app:dayBackgroundColor="@color/calendar_day_background"
         app:eventTextColor="@android:color/white"
         app:headerColumnBackground="@color/colorPrimary"
-        app:headerColumnPadding="8dp"
+        app:headerColumnPadding="@dimen/calendar_column_padding"
         app:headerColumnTextColor="@android:color/white"
         app:headerRowBackgroundColor="@color/colorPrimary"
-        app:headerRowPadding="12dp"
-        app:hourHeight="60dp"
+        app:headerRowPadding="@dimen/calendar_row_padding"
+        app:hourHeight="@dimen/calendar_hour_height"
         app:noOfVisibleDays="3"
-        app:textSize="12sp"
-        app:todayBackgroundColor="#20595959"
+        app:textSize="@dimen/calendar_text_size"
+        app:todayBackgroundColor="@color/calendar_today_background"
         app:todayHeaderTextColor="@color/colorAccent" />
 
 </FrameLayout>

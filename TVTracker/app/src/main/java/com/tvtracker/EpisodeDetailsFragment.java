@@ -1,19 +1,9 @@
 package com.tvtracker;
 
-
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
-import com.tvtracker.controllers.EpisodesGetController;
-import com.tvtracker.interfaces.IEpisodesGetFragment;
-import com.tvtracker.models.Episode;
-import com.tvtracker.tools.DateConverter;
-import com.tvtracker.tools.ImageDownloader;
-
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -23,16 +13,19 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
+import com.tvtracker.controllers.EpisodesGetController;
+import com.tvtracker.interfaces.IEpisodesGetFragment;
+import com.tvtracker.models.Episode;
+import com.tvtracker.tools.DateConverter;
+
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFragment {
 
     @BindView(R.id.episode_image) ImageView mEpisodeImage;

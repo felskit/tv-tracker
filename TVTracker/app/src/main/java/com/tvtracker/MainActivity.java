@@ -22,11 +22,9 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.squareup.picasso.Picasso;
-import com.tvtracker.controllers.ControllerConfig;
 import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.models.ListShow;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
-import com.tvtracker.tools.ImageDownloader;
 import com.tvtracker.tools.NetworkStateReceiver;
 import com.tvtracker.tools.TVTrackerFirebaseInstanceIDService;
 
@@ -149,12 +147,11 @@ public class MainActivity extends AppCompatActivity
                 mFragmentManager.beginTransaction().replace(R.id.content_main, new AboutFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_logout:
-                isLoggedIn = false;
-                ControllerConfig.userId = -1;
-
-                mImageView.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
-                mUsername.setText("");
-                mEmail.setText("");
+                //isLoggedIn = false;
+                //ControllerConfig.userId = -1;
+                //mImageView.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
+                //mUsername.setText("");
+                //mEmail.setText("");
 
                 LoginManager.getInstance().logOut();
                 FirebaseAuth.getInstance().signOut();

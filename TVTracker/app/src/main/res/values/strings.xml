@@ -38,7 +38,7 @@
     <string name="episode_number">Episode:\u0020</string>
     <string name="episode_airdate">Airdate:\u0020</string>
     <string name="episode_runtime">Runtime:\u0020</string>
-    <string name="episode_runtime_unit">\u0020 minutes</string>
+    <string name="episode_runtime_unit">\u0020minutes</string>
 
     <!-- Strings related to series details -->
     <string name="series_info">Series info</string>
@@ -48,7 +48,7 @@
     <string name="series_status">Status:\u0020</string>
     <string name="series_network">Network:\u0020</string>
     <string name="series_runtime">Runtime:\u0020</string>
-    <string name="series_runtime_unit">\u0020 minutes</string>
+    <string name="series_runtime_unit">\u0020minutes</string>
     <string name="series_rating">Rating:\u0020</string>
 
     <!-- Strings related to login -->
@@ -65,11 +65,10 @@
     </string>
 
     <string name="about_info">TVTracker is an app that helps you track your favourites TV shows
-        on your android devices. We provide convenient calendar and notifications an hour before episode
-        premiere, so you won\'t miss anything. \n\n\n
-        All data about TV programs is provided by TVmaze under the CC BY-SA license.
-        For more informations, news or discussions visit TVmaze website \n\n
-        http://www.tvmaze.com/
+        on your Android devices. We provide convenient calendar and notifications an hour before
+        episode premiere, so you won\'t miss anything.\n\nAll data about TV programs is provided
+        by TVmaze under the CC BY-SA license. For more informations, news or discussions visit
+        TVmaze website\n\nhttp://www.tvmaze.com/
     </string>
 
     <string name="network_dialog_title">Internet connection</string>

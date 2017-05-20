@@ -6,4 +6,7 @@
     <color name="background_material_dark_1">#e7e7e7</color>
     <color name="primary_material_dark_1">#1a1a1a</color>
     <color name="background_material_dark">#f0f0f0</color>
+
+    <color name="calendar_day_background">#05000000</color>
+    <color name="calendar_today_background">#20595959</color>
 </resources>

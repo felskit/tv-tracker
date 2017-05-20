@@ -89,7 +89,7 @@ public class EpisodesListFragment extends Fragment implements ISeriesFragment, I
 
     @Override
     public void notify(String message, int position) {
-        Snackbar.make(getActivity().findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_LONG).show();
+        //Snackbar.make(getActivity().findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_LONG).show();
         ShowEpisode episode = mItems.get(position);
         episode.watched = !episode.watched;
     }
