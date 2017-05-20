@@ -1,5 +1,7 @@
 package com.tvtracker.controllers;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tvtracker.models.DeviceToken;
@@ -19,13 +21,14 @@ import retrofit2.http.POST;
 public class TokenController implements Callback<String> {
     private ControllerConfig mConfig = new ControllerConfig();
     private TokenAPI mAPI;
+    private Context mContext;
 
-    public TokenController(){}
+    public TokenController(Context context){
+        mContext = context;
+    }
 
     public void start() {
-        Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson)).build();
+        Retrofit retrofit = ControllerConfig.getRetrofit(mContext);
         mAPI = retrofit.create(TokenAPI.class);
     }
 

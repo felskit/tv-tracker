@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment implements IHomeFragment {
         mItems = new ArrayList<>();
 
         // TODO
-        mController = new HomeController(this);
+        mController = new HomeController(this, getContext());
         mController.start();
     }
 

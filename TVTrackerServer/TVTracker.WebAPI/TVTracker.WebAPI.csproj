@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44347</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -233,6 +233,7 @@
     <Compile Include="Infrastructure\ApiControllerBase.cs" />
     <Compile Include="Infrastructure\Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\Mappings\DomainToViewModelMappingProfile.cs" />
+    <Compile Include="Infrastructure\RequireHttpsAttribute.cs" />
     <Compile Include="Models\CalendarEpisodeViewModel.cs" />
     <Compile Include="Models\EpisodeViewModel.cs" />
     <Compile Include="Models\FavouritesViewModel.cs" />

@@ -25,6 +25,7 @@ namespace TVTracker.WebAPI.Controllers
 			this.context = context;
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		[Route("list/{filter}")]
 		public async Task<HttpResponseMessage> GetFilteredList(HttpRequestMessage request, string filter)
@@ -40,6 +41,7 @@ namespace TVTracker.WebAPI.Controllers
 			});
 		}
 
+		[RequireHttps]
 		[AllowAnonymous]
 		[Route("{id:int}")]
 		public async Task<HttpResponseMessage> GetShow(HttpRequestMessage request, int id, int userId)

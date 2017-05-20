@@ -181,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         mHomeIntent.putExtra("userName", user.getDisplayName());
         mHomeIntent.putExtra("email", user.getEmail());
         UserId userId = new UserId(null, user.getUid(), TVTrackerFirebaseInstanceIDService.getToken(mPreferences));
-        LoginController loginController = new LoginController(this);
+        LoginController loginController = new LoginController(this, this);
         loginController.start();
         loginController.login(userId);
     }
@@ -205,7 +205,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     mHomeIntent.putExtra("userName", object.getString("name"));
                     mHomeIntent.putExtra("email", object.getString("email"));
                     UserId userId = new UserId(object.getString("id"), null, TVTrackerFirebaseInstanceIDService.getToken(mPreferences));
-                    LoginController loginController = new LoginController(that);
+                    LoginController loginController = new LoginController(that, that);
                     loginController.start();
                     loginController.login(userId);
                 } catch (JSONException e) {

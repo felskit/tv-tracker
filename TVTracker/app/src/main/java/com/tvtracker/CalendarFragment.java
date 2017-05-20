@@ -42,7 +42,7 @@ public class CalendarFragment extends Fragment implements WeekView.EventClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller = new CalendarController(this);
+        controller = new CalendarController(this, getContext());
         controller.start();
     }
 

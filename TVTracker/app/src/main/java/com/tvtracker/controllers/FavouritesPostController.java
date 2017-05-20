@@ -1,5 +1,7 @@
 package com.tvtracker.controllers;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tvtracker.interfaces.IPostFragment;
@@ -17,15 +19,15 @@ public class FavouritesPostController implements Callback<String> {
     private ControllerConfig mConfig = new ControllerConfig();
     private FavouritesPostAPI mAPI;
     private IPostFragment mFragment;
+    private Context mContext;
 
-    public FavouritesPostController(IPostFragment fragment) {
+    public FavouritesPostController(IPostFragment fragment, Context context) {
         mFragment = fragment;
+        mContext = context;
     }
 
     public void start() {
-        Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson)).build();
+        Retrofit retrofit = ControllerConfig.getRetrofit(mContext);
         mAPI = retrofit.create(FavouritesPostAPI.class);
     }
 

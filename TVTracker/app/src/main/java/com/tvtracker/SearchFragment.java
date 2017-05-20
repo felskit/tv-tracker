@@ -40,7 +40,7 @@ public class SearchFragment extends Fragment implements ISearchFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mController = new SearchController(this);
+        mController = new SearchController(this, getContext());
         mController.start();
         mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override

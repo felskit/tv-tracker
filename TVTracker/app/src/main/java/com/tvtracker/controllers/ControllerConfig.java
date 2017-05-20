@@ -1,10 +1,22 @@
 package com.tvtracker.controllers;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.tvtracker.tools.ConfiguredHttpClient;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ControllerConfig {
-    private static final String baseApiUrl = "http://192.168.1.3/tvtracker/api/";
+    private static final String baseApiUrl = "https://192.168.1.3/tvtracker/api/";
     public static int userId = -1;
 
-    public String getBaseApiUrl() {
-        return baseApiUrl;
+    public static Retrofit getRetrofit(Context context) {
+        Gson gson = new GsonBuilder().setLenient().create();
+        return new Retrofit.Builder().client(ConfiguredHttpClient.getHttpClient(context))
+                .baseUrl(baseApiUrl)
+                .addConverterFactory(GsonConverterFactory.create(gson)).build();
     }
 }

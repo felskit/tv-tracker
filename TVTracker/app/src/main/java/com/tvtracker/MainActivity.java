@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 isLoggedIn = true;
-                TVTrackerFirebaseInstanceIDService.updateToken();
+                TVTrackerFirebaseInstanceIDService.updateToken(this);
 
                 mImageView = (ImageView) mNavigationView.getHeaderView(0).findViewById(R.id.profilePicture);
                 mUsername = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.username);

@@ -1,5 +1,6 @@
 package com.tvtracker.tools;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 
@@ -27,10 +28,10 @@ public class TVTrackerFirebaseInstanceIDService extends FirebaseInstanceIdServic
         saveTokenToPrefs(currentToken);
     }
 
-    public static void updateToken() {
+    public static void updateToken(Context context) {
         if(tokenChanged) {
             if(controller == null) {
-                controller = new TokenController();
+                controller = new TokenController(context);
                 controller.start();
             }
             controller.updateToken(oldToken, currentToken);

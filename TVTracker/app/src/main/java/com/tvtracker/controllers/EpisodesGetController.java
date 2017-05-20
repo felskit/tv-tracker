@@ -1,5 +1,7 @@
 package com.tvtracker.controllers;
 
+import android.content.Context;
+
 import com.tvtracker.interfaces.IEpisodesGetFragment;
 import com.tvtracker.models.Episode;
 
@@ -18,15 +20,15 @@ public class EpisodesGetController implements Callback<Episode> {
     private ControllerConfig mConfig = new ControllerConfig();
     private EpisodesGetAPI mAPI;
     private IEpisodesGetFragment mFragment;
+    private Context mContext;
 
-    public EpisodesGetController(IEpisodesGetFragment fragment) {
+    public EpisodesGetController(IEpisodesGetFragment fragment, Context context) {
         mFragment = fragment;
+        mContext = context;
     }
 
     public void start() {
-        Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(mConfig.getBaseApiUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson)).build();
+        Retrofit retrofit = ControllerConfig.getRetrofit(mContext);
         mAPI = retrofit.create(EpisodesGetAPI.class);
     }
 
