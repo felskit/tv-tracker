@@ -42,18 +42,18 @@ namespace TVTracker.WebAPI.Controllers
 		}
 
 		[RequireHttps]
+		[HttpPost]
 		[AllowAnonymous]
-		[Route("{id:int}")]
-		public async Task<HttpResponseMessage> GetShow(HttpRequestMessage request, int id, int userId)
+		public async Task<HttpResponseMessage> GetShow(HttpRequestMessage request, GetShowDataViewModel data)
 		{
 			return await CreateHttpResponse(request, async () =>
 			{
 				HttpResponseMessage response = null;
-				var show = await this.context.Shows.Where(x => x.id == id).SingleAsync();
+				var show = await this.context.Shows.Where(x => x.id == data.id).SingleAsync();
 				var showVm = Mapper.Map<ShowViewModel>(show);
 				foreach (var episode in showVm.episodes)
 				{
-					if (context.WatchedEpisodes.SingleOrDefault(x => x.userId == userId && x.episodeId == episode.id) != null)
+					if (context.WatchedEpisodes.SingleOrDefault(x => x.userId == data.userId && x.episodeId == episode.id) != null)
 					{
 						episode.watched = true;
 					}

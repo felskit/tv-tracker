@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tvtracker.interfaces.ICalendarFragment;
+import com.tvtracker.models.CalendarData;
 import com.tvtracker.models.CalendarEpisode;
 
 import retrofit2.Call;
@@ -12,7 +13,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public class CalendarController implements Callback<CalendarEpisode[]> {
@@ -47,12 +50,12 @@ public class CalendarController implements Callback<CalendarEpisode[]> {
     }
 
     public void getEpisodes(int month, int year) {
-        Call<CalendarEpisode[]> call = mAPI.getEpisodes(month, year, ControllerConfig.userId);
+        Call<CalendarEpisode[]> call = mAPI.getEpisodes(new CalendarData(ControllerConfig.userId, month, year));
         call.enqueue(this);
     }
 
     private interface CalendarAPI {
-        @GET("calendar")
-        Call<CalendarEpisode[]> getEpisodes(@Query("month") int month, @Query("year") int year, @Query("userId") int userId);
+        @POST("calendar")
+        Call<CalendarEpisode[]> getEpisodes(@Body CalendarData data);
     }
 }

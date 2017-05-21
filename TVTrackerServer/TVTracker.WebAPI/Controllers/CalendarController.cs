@@ -25,15 +25,17 @@ namespace TVTracker.WebAPI.Controllers
 		}
 
 		[RequireHttps]
+		[HttpPost]
 		[AllowAnonymous]
-		public async Task<HttpResponseMessage> GetCalendar(HttpRequestMessage request, int userId, int month, int year)
+		public async Task<HttpResponseMessage> GetCalendar(HttpRequestMessage request, CalendarDataViewModel data)
 		{
 			return await CreateHttpResponse(request, async () =>
 			{
 				HttpResponseMessage response = null;
-				var favourites = this.context.Favourites.Where(x => x.UserId == userId);
+				var favourites = this.context.Favourites.Where(x => x.UserId == data.userId);
 				var episodes = await this.context.Episodes.Where(x => favourites.Any(y => y.ShowId == x.ShowId) &&
-																 x.airstamp.HasValue && x.airstamp.Value.Month == month && x.airstamp.Value.Year == year).ToListAsync();
+																 x.airstamp.HasValue && x.airstamp.Value.Month == data.month && x.airstamp.Value.Year == data.year).ToListAsync();
+				episodes = episodes.GroupBy(x => new { x.ShowId, x.airstamp }).Select(x => x.OrderBy(y => y.number).First()).ToList();
 				var episodesVm = Mapper.Map<List<CalendarEpisodeViewModel>>(episodes);
 				response = request.CreateResponse(HttpStatusCode.OK, episodesVm);
 

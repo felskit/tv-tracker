@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.models.ListShow;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
@@ -41,8 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
-    @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
+    @BindView(R.id.nav_view) NavigationView mNavigationView;
     private Boolean isLoggedIn = false;
 
     private ImageView mImageView;
@@ -59,8 +57,6 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FirebaseInstanceIdService service = new TVTrackerFirebaseInstanceIDService();
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         ImageDownloader.init((WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE),

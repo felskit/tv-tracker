@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import com.tvtracker.controllers.FavouritesGetController;
+import com.tvtracker.controllers.FavouritesController;
 import com.tvtracker.controllers.FavouritesPostController;
 import com.tvtracker.adapters.FavouriteAdapter;
 import com.tvtracker.interfaces.IFavouritesGetFragment;
@@ -29,7 +29,7 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
     private List<ListShow> mItems;
     private LinearLayoutManager mLayoutManager;
     private boolean isSuggested = false;
-    private FavouritesGetController mGetController;
+    private FavouritesController mGetController;
     private FavouritesPostController mPostController;
     private FavouriteAdapter mAdapter;
 
@@ -44,7 +44,7 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
         mItems = new ArrayList<>();
 
         // TODO
-        mGetController = new FavouritesGetController(this, getContext());
+        mGetController = new FavouritesController(this, getContext());
         mGetController.start();
 
         mPostController = new FavouritesPostController(this, getContext());

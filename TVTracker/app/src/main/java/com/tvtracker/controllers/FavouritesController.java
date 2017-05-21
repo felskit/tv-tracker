@@ -12,16 +12,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-public class FavouritesGetController implements Callback<ListShow[]> {
+public class FavouritesController implements Callback<ListShow[]> {
     private ControllerConfig mConfig = new ControllerConfig();
     private FavouritesGetAPI mAPI;
     private IFavouritesGetFragment mFragment;
     private Context mContext;
 
-    public FavouritesGetController(IFavouritesGetFragment fragment, Context context) {
+    public FavouritesController(IFavouritesGetFragment fragment, Context context) {
         mFragment = fragment;
         mContext = context;
     }
@@ -57,10 +59,10 @@ public class FavouritesGetController implements Callback<ListShow[]> {
     }
 
     private interface FavouritesGetAPI {
-        @GET("favourites")
-        Call<ListShow[]> getFavourites(@Query("userId") int id);
+        @POST("favourites")
+        Call<ListShow[]> getFavourites(@Body int id);
 
-        @GET("suggested")
-        Call<ListShow[]> getSuggested(@Query("userId") int id);
+        @POST("suggested")
+        Call<ListShow[]> getSuggested(@Body int id);
     }
 }

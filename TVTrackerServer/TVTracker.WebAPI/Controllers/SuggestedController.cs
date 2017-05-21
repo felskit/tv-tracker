@@ -28,8 +28,9 @@ namespace TVTracker.WebAPI.Controllers
 		}
 
 		[RequireHttps]
+		[HttpPost]
 		[AllowAnonymous]
-		public async Task<HttpResponseMessage> GetSuggested(HttpRequestMessage request, int userId)
+		public async Task<HttpResponseMessage> GetSuggested(HttpRequestMessage request, [FromBody] int userId)
 		{
 			return await CreateHttpResponse(request, async () =>
 			{
