@@ -20,8 +20,6 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 import com.tvtracker.controllers.FavouritesPostController;
 import com.tvtracker.controllers.SeriesController;
 import com.tvtracker.interfaces.IPostFragment;
@@ -29,6 +27,7 @@ import com.tvtracker.interfaces.ISeriesFragment;
 import com.tvtracker.models.Show;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
 import com.tvtracker.seriesDetails.SeriesDetailsFragment;
+import com.tvtracker.tools.ImageDownloader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -133,7 +132,7 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFr
 
     @Override
     public void update(Show show) {
-        Picasso.with(getContext()).load(show.image).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(mSeriesImage);
+        ImageDownloader.execute(getContext(), show.image, true, mSeriesImage);
         seriesTitle.setText(show.name);
         mDetailsFragment.update(show);
         mListFragment.update(show);

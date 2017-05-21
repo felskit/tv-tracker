@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <CheckBoxPreference
+    <ListPreference
         android:defaultValue="true"
-        android:key="strings/pref_notifications"
-        android:summary="@string/preference_notifications_summary"
-        android:title="@string/preference_notifications_title" />
+        android:entries="@array/images_opts"
+        android:entryValues="@array/images_opts_values"
+        android:key="pref_images"
+        android:summary="@string/preference_images_summary"
+        android:title="@string/preference_images_title"
+        app:defaultValue="0" />
 
 </PreferenceScreen>

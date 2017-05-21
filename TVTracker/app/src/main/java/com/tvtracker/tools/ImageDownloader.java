@@ -1,62 +1,51 @@
 package com.tvtracker.tools;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.widget.ImageView;
 
-import java.io.InputStream;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Request;
+import com.squareup.picasso.RequestCreator;
+import com.squareup.picasso.Transformation;
 
-public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
-    private ImageView mImageView;
-    private Boolean mCrop = false;
+import java.util.Objects;
 
-    public ImageDownloader(ImageView imageView) {
-        this.mImageView = imageView;
+public class ImageDownloader {
+    private static WifiManager mWifiManager;
+    private static SharedPreferences mPrefs;
+
+    public static void init(WifiManager wifiManager, SharedPreferences prefs) {
+        mWifiManager = wifiManager;
+        mPrefs = prefs;
     }
 
-    public ImageDownloader(ImageView imageView, Boolean crop) {
-        this.mImageView = imageView;
-        this.mCrop = crop;
+    public static void execute(Context context, String url, Boolean recycle, ImageView imageView) {
+        String pref = mPrefs.getString("pref_images", "-1");
+        if (Objects.equals(pref, "2") || Objects.equals(pref, "1") && !mWifiManager.isWifiEnabled()) {
+            return;
+        }
+
+        RequestCreator rc = Picasso.with(context).load(url);
+        if (recycle) {
+            rc = rc.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE);
+        }
+        rc.into(imageView);
     }
 
-    protected Bitmap doInBackground(String... urls) {
-        String url = urls[0];
-        Bitmap mIcon = null;
-        try {
-            InputStream in = new java.net.URL(url).openStream();
-            mIcon = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
-            Log.e("Error", e.getMessage());
+    public static void execute(Context context, String url, Boolean recycle, Transformation transformation, ImageView imageView) {
+        String pref = mPrefs.getString("pref_images", "-1");
+        if (Objects.equals(pref, "2") || Objects.equals(pref, "1") && !mWifiManager.isWifiEnabled()) {
+            return;
         }
-        return mIcon;
-    }
 
-    protected void onPostExecute(Bitmap result) {
-        if (mCrop) {
-            result = centerCropGravityBottom(result);
+        RequestCreator rc = Picasso.with(context).load(url);
+        if (recycle) {
+            rc = rc.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE);
         }
-        mImageView.setImageBitmap(result);
-    }
-
-    private Bitmap centerCropGravityBottom(Bitmap source) {
-        int x, y, width = source.getWidth(), height = source.getHeight();
-        if (width < height) {
-            x = 0;
-            height = width * 9 / 16;
-            y = source.getHeight() - height;
-        }
-        else {
-            x = (width - height) / 2;
-            y = 0;
-            width = height * 16 / 9;
-        }
-        Bitmap result = Bitmap.createBitmap(source, x, y, x + width <= source.getWidth() ? width : source.getWidth() - x, height);
-        if (result != source) {
-            source.recycle();
-        }
-        return result;
+        rc.transform(transformation).into(imageView);
     }
 }

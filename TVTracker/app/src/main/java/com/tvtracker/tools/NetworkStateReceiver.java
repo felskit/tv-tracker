@@ -10,9 +10,9 @@ import android.support.v7.app.AlertDialog;
 import com.tvtracker.R;
 
 public class NetworkStateReceiver extends BroadcastReceiver {
-    private AlertDialog dialog;
-    private ConnectivityManager manager;
-    private NetworkInfo ni;
+    private AlertDialog mDialog;
+    private ConnectivityManager mConnectivityManager;
+    private NetworkInfo mNi;
 
     public NetworkStateReceiver(Context context) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -20,10 +20,10 @@ public class NetworkStateReceiver extends BroadcastReceiver {
         alertDialogBuilder
                 .setMessage(context.getString(R.string.network_dialog_message))
                 .setCancelable(false);
-        dialog = alertDialogBuilder.create();
+        mDialog = alertDialogBuilder.create();
 
-        manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        ni = manager.getActiveNetworkInfo();
+        mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        mNi = mConnectivityManager.getActiveNetworkInfo();
     }
 
     public void onReceive(Context context, Intent intent) {
@@ -33,16 +33,14 @@ public class NetworkStateReceiver extends BroadcastReceiver {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = manager.getActiveNetworkInfo();
 
-        if(ni != null && ni.getState() == NetworkInfo.State.CONNECTED) {
-            dialog.hide();
-        }
-        else if (intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
-            dialog.show();
+        if (ni != null && ni.getState() == NetworkInfo.State.CONNECTED) {
+            mDialog.hide();
+        } else if (intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
+            mDialog.show();
         }
     }
 
-    public boolean isConnected()
-    {
-        return manager.getActiveNetworkInfo() != null;
+    public boolean isConnected() {
+        return mConnectivityManager.getActiveNetworkInfo() != null;
     }
 }

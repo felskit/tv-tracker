@@ -9,7 +9,7 @@
     </style>
 
     <style name="MyTextView" parent="android:Widget.TextView">
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <!-- Base application theme. -->

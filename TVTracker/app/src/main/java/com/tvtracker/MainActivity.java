@@ -1,7 +1,9 @@
 package com.tvtracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -21,10 +24,10 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.squareup.picasso.Picasso;
 import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.models.ListShow;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
+import com.tvtracker.tools.ImageDownloader;
 import com.tvtracker.tools.NetworkStateReceiver;
 import com.tvtracker.tools.TVTrackerFirebaseInstanceIDService;
 
@@ -38,7 +41,8 @@ public class MainActivity extends AppCompatActivity
 
     private FragmentManager mFragmentManager;
     private ActionBar mActionBar;
-    @BindView(R.id.nav_view) NavigationView mNavigationView;
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
     private Boolean isLoggedIn = false;
 
     private ImageView mImageView;
@@ -57,6 +61,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FirebaseInstanceIdService service = new TVTrackerFirebaseInstanceIDService();
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        ImageDownloader.init((WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE),
+                PreferenceManager.getDefaultSharedPreferences(this));
 
         NetworkStateReceiver networkStateReceiver = new NetworkStateReceiver(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
@@ -107,8 +115,8 @@ public class MainActivity extends AppCompatActivity
             mNavigationView.setCheckedItem(R.id.nav_search);
         } else if (fragment instanceof AboutFragment) {
             mNavigationView.setCheckedItem(R.id.nav_about);
-        //} else if (fragment instanceof PreferenceFragment) {
-        //    mNavigationView.setCheckedItem(R.id.nav_preferences);
+        } else if (fragment instanceof PreferenceFragment) {
+            mNavigationView.setCheckedItem(R.id.nav_preferences);
         } else {
             mNavigationView.setCheckedItem(R.id.nav_empty);
         }
@@ -133,9 +141,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_search:
                 mFragmentManager.beginTransaction().replace(R.id.content_main, new SearchFragment()).addToBackStack(null).commit();
                 break;
-            //case R.id.nav_preferences:
-            //    mFragmentManager.beginTransaction().replace(R.id.content_main, new PreferenceFragment()).addToBackStack(null).commit();
-            //    break;
+            case R.id.nav_preferences:
+                mFragmentManager.beginTransaction().replace(R.id.content_main, new PreferenceFragment()).addToBackStack(null).commit();
+                break;
             case R.id.nav_suggested:
                 FavouritesFragment suggestedFragment = new FavouritesFragment();
                 Bundle suggestedBundle = new Bundle();
@@ -212,7 +220,7 @@ public class MainActivity extends AppCompatActivity
 
                 String url = data.getStringExtra("imageUrl");
                 if (url != null) {
-                    Picasso.with(this).load(url).into(mImageView);
+                    ImageDownloader.execute(this, url, false, mImageView);
                 }
                 mUsername.setText(data.getStringExtra("userName"));
                 mEmail.setText(data.getStringExtra("email"));

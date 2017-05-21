@@ -13,12 +13,11 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 import com.tvtracker.controllers.EpisodesGetController;
 import com.tvtracker.interfaces.IEpisodesGetFragment;
 import com.tvtracker.models.Episode;
 import com.tvtracker.tools.DateConverter;
+import com.tvtracker.tools.ImageDownloader;
 
 import java.util.Date;
 
@@ -114,6 +113,6 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
         mEpisodeAirdate.setText(DateConverter.getDate(utcDate));
         mEpisodeAirtime.setText(DateConverter.getTime(utcDate));
         mEpisodeRuntime.setText(String.valueOf(episode.runtime));
-        Picasso.with(getContext()).load(episode.image).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(mEpisodeImage);
+        ImageDownloader.execute(getContext(), episode.image, true, mEpisodeImage);
     }
 }

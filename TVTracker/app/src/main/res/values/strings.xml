@@ -17,8 +17,8 @@
     <string name="fragment_series_details_episodes">Episodes</string>
     <string name="logout_button">Logout</string>
 
-    <string name="preference_notifications_title">Receive notifications</string>
-    <string name="preference_notifications_summary">Be notified of upcoming episodes</string>
+    <string name="preference_images_title">Image downloading</string>
+    <string name="preference_images_summary">Specify when to download images within the app</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

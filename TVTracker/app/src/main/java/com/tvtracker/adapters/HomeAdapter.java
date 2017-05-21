@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 import com.tvtracker.HomeFragment;
 import com.tvtracker.models.HomeEpisode;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
@@ -36,7 +34,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         private TextView mDescriptionView;
         private HomeEpisode mItem;
         private Toolbar mToolbar;
-        private Context context;
+        private Context mContext;
 
         public ViewHolder(final View itemView, Context context) {
             super(itemView);
@@ -44,7 +42,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             this.mTitleView = (TextView) itemView.findViewById(com.tvtracker.R.id.series_card_title);
             this.mDescriptionView = (TextView) itemView.findViewById(com.tvtracker.R.id.series_card_description);
             this.mToolbar = (Toolbar) itemView.findViewById(com.tvtracker.R.id.series_card_toolbar);
-            this.context = context;
+            this.mContext = context;
 
             mToolbar.inflateMenu(com.tvtracker.R.menu.series_card);
             mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -74,8 +72,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
 
         public void setItem(HomeEpisode item) {
-            Picasso.with(context).load(item.image).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                    .transform(new CenterCropGravityBottomTransformation()).into(this.mThumbnailView);
+            ImageDownloader.execute(mContext, item.image, true, new CenterCropGravityBottomTransformation(), mThumbnailView);
             this.mTitleView.setText(item.name);
             this.mDescriptionView.setText(item.summary != null ? item.summary.replaceAll("<[^>]*>","") : "");
             this.mItem = item;
