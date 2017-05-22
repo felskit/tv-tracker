@@ -127,8 +127,8 @@ public class CalendarFragment extends Fragment implements WeekView.EventClickLis
 
             if(list.size() == 0) {
                 for (CalendarEpisode episode : episodes) {
-                    Date startDate = DateConverter.ConvertToUTC(episode.startStamp);
-                    Date endDate = DateConverter.ConvertToUTC(episode.endStamp);
+                    Date startDate = DateConverter.ConvertFromUTC(episode.startStamp);
+                    Date endDate = DateConverter.ConvertFromUTC(episode.endStamp);
                     WeekViewEvent event = new WeekViewEvent(episode.episodeId, episode.showName, DateConverter.getYear(startDate),
                             DateConverter.getMonth(startDate), DateConverter.getDay(startDate), DateConverter.getHour(startDate),
                             DateConverter.getMinutes(startDate), DateConverter.getYear(endDate), DateConverter.getMonth(endDate),

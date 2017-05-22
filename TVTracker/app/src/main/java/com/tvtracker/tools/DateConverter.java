@@ -11,7 +11,7 @@ import java.util.TimeZone;
 
 public class DateConverter {
 
-    public static Date ConvertToUTC(String timestamp) {
+    public static Date ConvertFromUTC(String timestamp) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date value = null;

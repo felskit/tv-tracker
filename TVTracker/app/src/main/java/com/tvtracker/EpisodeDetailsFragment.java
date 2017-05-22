@@ -103,7 +103,7 @@ public class EpisodeDetailsFragment extends Fragment implements IEpisodesGetFrag
 
     @Override
     public void setData(Episode episode) {
-        Date utcDate = DateConverter.ConvertToUTC(episode.airstamp);
+        Date utcDate = DateConverter.ConvertFromUTC(episode.airstamp);
 
         mEpisodeTitle.setText(episode.name);
         mEpisodeSummary.setText(episode.summary != null ? Html.fromHtml(episode.summary) : "");
