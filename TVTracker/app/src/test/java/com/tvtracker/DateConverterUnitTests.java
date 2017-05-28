@@ -10,10 +10,6 @@ import java.util.TimeZone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Jacek on 21.05.2017.
- */
-
 public class DateConverterUnitTests {
 
     private int[] UTCOffset(Date date) {

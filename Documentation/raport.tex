@@ -1,0 +1,87 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{ltablex}
+\usepackage{multirow}
+\usepackage{helvet}
+\usepackage{hhline}
+\usepackage{verbatim}
+\usepackage[hidelinks]{hyperref}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{float}
+\usepackage[polish]{babel}
+
+\renewcommand\familydefault{\sfdefault}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	{\Large Wydział Matematyki i Nauk Informacyjnych Politechniki Warszawskiej \par}
+	\vspace{1cm}
+	\includegraphics[width=0.2\textwidth]{Resources/Images/logo.png} \par
+	\vspace{5cm}
+	{\LARGE Aplikacja przeznaczona dla osób\\oglądających seriale telewizyjne \par}
+	\vspace{0.5cm}
+	{\Large Jacek Dziwulski, Tymon Felski \par}
+	\vspace{1.5cm}
+	{\Large \today \par}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Raport}
+
+\subsection{Opis logiki aplikacji}
+Opis aplikacji, widoki, screeny
+
+\subsection{Opis logiki biznesowej}
+Logika biznesowa
+
+\subsubsection{Wykorzystane API}
+API
+
+\subsubsection{Serwer .NET WebAPI}
+Serwer
+
+\subsection{Wykorzystane rozwiązania}
+
+\subsubsection{Biblioteki wraz z określeniem licencji}
+Przy tworzeniu projektu zostały użyte następujące biblioteki:
+
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|r|l|X|l|c|}
+		\hline
+		\textbf{Nr} & \textbf{Komponent i wersja} & \textbf{Opis} & \textbf{Licencja} & \\
+		\hline
+		1 & 
+		Biblioteka, Wersja &
+		Opis wykorzystanej biblioteki. &
+		\mbox{\hyperref[abbr:lic]{LIC}} &
+		\cite{bib} \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+\subsubsection{Wzorce projektowe}
+Wzorce
+
+\newpage
+\section{Lista użytych skrótów}
+\label{abbr:lic}
+\paragraph{LIC} LICENSE
+
+\renewcommand*{\refname}{\vspace*{-2em}}
+\section{Bibliografia}
+\begin{thebibliography}{99}
+	\bibitem{bib}
+		Biblioteka,
+		\emph{Wydawca},
+		\url{https://www.biblioteka.com}
+\end{thebibliography}
+
+\end{document}
