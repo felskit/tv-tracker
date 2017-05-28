@@ -37,8 +37,37 @@
 \section{Raport}
 
 \subsection{Opis logiki aplikacji}
-Opis aplikacji, widoki, screeny
+Stworzona w ramach projektu aplikacja \textbf{TV Tracker} jest narzędziem skierowanym do osób regularnie oglądających seriale telewizyjne. Jej celem jest zarówno umożliwienie śledzenia ulubionych programów, jak i odkrywanie nowych, ponieważ na podstawie polubionych seriali, aplikacja proponuje odbiorcy nowe, podobne do nich.\\[\baselineskip]
+Użytkownik może się zalogować przy pomocy konta założonego na portalu \textbf{Facebook} lub swoim kontem \textbf{Google}. Przy pierwszym logowaniu zostanie utworzone konto, które będzie odpowiadać za gromadzenie informacji o serialach użytkownika.\\[\baselineskip]
+Ekran główny aplikacji zawiera karty z nadchodzącymi odcinkami polubionych seriali. Pod zdjęciem użytkownik znajdzie krótki opis fabuły, niezdradzający zbyt wielu szczegółów, a także opcje pozwalające na przejście do opisu całego serialu lub wyszukanie zwiastunu odcinka w serwisie \textbf{YouTube}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=14cm]{Resources/Images/home.png}
+	\caption{Ekran główny}
+\end{figure}
+\newpage
+\noindent
+Nawigacja w aplikacji odbywa się za pomocą panelu bocznego, w którym poza wszystkimi zakładkami znajdzemy także informacje o zalogowanym użytkowniku - jego zdjęcie, imię i nazwisko oraz adres email. Wybranie jednej z zakładek spowoduje zmianę widoku poprzez podmianę fragmentu.
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=14cm]{Resources/Images/drawer.png}
+	\caption{Panel boczny}
+\end{figure}
+\noindent
+Aby znaleźć nowe seriale, należy wejść w zakładkę \textbf{Suggested}, w której pojawi się dwadzieścia seriali najlepiej pasujących do obecnie polubionych lub losowe, jeżeli użytkownik nie dodał żadnych do ulubionych. Można także skorzystać z zakładki \textbf{Search}, gdzie po wpisaniu w pole tekstowe przynajmniej trzech znaków pojawią się seriale spełniające kryteria wyszukiwania.\\[\baselineskip]
+Ustawienia aplikacji przewidują możliwość ograniczenia transferu danych w jej obrębie poprzez wyłączenie pobierania obrazków lub zastrzeżenie, że mogą być one pobieranie tylko przy pomocy Wi-Fi.
+\newpage
+\noindent
+Zakładka \textbf{Favourites} zawiera polubione przez użytkownika seriale. Można je stąd usunąć lub wejść w dokładny opis jednego z nich, w którym znajdziemy także wszystkie dotychczasowe odcinki. Użytkownik ma możliwość zaznaczania obejrzanych odcinków. Możliwe jest także wyświetlenie dokładnego opisu danego odcinka poprzez kliknięcie w kartę na ekranie głównym lub przytrzymanie nazwy odcinka na wcześniej wspomnianej liście w opisie serialu.
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=14cm]{Resources/Images/details.png}
+	\caption{Opis serialu}
+\end{figure}
+\noindent
+W aplikacji znajduje się także kalendarz, w którym można znaleźć wszystkie odcinki z polubionych seriali. Aplikacja wyśle użytkownikowi powiadomienie przypominające o nadchodzącym odcinku nie później niż pół godziny przed jego rozpoczęciem.
 
+\newpage
 \subsection{Opis logiki biznesowej}
 Logika biznesowa
 
@@ -49,6 +78,7 @@ API
 Serwer
 
 \subsection{Wykorzystane rozwiązania}
+Wstęp do rozwiązań
 
 \subsubsection{Biblioteki wraz z określeniem licencji}
 Przy tworzeniu projektu zostały użyte następujące biblioteki:
