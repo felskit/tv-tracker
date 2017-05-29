@@ -11,6 +11,11 @@ namespace TVTracker.Entity.Entity.Models
 		public Show(JObject json)
 		{
 			apiId = (string)json["id"];
+			UpdateWith(json);
+		}
+
+		public void UpdateWith(JObject json)
+		{
 			name = (string)json["name"];
 			type = (string)json["type"];
 			language = (string)json["language"];

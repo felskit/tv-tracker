@@ -19,6 +19,7 @@ namespace TVTracker.WebAPI
 			AutofacWebapiConfig.Initialize(GlobalConfiguration.Configuration);
 			AutoMapperConfiguration.Configure();
 			EpisodeNotifications.Start();
+			DataUpdate.Start();
 		}
 	}
 }

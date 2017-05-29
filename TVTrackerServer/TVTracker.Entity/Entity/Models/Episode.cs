@@ -10,6 +10,12 @@ namespace TVTracker.Entity.Entity.Models
 		public Episode(JToken json, int showId)
 		{
 			ShowId = showId;
+			apiId = (string)json["id"];
+			UpdateWith(json);
+		}
+
+		public void UpdateWith(JToken json)
+		{
 			name = (string)json["name"];
 			season = (int)(json["season"].Type == JTokenType.Null ? 0 : json["season"]);
 			number = (int)(json["number"].Type == JTokenType.Null ? 0 : json["number"]);
@@ -24,6 +30,8 @@ namespace TVTracker.Entity.Entity.Models
 		}
 
 		public int ShowId { get; set; }
+
+		public string apiId { get; set; }
 
 		public string name { get; set; }
 
