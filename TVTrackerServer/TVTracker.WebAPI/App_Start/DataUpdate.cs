@@ -37,7 +37,9 @@ namespace TVTracker.WebAPI.App_Start
 
 				var context = new TVTrackerContext();
 
-				foreach (var show in context.Shows)
+				var shows = context.Shows.ToList();
+
+				foreach (var show in shows)
 				{
 					if (seriesList.ContainsKey(show.apiId) && seriesList[show.apiId] > show.updated)
 					{
@@ -54,11 +56,10 @@ namespace TVTracker.WebAPI.App_Start
 						show.UpdateWith(jobject);
 
 						UpdateEpisodes(context, show.apiId, show.id);
-
-						context.SaveChanges();
 					}
 				}
 
+				context.SaveChanges();
 				context.Dispose();
 			}
 		}
@@ -80,9 +81,11 @@ namespace TVTracker.WebAPI.App_Start
 			var jobjects = JArray.Parse(responseString);
 			foreach (var jobject in jobjects.Children())
 			{
-				var episode = episodes.Single(x => x.apiId == (string)jobject["id"]);
+				string episodeApiId = (string)jobject["id"];
+				var episode = episodes.Single(x => x.apiId == episodeApiId);
 				episode.UpdateWith(jobject);
 			}
+
 		}
 	}
 }
