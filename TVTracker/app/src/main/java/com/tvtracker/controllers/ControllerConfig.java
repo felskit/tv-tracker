@@ -19,4 +19,8 @@ public class ControllerConfig {
                 .baseUrl(baseApiUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
     }
+
+    public static String getBaseApiUrl() {
+        return baseApiUrl;
+    }
 }

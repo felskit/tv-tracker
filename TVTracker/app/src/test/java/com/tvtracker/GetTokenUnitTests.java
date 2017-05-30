@@ -12,10 +12,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by Jacek on 30.05.2017.
- */
-
 @RunWith(MockitoJUnitRunner.class)
 public class GetTokenUnitTests {
 
