@@ -28,16 +28,13 @@ namespace TVTracker.Entity.Entity
 
 			var seriesList = JsonConvert.DeserializeObject<Dictionary<string, long>>(responseString);
 			var idToAdd = new Queue<string>();
-			idToAdd.Enqueue("210");
 			foreach (var series in seriesList)
 			{
 				idToAdd.Enqueue(series.Key);
 			}
-			while (idToAdd.Count > 0)
+			while (idToAdd.Count > 0 && DateTime.Now.Hour != 9)
 			{
 				var seriesId = idToAdd.Dequeue();
-				if (seriesId == "50")
-					break;
 				try
 				{
 					request = WebRequest.Create($"http://api.tvmaze.com/shows/{seriesId}");
