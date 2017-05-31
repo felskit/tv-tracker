@@ -172,7 +172,7 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
     }
 
     private void showSplash() {
-        if (!isSuggested) {
+        if (!isSuggested && mSplashTextView != null) {
             if (mItems.size() == 0) {
                 mSplashTextView.setVisibility(View.VISIBLE);
             } else {

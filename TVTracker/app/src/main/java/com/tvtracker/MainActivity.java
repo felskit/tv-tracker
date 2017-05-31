@@ -151,11 +151,6 @@ public class MainActivity extends AppCompatActivity
                 mFragmentManager.beginTransaction().replace(R.id.content_main, new AboutFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_logout:
-                //isLoggedIn = false;
-                //ControllerConfig.userId = -1;
-                //mImageView.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
-                //mUsername.setText("");
-                //mEmail.setText("");
 
                 LoginManager.getInstance().logOut();
                 FirebaseAuth.getInstance().signOut();
