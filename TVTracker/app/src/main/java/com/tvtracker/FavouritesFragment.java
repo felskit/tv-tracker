@@ -4,16 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import com.tvtracker.controllers.FavouritesController;
+import com.tvtracker.controllers.FavouritesGetController;
 import com.tvtracker.controllers.FavouritesPostController;
 import com.tvtracker.adapters.FavouriteAdapter;
 import com.tvtracker.interfaces.IFavouritesGetFragment;
-import com.tvtracker.interfaces.IPostFragment;
+import com.tvtracker.interfaces.IFavouritesPostFragment;
 import com.tvtracker.models.ListShow;
 
 import android.view.LayoutInflater;
@@ -21,17 +22,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class FavouritesFragment extends Fragment implements IFavouritesGetFragment, IPostFragment {
+public class FavouritesFragment extends Fragment implements IFavouritesGetFragment, IFavouritesPostFragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private List<ListShow> mItems;
     private LinearLayoutManager mLayoutManager;
     private boolean isSuggested = false;
-    private FavouritesController mGetController;
+    private FavouritesGetController mGetController;
     private FavouritesPostController mPostController;
     private FavouriteAdapter mAdapter;
+    private List<Pair<ListShow, Integer>> mDeletedItems;
 
     public FavouritesFragment() {
 
@@ -42,8 +45,9 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
         super.onCreate(savedInstanceState);
         isSuggested = getArguments().getBoolean("isSuggested");
         mItems = new ArrayList<>();
+        mDeletedItems = new ArrayList<>();
 
-        mGetController = new FavouritesController(this, getContext());
+        mGetController = new FavouritesGetController(this, getContext());
         mGetController.start();
 
         mPostController = new FavouritesPostController(this, getContext());
@@ -84,7 +88,9 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
                     @Override
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                         int idx = viewHolder.getAdapterPosition();
-                        mPostController.removeFavourite(mItems.get(idx).id);
+                        ListShow item = mItems.get(idx);
+                        mDeletedItems.add(0, new Pair<>(item, idx));
+                        mPostController.removeFavourite(item.id);
                         mItems.remove(idx);
                         mAdapter.notifyItemRemoved(idx);
                         mAdapter.notifyItemRangeChanged(idx, mItems.size());
@@ -128,15 +134,27 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
     @Override
     public void updateList(ListShow[] shows) {
         mItems.clear();
-        for (ListShow show : shows) {
-            mItems.add(show);
-        }
+        Collections.addAll(mItems, shows);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void notify(String message) {
-        Snackbar.make(getActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
+    public void notify(String message, boolean undoAction) {
+        Snackbar notification = Snackbar.make(getActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+        if (undoAction) {
+            notification.setAction(R.string.undo_string, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    for (Pair<ListShow, Integer> pair : mDeletedItems) {
+                        mPostController.addFavourite(pair.first.id);
+                        mItems.add(pair.second, pair.first);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                    mDeletedItems.clear();
+                }
+            });
+        }
+        notification.show();
     }
 
     public interface OnListFragmentInteractionListener {

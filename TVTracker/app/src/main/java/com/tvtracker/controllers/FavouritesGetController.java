@@ -12,12 +12,12 @@ import retrofit2.Retrofit;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public class FavouritesController implements Callback<ListShow[]> {
+public class FavouritesGetController implements Callback<ListShow[]> {
     private FavouritesGetAPI mAPI;
     private IFavouritesGetFragment mFragment;
     private Context mContext;
 
-    public FavouritesController(IFavouritesGetFragment fragment, Context context) {
+    public FavouritesGetController(IFavouritesGetFragment fragment, Context context) {
         mFragment = fragment;
         mContext = context;
     }

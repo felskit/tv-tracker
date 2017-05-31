@@ -2,7 +2,7 @@ package com.tvtracker.controllers;
 
 import android.content.Context;
 
-import com.tvtracker.interfaces.IPostFragment;
+import com.tvtracker.interfaces.IFavouritesPostFragment;
 import com.tvtracker.models.Favourites;
 
 import retrofit2.Call;
@@ -14,10 +14,11 @@ import retrofit2.http.POST;
 
 public class FavouritesPostController implements Callback<String> {
     private FavouritesPostAPI mAPI;
-    private IPostFragment mFragment;
+    private IFavouritesPostFragment mFragment;
     private Context mContext;
+    private boolean undo = false;
 
-    public FavouritesPostController(IPostFragment fragment, Context context) {
+    public FavouritesPostController(IFavouritesPostFragment fragment, Context context) {
         mFragment = fragment;
         mContext = context;
     }
@@ -31,7 +32,7 @@ public class FavouritesPostController implements Callback<String> {
     public void onResponse(Call<String> call, Response<String> response) {
         if (response.isSuccessful()) {
             String message = response.body();
-            mFragment.notify(message);
+            mFragment.notify(message, undo);
         } else {
             System.out.println(response.errorBody());
         }
@@ -45,11 +46,13 @@ public class FavouritesPostController implements Callback<String> {
     public void addFavourite(int showId) {
         Call<String> call = mAPI.addFavourite(new Favourites(ControllerConfig.userId, showId));
         call.enqueue(this);
+        undo = false;
     }
 
     public void removeFavourite(int showId) {
         Call<String> call = mAPI.removeFavourite(new Favourites(ControllerConfig.userId, showId));
         call.enqueue(this);
+        undo = true;
     }
 
     private interface FavouritesPostAPI {

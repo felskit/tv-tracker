@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.tvtracker.controllers.FavouritesPostController;
 import com.tvtracker.controllers.SeriesController;
-import com.tvtracker.interfaces.IPostFragment;
+import com.tvtracker.interfaces.IFavouritesPostFragment;
 import com.tvtracker.interfaces.ISeriesFragment;
 import com.tvtracker.models.Show;
 import com.tvtracker.seriesDetails.EpisodesListFragment;
@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFragment {
+public class SeriesFragment extends Fragment implements ISeriesFragment, IFavouritesPostFragment {
     @BindView(R.id.series_image) ImageView mSeriesImage;
     @BindView(R.id.collapsing) CollapsingToolbarLayout mToolbarLayout;
     @BindView(R.id.series_title) TextView seriesTitle;
@@ -139,7 +139,7 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IPostFr
     }
 
     @Override
-    public void notify(String message) {
+    public void notify(String message, boolean undoAction) {
         Snackbar.make(getActivity().findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_LONG).show();
     }
 
