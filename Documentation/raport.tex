@@ -168,25 +168,15 @@ Aplikacja została przetestowana przez osoby trzecie. Poniższa tabela zawiera o
 	\hline
 	\textbf{Uwagi} & Brak \\
 	\hhline{==}
-	\textbf{Nazwa testu} & Dodanie nowego serialu spośród polecanych \\
+	\textbf{Nazwa testu} & Dodanie nowego serialu do ulubionych spośród polecanych lub przez wyszukiwanie \\
 	\hline
-	\textbf{Opis} & Wybranie jednego z polecanych seriali w zakładce \textbf{Suggested}, przejście do jego szczegółów poprzez kliknięcie i wciśnięcie przycisku dodania do ulubionych \\
-	\hline
-	\textbf{Oczekiwany wynik} & Dodanie serialu do ulubionych i powiadomienie poprzez snackbar \\
-	\hline
-	\textbf{Wynik testu} & Pozytywny \\
-	\hline
-	\textbf{Uwagi} & Brak \\
-	\hhline{==}
-	\textbf{Nazwa testu} & Dodanie nowego serialu poprzez wyszukanie \\
-	\hline
-	\textbf{Opis} & Wpisane nazwy serialu w pole tekstowe w zakładce \textbf{Search}, przejście do jego szczegółów poprzez kliknięcie i wciśnięcie przycisku dodania do ulubionych \\
+	\textbf{Opis} & Wybranie jednego z polecanych seriali w zakładce \textbf{Suggested}, lub wyszukanie serialu w zakładce \textbf{Search}, przejście do jego szczegółów poprzez kliknięcie i wciśnięcie przycisku dodania do ulubionych.  \\
 	\hline
 	\textbf{Oczekiwany wynik} & Dodanie serialu do ulubionych i powiadomienie poprzez snackbar \\
 	\hline
 	\textbf{Wynik testu} & Pozytywny \\
 	\hline
-	\textbf{Uwagi} & Brak \\
+	\textbf{Uwagi} & Brak możliwości usunięcia serialu z ulubionych z widoku szczegółów serialu \\
 	\hhline{==}
 	\textbf{Nazwa testu} & Usunięcie serialu z ulubionych \\
 	\hline
@@ -197,7 +187,7 @@ Aplikacja została przetestowana przez osoby trzecie. Poniższa tabela zawiera o
 	\textbf{Wynik testu} & Pozytywny \\
 	\hline
 	\textbf{Uwagi} & Brak możliwości cofnięcia usunięcia \\
-	\hline
+	\hhline{==}
 	\textbf{Nazwa testu} & Cofnięcie usunięcia serialu z ulubionych \\
 	\hline
 	\textbf{Opis} & Usunięcie serialu/serialów z ulubionych i wciśnięcie przycisku \textbf{UNDO} na snackbarze \\
@@ -217,6 +207,46 @@ Aplikacja została przetestowana przez osoby trzecie. Poniższa tabela zawiera o
 	\textbf{Wynik testu} & Pozytywny \\
 	\hline
 	\textbf{Uwagi} & Brak \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Usunięcie serialu z ulubionych z widoku szczegółów serialu \\
+	\hline
+	\textbf{Opis} & Przejście do widoku ze szczegółami ulubionego serialu i naciśnięcie przycisku pozwalającego na usuwanie \\
+	\hline
+	\textbf{Oczekiwany wynik} & Usunięcie serialu z listy ulubionych. Zmiana przycisku na pozwalający na dodanie serialu do ulubionych \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Przejście do widoku ze szczegółami odcinka z kalendarza \\
+	\hline
+	\textbf{Opis} & Znalezienie odcinka w kalendarzu, naciśnięcie na pole reprezentujące ten odcinek, przejście do widoku ze szczegółami \\
+	\hline
+	\textbf{Oczekiwany wynik} & Przejście do widoku ze szczegółami odcinka \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Przejście do widoku ze szczegółami odcinka z listy odcinków \\
+	\hline
+	\textbf{Opis} & Znalezienie odcinka na liście odcinków serialu, długie naciśnięcie na pole reprezentujące ten odcinek, przejście do widoku ze szczegółami \\
+	\hline
+	\textbf{Oczekiwany wynik} & Przejście do widoku ze szczegółami odcinka \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Wyświetlenie zbliżających się odcinków w zakładce \textbf{Home} w postaci kart \\
+	\hline
+	\textbf{Opis} & Przejście do zakładki Home, wyświetlenie najbliższych odcinków ulubionych seriali \\
+	\hline
+	\textbf{Oczekiwany wynik} & Lista zbliżających się odcinków z plakatem i krótkim opisem, w postaci kart \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Pusta lista w przypadku braku zbliżających się odcinków, brak informacji o możliwości dodania nowych seriali do ulubionych w celu zapełnienia listy \\
 	\hline
 \end{tabularx}
 
