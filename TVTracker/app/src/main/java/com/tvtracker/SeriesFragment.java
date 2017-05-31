@@ -37,6 +37,7 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IFavour
     @BindView(R.id.series_image) ImageView mSeriesImage;
     @BindView(R.id.collapsing) CollapsingToolbarLayout mToolbarLayout;
     @BindView(R.id.series_title) TextView seriesTitle;
+    @BindView(R.id.series_subscribe) FloatingActionButton mSubscribeButton;
 
     private SeriesDetailsFragment mDetailsFragment;
     private EpisodesListFragment mListFragment;
@@ -45,6 +46,7 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IFavour
     private Unbinder mUnbinder;
 
     private int mSeriesId;
+    private boolean mFavourite;
     private SeriesController mSeriesController;
     private FavouritesPostController mFavouritesController;
 
@@ -111,11 +113,15 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IFavour
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.series_subscribe);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mSubscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFavouritesController.addFavourite(mSeriesId);
+                if (mFavourite) {
+                    mFavouritesController.removeFavourite(mSeriesId);
+                }
+                else {
+                    mFavouritesController.addFavourite(mSeriesId);
+                }
             }
         });
     }
@@ -136,11 +142,13 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IFavour
         seriesTitle.setText(show.name);
         mDetailsFragment.update(show);
         mListFragment.update(show);
+        setFavourite(show.favourite);
     }
 
     @Override
     public void notify(String message, boolean undoAction) {
         Snackbar.make(getActivity().findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_LONG).show();
+        setFavourite(!undoAction);
     }
 
     private static class TabsAdapter extends FragmentPagerAdapter {
@@ -184,6 +192,16 @@ public class SeriesFragment extends Fragment implements ISeriesFragment, IFavour
                 default:
                     return null;
             }
+        }
+    }
+
+    private void setFavourite(boolean favourite) {
+        mFavourite = favourite;
+        if (mFavourite) {
+            mSubscribeButton.setImageResource(R.drawable.ic_remove_black_24dp);
+        }
+        else {
+            mSubscribeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
         }
     }
 }

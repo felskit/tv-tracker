@@ -14,5 +14,6 @@ public class Show {
     public short runtime;
     public float rating;
     public String source;
+    public boolean favourite;
     public ArrayList<ShowEpisode> episodes;
 }

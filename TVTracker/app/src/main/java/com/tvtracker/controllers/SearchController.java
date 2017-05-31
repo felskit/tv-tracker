@@ -30,7 +30,12 @@ public class SearchController implements Callback<ListShow[]> {
     public void onResponse(Call<ListShow[]> call, Response<ListShow[]> response) {
         if (response.isSuccessful()) {
             ListShow[] shows = response.body();
-            mFragment.updateSuggestions(shows);
+            if (shows != null) {
+                mFragment.updateSuggestions(shows);
+            }
+            else {
+                call.clone().enqueue(this);
+            }
         } else {
             System.out.println(response.errorBody());
         }

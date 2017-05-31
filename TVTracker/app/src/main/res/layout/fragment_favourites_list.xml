@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="com.tvtracker.FavouritesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="com.tvtracker.FavouritesFragment"
-    tools:listitem="@layout/fragment_favourites" />
+    tools:context="com.tvtracker.FavouritesFragment">
+
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/recycler_view"
+        android:name="com.tvtracker.FavouritesFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="com.tvtracker.FavouritesFragment"
+        tools:listitem="@layout/fragment_favourites" />
+
+    <TextView
+        android:id="@+id/favourites_splash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/home_splash_margin"
+        android:text="@string/favourites_splash_text"
+        android:textAlignment="center"
+        android:textColor="@color/home_splash_text"
+        android:textSize="@dimen/home_splash_text_size"
+        android:visibility="invisible" />
+
+
+</FrameLayout>

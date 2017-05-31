@@ -58,6 +58,7 @@ namespace TVTracker.WebAPI.Controllers
 						episode.watched = true;
 					}
 				}
+				showVm.favourite = context.Favourites.Any(x => x.ShowId == data.id && x.UserId == data.userId);
 				response = request.CreateResponse(HttpStatusCode.OK, showVm);
 
 				return response;

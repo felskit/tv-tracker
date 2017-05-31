@@ -26,6 +26,8 @@ namespace TVTracker.WebAPI.Models
 
 		public string source { get; set; }
 
+		public bool favourite { get; set; }
+
 		public List<ShowEpisodeViewModel> episodes { get; set; }
 	}
 }

@@ -20,10 +20,15 @@ import com.tvtracker.models.ListShow;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class FavouritesFragment extends Fragment implements IFavouritesGetFragment, IFavouritesPostFragment {
     private int mColumnCount = 1;
@@ -35,6 +40,10 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
     private FavouritesPostController mPostController;
     private FavouriteAdapter mAdapter;
     private List<Pair<ListShow, Integer>> mDeletedItems;
+
+    @BindView(R.id.favourites_splash) TextView mSplashTextView;
+
+    private Unbinder unbinder;
 
     public FavouritesFragment() {
 
@@ -59,47 +68,49 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favourites_list, container, false);
         getActivity().setTitle(isSuggested ? R.string.fragment_suggested : R.string.fragment_favourites);
+        unbinder = ButterKnife.bind(this, view);
+
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+
+        // Set the adapter
+        Context context = view.getContext();
+        mLayoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new FavouriteAdapter(mItems, mListener, isSuggested, getContext());
+        recyclerView.setAdapter(mAdapter);
+
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                mLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(mDividerItemDecoration);
+
+        if (!isSuggested) {
+            ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                    int idx = viewHolder.getAdapterPosition();
+                    ListShow item = mItems.get(idx);
+                    mDeletedItems.add(0, new Pair<>(item, idx));
+                    mPostController.removeFavourite(item.id);
+                    mItems.remove(idx);
+                    mAdapter.notifyItemRemoved(idx);
+                    mAdapter.notifyItemRangeChanged(idx, mItems.size());
+                }
+            };
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+            itemTouchHelper.attachToRecyclerView(recyclerView);
+        }
 
         if (isSuggested)
             mGetController.getSuggested();
         else
             mGetController.getFavourites();
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            final RecyclerView recyclerView = (RecyclerView) view;
-            mLayoutManager = new LinearLayoutManager(context);
-            recyclerView.setLayoutManager(mLayoutManager);
-
-            mAdapter = new FavouriteAdapter(mItems, mListener, isSuggested, getContext());
-            recyclerView.setAdapter(mAdapter);
-            DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                    mLayoutManager.getOrientation());
-            recyclerView.addItemDecoration(mDividerItemDecoration);
-
-            if (!isSuggested) {
-                ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-                    @Override
-                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                        int idx = viewHolder.getAdapterPosition();
-                        ListShow item = mItems.get(idx);
-                        mDeletedItems.add(0, new Pair<>(item, idx));
-                        mPostController.removeFavourite(item.id);
-                        mItems.remove(idx);
-                        mAdapter.notifyItemRemoved(idx);
-                        mAdapter.notifyItemRangeChanged(idx, mItems.size());
-                    }
-                };
-                ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-                itemTouchHelper.attachToRecyclerView(recyclerView);
-            }
-        }
         return view;
     }
 
@@ -107,6 +118,7 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
     public void onDestroyView() {
         super.onDestroyView();
         mAdapter.recycle();
+        unbinder.unbind();
     }
 
 
@@ -136,6 +148,7 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
         mItems.clear();
         Collections.addAll(mItems, shows);
         mAdapter.notifyDataSetChanged();
+        showSplash();
     }
 
     @Override
@@ -155,6 +168,17 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
             });
         }
         notification.show();
+        showSplash();
+    }
+
+    private void showSplash() {
+        if (!isSuggested) {
+            if (mItems.size() == 0) {
+                mSplashTextView.setVisibility(View.VISIBLE);
+            } else {
+                mSplashTextView.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     public interface OnListFragmentInteractionListener {

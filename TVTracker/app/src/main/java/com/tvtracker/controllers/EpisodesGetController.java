@@ -31,7 +31,12 @@ public class EpisodesGetController implements Callback<Episode> {
     public void onResponse(Call<Episode> call, Response<Episode> response) {
         if (response.isSuccessful()) {
             Episode episode = response.body();
-            mFragment.setData(episode);
+            if (episode != null) {
+                mFragment.setData(episode);
+            }
+            else {
+                call.clone().enqueue(this);
+            }
         } else {
             System.out.println(response.errorBody());
         }

@@ -18,6 +18,10 @@ import com.tvtracker.models.HomeEpisode;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class HomeFragment extends Fragment implements IHomeFragment {
     private MainActivity mActivity;
     private HomeAdapter mAdapter;
@@ -25,7 +29,9 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     private OnHomeFragmentInteractionListener mListener;
     private HomeController mController;
     private RecyclerView mRecyclerView;
-    private TextView mSplashTextView;
+    private Unbinder unbinder;
+
+    @BindView(R.id.home_splash) TextView mSplashTextView;
 
     public HomeFragment() {
 
@@ -43,6 +49,7 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
         mController.getEpisodes();
 
         mActivity = (MainActivity) getActivity();
@@ -53,7 +60,6 @@ public class HomeFragment extends Fragment implements IHomeFragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(layoutManager);
-        mSplashTextView = (TextView) rootView.findViewById(R.id.home_splash);
 
         return rootView;
     }
@@ -62,6 +68,7 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     public void onDestroyView() {
         super.onDestroyView();
         mAdapter.recycle();
+        unbinder.unbind();
     }
 
     @Override

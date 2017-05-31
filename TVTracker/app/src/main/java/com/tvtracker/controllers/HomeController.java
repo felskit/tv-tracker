@@ -31,7 +31,12 @@ public class HomeController implements Callback<HomeEpisode[]> {
     public void onResponse(Call<HomeEpisode[]> call, Response<HomeEpisode[]> response) {
         if (response.isSuccessful()) {
             HomeEpisode[] episodes = response.body();
-            mFragment.updateEpisodes(episodes);
+            if (episodes != null) {
+                mFragment.updateEpisodes(episodes);
+            }
+            else {
+                call.clone().enqueue(this);
+            }
         } else {
             System.out.println(response.errorBody());
         }

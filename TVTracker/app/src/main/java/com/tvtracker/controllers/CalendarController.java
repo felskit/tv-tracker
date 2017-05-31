@@ -32,7 +32,12 @@ public class CalendarController implements Callback<CalendarEpisode[]> {
     public void onResponse(Call<CalendarEpisode[]> call, Response<CalendarEpisode[]> response) {
         if (response.isSuccessful()) {
             CalendarEpisode[] episodes = response.body();
-            mFragment.addEpisodes(episodes);
+            if (episodes != null) {
+                mFragment.addEpisodes(episodes);
+            }
+            else {
+                call.clone().enqueue(this);
+            }
         } else {
             System.out.println(response.errorBody());
         }

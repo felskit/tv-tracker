@@ -32,7 +32,12 @@ public class FavouritesPostController implements Callback<String> {
     public void onResponse(Call<String> call, Response<String> response) {
         if (response.isSuccessful()) {
             String message = response.body();
-            mFragment.notify(message, undo);
+            if (message != null) {
+                mFragment.notify(message, undo);
+            }
+            else {
+                call.clone().enqueue(this);
+            }
         } else {
             System.out.println(response.errorBody());
         }

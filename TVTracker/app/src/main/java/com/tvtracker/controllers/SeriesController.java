@@ -32,7 +32,12 @@ public class SeriesController implements Callback<Show> {
     public void onResponse(Call<Show> call, Response<Show> response) {
         if (response.isSuccessful()) {
             Show show = response.body();
-            mFragment.update(show);
+            if (show != null) {
+                mFragment.update(show);
+            }
+            else {
+                call.clone().enqueue(this);
+            }
         } else {
             System.out.println(response.errorBody());
         }

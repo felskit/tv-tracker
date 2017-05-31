@@ -67,6 +67,5 @@
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:clickable="true"
         android:elevation="8dp"
-        android:src="@drawable/ic_favorite_black_24dp"
         android:tint="#FFFFFF" />
 </android.support.design.widget.CoordinatorLayout>

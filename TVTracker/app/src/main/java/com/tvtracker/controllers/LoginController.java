@@ -45,7 +45,9 @@ public class LoginController implements Callback<User> {
         if (response.isSuccessful()) {
             dialog.hide();
             User user = response.body();
-            mActivity.redirect(user.id);
+            if (user != null) {
+                mActivity.redirect(user.id);
+            }
         } else {
             System.out.println(response.errorBody());
         }

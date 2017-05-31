@@ -25,27 +25,37 @@ public class ImageDownloader {
 
     public static void execute(Context context, String url, Boolean recycle, ImageView imageView) {
         String pref = mPrefs.getString("pref_images", "-1");
-        if (Objects.equals(pref, "2") || Objects.equals(pref, "1") && !mWifiManager.isWifiEnabled()) {
+        if (Objects.equals(pref, "2") || Objects.equals(pref, "1") && !mWifiManager.isWifiEnabled() || url == null) {
             return;
         }
 
-        RequestCreator rc = Picasso.with(context).load(url);
-        if (recycle) {
-            rc = rc.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE);
+        try {
+            RequestCreator rc = Picasso.with(context).load(url);
+            if (recycle) {
+                rc = rc.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE);
+            }
+            rc.into(imageView);
         }
-        rc.into(imageView);
+        catch (NullPointerException ex) {
+            Log.e("MAIN", "Picasso threw NullPointerException, possible problems with network connection", ex);
+        }
     }
 
     public static void execute(Context context, String url, Boolean recycle, Transformation transformation, ImageView imageView) {
         String pref = mPrefs.getString("pref_images", "-1");
-        if (Objects.equals(pref, "2") || Objects.equals(pref, "1") && !mWifiManager.isWifiEnabled()) {
+        if (Objects.equals(pref, "2") || Objects.equals(pref, "1") && !mWifiManager.isWifiEnabled() || url == null) {
             return;
         }
 
-        RequestCreator rc = Picasso.with(context).load(url);
-        if (recycle) {
-            rc = rc.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE);
+        try {
+            RequestCreator rc = Picasso.with(context).load(url);
+            if (recycle) {
+                rc = rc.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE);
+            }
+            rc.transform(transformation).into(imageView);
         }
-        rc.transform(transformation).into(imageView);
+        catch (NullPointerException ex) {
+            Log.e("MAIN", "Picasso threw NullPointerException, possible problems with network connection", ex);
+        }
     }
 }

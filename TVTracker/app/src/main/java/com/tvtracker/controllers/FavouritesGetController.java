@@ -31,7 +31,12 @@ public class FavouritesGetController implements Callback<ListShow[]> {
     public void onResponse(Call<ListShow[]> call, Response<ListShow[]> response) {
         if (response.isSuccessful()) {
             ListShow[] shows = response.body();
-            mFragment.updateList(shows);
+            if (shows != null) {
+                mFragment.updateList(shows);
+            }
+            else {
+                call.clone().enqueue(this);
+            }
         } else {
             System.out.println(response.errorBody());
         }
