@@ -83,15 +83,14 @@ Każdy użytkownik ma przypisany identyfikator, który pozwala mu na modyfikowan
 
 \newpage
 \subsection{Wykorzystane biblioteki wraz z określeniem licencji}
-Przy tworzeniu projektu zostały użyte następujące biblioteki:
+Przy tworzeniu projektu zostały użyte biblioteki zawarte w tabeli poniżej.
 
-\begin{table}[H]
 \begin{tabularx}{\textwidth}{|r|l|X|l|c|}
 \hline
 \textbf{Nr} & \textbf{Komponent i wersja} & \textbf{Opis} & \textbf{Licencja} & \\
 \hline
 \multirow{2}{*}{1} &
-\multirow{2}{*}{Android Week View, 1.2.6)} &
+\multirow{2}{*}{Android Week View, 1.2.6} &
 Kalendarz pozwalający na wyświetlanie wydarzeń &
 \multirow{2}{*}{\mbox{\hyperref[abbr:lic]{Apache}}} &
 \cite{bib1} \\
@@ -133,7 +132,93 @@ Klient http &
 \cite{bib7} \\
 \hline
 \end{tabularx}
-\end{table}
+
+\subsection{Wyniki testów z użytkownikami}
+Aplikacja została przetestowana przez osoby trzecie. Poniższa tabela zawiera opisy i wyniki tych testów. Wszystkie uwagi zostały rozpatrzone i wprowadziliśmy niezbędne poprawki do aplikacji.
+
+\begin{tabularx}{\textwidth}{|l|X|}
+	\hline
+	\textbf{Nazwa testu} & Zalogowanie się \\
+	\hline
+	\textbf{Opis} & Wybranie opcji zalogowania się przy pomocy konta \textbf{Facebook} lub \textbf{Google} \\
+	\hline
+	\textbf{Oczekiwany wynik} & Przejście do ekranu głównego i pobranie informacji o serialach użytkownika \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak spinnera sygnalizującego proces logowania \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Wylogowanie się \\
+	\hline
+	\textbf{Opis} & Wybranie opcji \textbf{Logout} w bocznym panelu aplikacji \\
+	\hline
+	\textbf{Oczekiwany wynik} & Przejście do ekranu logowania \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Zmiana widoków poprzez wybieranie zakładek w panelu bocznym aplikacji \\
+	\hline
+	\textbf{Opis} & Wybranie jednej z opcji w bocznym panelu aplikacji \\
+	\hline
+	\textbf{Oczekiwany wynik} & Przejście do odpowiedniego widoku \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Dodanie nowego serialu spośród polecanych \\
+	\hline
+	\textbf{Opis} & Wybranie jednego z polecanych seriali w zakładce \textbf{Suggested}, przejście do jego szczegółów poprzez kliknięcie i wciśnięcie przycisku dodania do ulubionych \\
+	\hline
+	\textbf{Oczekiwany wynik} & Dodanie serialu do ulubionych i powiadomienie poprzez snackbar \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Dodanie nowego serialu poprzez wyszukanie \\
+	\hline
+	\textbf{Opis} & Wpisane nazwy serialu w pole tekstowe w zakładce \textbf{Search}, przejście do jego szczegółów poprzez kliknięcie i wciśnięcie przycisku dodania do ulubionych \\
+	\hline
+	\textbf{Oczekiwany wynik} & Dodanie serialu do ulubionych i powiadomienie poprzez snackbar \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Usunięcie serialu z ulubionych \\
+	\hline
+	\textbf{Opis} & Przesunięcie wybranego serialu w lewo lub w prawo w zakładce \textbf{Favourites} \\
+	\hline
+	\textbf{Oczekiwany wynik} & Usunięcie serialu z ulubionych i powiadomienie poprzez snackbar \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak możliwości cofnięcia usunięcia \\
+	\hline
+	\textbf{Nazwa testu} & Cofnięcie usunięcia serialu z ulubionych \\
+	\hline
+	\textbf{Opis} & Usunięcie serialu/serialów z ulubionych i wciśnięcie przycisku \textbf{UNDO} na snackbarze \\
+	\hline
+	\textbf{Oczekiwany wynik} & Przywrócenie serialu/serialów do ulubionych i powiadomienie poprzez snackbar \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak \\
+	\hhline{==}
+	\textbf{Nazwa testu} & Zmiana ustawień pobierania obrazków \\
+	\hline
+	\textbf{Opis} & W zakładce \textbf{Preferences} wybranie jednej z opcji pobierania obrazków \\
+	\hline
+	\textbf{Oczekiwany wynik} & Całkowite wyłączenie pobierania obrazków lub ograniczenie do Wi-Fi \\
+	\hline
+	\textbf{Wynik testu} & Pozytywny \\
+	\hline
+	\textbf{Uwagi} & Brak \\
+	\hline
+\end{tabularx}
 
 \section{Lista użytych skrótów}
 \label{abbr:lic}
