@@ -1,9 +1,5 @@
 package com.tvtracker.models;
 
-/**
- * Created by Jacek on 20.05.2017.
- */
-
 public class GetShowData {
     public int id;
     public int userId;

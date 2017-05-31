@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ControllerConfig {
-    private static final String baseApiUrl = "https:/192.168.1.2/tvtracker/api/";
+    private static final String baseApiUrl = "https:/192.168.0.18/tvtracker/api/";
     public static int userId = -1;
 
     public static Retrofit getRetrofit(Context context) {
