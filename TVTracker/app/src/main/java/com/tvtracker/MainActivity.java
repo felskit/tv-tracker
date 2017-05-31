@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(HomeEpisode item) {
-        //TODO change 1 to item.getId when it will be valid id
         onSearchFragmentInteraction(item.showId);
     }
 

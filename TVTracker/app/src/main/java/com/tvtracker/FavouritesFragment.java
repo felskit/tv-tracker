@@ -43,7 +43,6 @@ public class FavouritesFragment extends Fragment implements IFavouritesGetFragme
         isSuggested = getArguments().getBoolean("isSuggested");
         mItems = new ArrayList<>();
 
-        // TODO
         mGetController = new FavouritesController(this, getContext());
         mGetController.start();
 

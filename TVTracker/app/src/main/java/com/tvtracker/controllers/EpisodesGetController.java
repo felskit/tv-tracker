@@ -5,19 +5,14 @@ import android.content.Context;
 import com.tvtracker.interfaces.IEpisodesGetFragment;
 import com.tvtracker.models.Episode;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class EpisodesGetController implements Callback<Episode> {
-    private ControllerConfig mConfig = new ControllerConfig();
     private EpisodesGetAPI mAPI;
     private IEpisodesGetFragment mFragment;
     private Context mContext;

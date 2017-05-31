@@ -2,8 +2,6 @@ package com.tvtracker.controllers;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tvtracker.interfaces.ISearchFragment;
 import com.tvtracker.models.ListShow;
 
@@ -11,12 +9,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class SearchController implements Callback<ListShow[]> {
-    private ControllerConfig mConfig = new ControllerConfig();
     private SearchAPI mAPI;
     private ISearchFragment mFragment;
     private Context mContext;

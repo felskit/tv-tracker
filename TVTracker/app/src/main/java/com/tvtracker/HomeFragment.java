@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment implements IHomeFragment {
         super.onCreate(savedInstanceState);
         mItems = new ArrayList<>();
 
-        // TODO
         mController = new HomeController(this, getContext());
         mController.start();
     }
@@ -93,7 +92,6 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     }
 
     public interface OnHomeFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(HomeEpisode item);
     }
 

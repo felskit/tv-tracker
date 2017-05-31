@@ -2,8 +2,6 @@ package com.tvtracker.controllers;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tvtracker.interfaces.ISeriesFragment;
 import com.tvtracker.models.GetShowData;
 import com.tvtracker.models.Show;
@@ -12,15 +10,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public class SeriesController implements Callback<Show> {
-    private ControllerConfig mConfig = new ControllerConfig();
     private SeriesAPI mAPI;
     private ISeriesFragment mFragment;
     private Context mContext;
@@ -34,6 +27,7 @@ public class SeriesController implements Callback<Show> {
         Retrofit retrofit = ControllerConfig.getRetrofit(mContext);
         mAPI = retrofit.create(SeriesAPI.class);
     }
+
     @Override
     public void onResponse(Call<Show> call, Response<Show> response) {
         if (response.isSuccessful()) {

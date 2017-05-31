@@ -95,7 +95,6 @@ public class EpisodesListFragment extends Fragment implements ISeriesFragment, I
     }
 
     public interface OnEpisodeInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(int id);
     }
 
