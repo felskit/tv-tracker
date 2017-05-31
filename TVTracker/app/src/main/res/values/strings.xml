@@ -76,4 +76,6 @@
     <string name="login_dialog_message">Could not connect to server. Retrying...</string>
 
     <string name="pref_notifications">pref_notifications</string>
+    <string name="home_splash_text">Oops... You seem to have no shows in favourites or none of them
+        have upcoming episodes.\n\nVisit Suggested or Search to find new shows!</string>
 </resources>

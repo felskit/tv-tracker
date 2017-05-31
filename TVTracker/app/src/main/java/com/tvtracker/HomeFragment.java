@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.tvtracker.adapters.HomeAdapter;
 import com.tvtracker.controllers.HomeController;
@@ -24,6 +25,7 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     private OnHomeFragmentInteractionListener mListener;
     private HomeController mController;
     private RecyclerView mRecyclerView;
+    private TextView mSplashTextView;
 
     public HomeFragment() {
 
@@ -51,6 +53,7 @@ public class HomeFragment extends Fragment implements IHomeFragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(layoutManager);
+        mSplashTextView = (TextView) rootView.findViewById(R.id.home_splash);
 
         return rootView;
     }
@@ -89,6 +92,13 @@ public class HomeFragment extends Fragment implements IHomeFragment {
             mItems.add(episode);
         }
         mAdapter.notifyDataSetChanged();
+
+        if (mItems.size() == 0) {
+            mSplashTextView.setVisibility(View.VISIBLE);
+        }
+        else {
+            mSplashTextView.setVisibility(View.INVISIBLE);
+        }
     }
 
     public interface OnHomeFragmentInteractionListener {

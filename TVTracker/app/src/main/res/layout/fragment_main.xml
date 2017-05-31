@@ -9,4 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <TextView
+        android:id="@+id/home_splash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/home_splash_margin"
+        android:text="@string/home_splash_text"
+        android:textAlignment="center"
+        android:textColor="@color/home_splash_text"
+        android:textSize="@dimen/home_splash_text_size"
+        android:visibility="invisible" />
+
 </FrameLayout>

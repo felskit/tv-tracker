@@ -53,4 +53,7 @@
     <dimen name="series_card_description_margin_left">8dp</dimen>
     <dimen name="series_card_description_margin_right">42dp</dimen>
     <dimen name="series_card_description_margin_bottom">4dp</dimen>
+
+    <dimen name="home_splash_text_size">22sp</dimen>
+    <dimen name="home_splash_margin">48dp</dimen>
 </resources>
